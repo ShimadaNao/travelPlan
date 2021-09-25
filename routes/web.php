@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MultiAuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('multi_login', [\App\Http\Controllers\MultiAuthController::class, 'showLoginForm'])->name('multi_login');
-Route::post('multi_login', [\App\Http\Controllers\MultiAuthController::class, 'login']);
+Route::get('multi_login', [MultiAuthController::class, 'showLoginForm'])->name('multi_login');
+Route::post('multi_login', [MultiAuthController::class, 'login']);
 
 // ログアウト
 Route::get('multi_login/logout', [\App\Http\Controllers\MultiAuthController::class, 'logout'])->name('multi_logout');
@@ -22,12 +22,13 @@ Route::get('multi_login/logout', [\App\Http\Controllers\MultiAuthController::cla
 // ログイン後のページ
 Route::prefix('users')->middleware('auth:users')->group(function(){
 
- Route::get('dashboard', function(){ return 'ユーザーでログイン完了'; });
+  Route::get('dashboard', function(){ return 'ユーザーでログイン完了'; });
 
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function(){
 
- Route::get('dashboard', function(){ return '管理者でログイン完了'; });
+//  Route::get('dashboard', function(){ return '管理者でログイン完了'; });
+ Route::get('dashboard', [MultiAuthController::class, 'showAdminTop'])->name('adminTop');
 
 });
 
