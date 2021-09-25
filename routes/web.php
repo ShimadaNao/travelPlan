@@ -13,6 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('multi_login', [\App\Http\Controllers\MultiAuthController::class, 'showLoginForm'])->name('multi_login');
+Route::post('multi_login', [\App\Http\Controllers\MultiAuthController::class, 'login']);
+
+// ログアウト
+Route::get('multi_login/logout', [\App\Http\Controllers\MultiAuthController::class, 'logout'])->name('multi_logout');
+
+// ログイン後のページ
+Route::prefix('users')->middleware('auth:users')->group(function(){
+
+ Route::get('dashboard', function(){ return 'ユーザーでログイン完了'; });
+
+});
+Route::prefix('admins')->middleware('auth:admins')->group(function(){
+
+ Route::get('dashboard', function(){ return '管理者でログイン完了'; });
+
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
