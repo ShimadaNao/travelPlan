@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MultiAuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,17 +21,18 @@ Route::post('multi_login', [MultiAuthController::class, 'login']);
 Route::get('multi_login/logout', [\App\Http\Controllers\MultiAuthController::class, 'logout'])->name('multi_logout');
 
 // ログイン後のページ
-Route::prefix('users')->middleware('auth:users')->group(function(){
-
-  Route::get('dashboard', function(){ return 'ユーザーでログイン完了'; });
-
+Route::prefix('users')->middleware('auth:users')->group(function () {
+    Route::get('dashboard', function () {
+        return 'ユーザーでログイン完了';
+    });
 });
-Route::prefix('admins')->middleware('auth:admins')->group(function(){
-
-//  Route::get('dashboard', function(){ return '管理者でログイン完了'; });
- Route::get('dashboard', [MultiAuthController::class, 'showAdminTop'])->name('adminTop');
-
+Route::prefix('admins')->middleware('auth:admins')->group(function () {
+    Route::get('dashboard', function () {
+        return '管理者でログイン完了';
+    });
 });
+
+Route::get('hello', [MultiAuthController::class, 'hello']);
 
 
 Route::get('/', function () {
