@@ -32,9 +32,6 @@ Route::prefix('admins')->middleware('auth:admins')->group(function () {
     });
 });
 
-Route::get('hello', [MultiAuthController::class, 'hello']);
-
-
 Route::get('/', function () {
     return view('welcome');
 });
