@@ -7,18 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class MultiAuthController extends Controller
 {
-    public function showLoginForm() {
-        
+    public function showLoginForm()
+    {
         return view('multi_auth.login');
     }
 
-    public function login(Request $request) {
-        
+    public function login(Request $request)
+    {
         $credentials = $request->only(['email', 'password']);
         $guard = $request->guard;
 
-        if(\Auth::guard($guard)->attempt($credentials)) {
-
+        if (\Auth::guard($guard)->attempt($credentials)) {
             return redirect($guard . '/dashboard');
         }
 
@@ -27,8 +26,8 @@ class MultiAuthController extends Controller
         ]);
     }
 
-    public function logout() {
-
+    public function logout()
+    {
         Auth::logout();
         return redirect('/');
     }
