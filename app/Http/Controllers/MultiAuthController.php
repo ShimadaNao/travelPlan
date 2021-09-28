@@ -29,6 +29,16 @@ class MultiAuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/')->with('msg', 'ログアウトしました！');
+    }
+
+    public function showUserDashboard()
+    {
+        return view('user.dashboard');
+    }
+
+    public function showAdminDashboard()
+    {
+        return view('admin.dashboard');
     }
 }
