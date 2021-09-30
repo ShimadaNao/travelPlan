@@ -35,7 +35,7 @@ Route::prefix('admins')->middleware('auth:admins')->group(function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('top');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
