@@ -17,7 +17,9 @@
     </x-slot>
     <p class="text-center">トップページです。</p>
     <div id="map" style="height: 70%">
-        <script>
+        <script src="{{ asset('js/toppage.js') }}"></script>
+        {{-- このスクリプトをresources/js/toppage.jsに移してlaravel-mixで呼び出し --}}
+        {{-- <script>
             var map = L.map('map', {
                 center: [35.66572, 139.73100],
                 zoom: 0,
@@ -29,11 +31,17 @@
                 placeholder: '入力してください',
             }
             var osmGeocoder = new L.Control.OSMGeocoder(option);
+            //ここまで住所検索
+
+            var data = @json($position);
+            console.log(data);
+
+
             map.addControl(osmGeocoder);
           var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
           });
           tileLayer.addTo(map);
-        </script>
+        </script> --}}
     </div>
 </x-header>
