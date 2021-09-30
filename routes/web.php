@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\MultiAuthController;
 
 /*
@@ -34,9 +35,11 @@ Route::prefix('admins')->middleware('auth:admins')->group(function () {
     Route::get('dashboard', [MultiAuthController::class, 'showAdminDashboard'])->name('adminDashboard');
 });
 
-Route::get('/', function () {
-    return view('top');
-});
+// Route::get('/', function () {
+//     return view('top');
+// });
+
+Route::get('/', [MapController::class, 'showTopPage'])->name('showTopPage');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

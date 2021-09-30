@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="/css/app.css" rel="stylesheet">
+    {{ $leafletCss }}
+    {{ $leafletJavaScript }}
+    {{ $addressPlugin }}
 </head>
 <body>
     <div class="bg-indigo-200">
