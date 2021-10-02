@@ -1,6 +1,11 @@
 <x-header>
 ユーザーとしてログインしました！
 <a href="/multi_login/logout">ログアウト</a>
+<h1>メニュー</h1>
+    <ul class="list-disc m-5">
+        <li><a>旅行計画登録</a></li>
+        <li><a>旅行予定を見る</a></li>
+    </ul>
     <x-slot name="leafletCss">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
             integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
