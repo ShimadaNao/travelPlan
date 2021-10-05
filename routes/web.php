@@ -23,15 +23,9 @@ Route::get('multi_login/logout', [\App\Http\Controllers\MultiAuthController::cla
 
 // ログイン後のページ
 Route::prefix('users')->middleware('auth:users')->group(function () {
-    // Route::get('dashboard', function () {
-    //     return 'ユーザーでログイン完了';
-    // });
     Route::get('dashboard', [MultiAuthController::class, 'showUserDashboard'])->name('userDashboard');
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function () {
-    // Route::get('dashboard', function () {
-    //     return '管理者でログイン完了';
-    // });
     Route::get('dashboard', [MultiAuthController::class, 'showAdminDashboard'])->name('adminDashboard');
 });
 
