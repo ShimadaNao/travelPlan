@@ -21,7 +21,15 @@
         <link rel="stylesheet" href="/css/Control.OSMGeocoder.css" />
         <script src="{{ mix('js/Control.OSMGeocoder.js') }}"></script>
     </x-slot>
-    <div id="map" style="height: 70%">
+    <div id="map">
+        <div class="planTitleWrapper">
+            <form class="planTitle">
+                @csrf
+                <h2>new plan</h2>
+                <input type="text" name="title">
+                <input type="text" name="country">
+            </form>
+        </div>
         <script src="{{ asset('js/toppage.js') }}"></script>
     </div>
 </x-header>
