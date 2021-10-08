@@ -17,7 +17,7 @@ class PlanTableSeeder extends Seeder
         DB::table('plans')->insert([
             'id' => 1,
             'user_id' => 1,
-            'country_id' => 1,
+            'country_id' => 153,
             'city' => '大阪',
             'latitude' => '34.6778',
             'longitude' => '135.4546',
@@ -27,7 +27,7 @@ class PlanTableSeeder extends Seeder
         DB::table('plans')->insert([
             'id' => 2,
             'user_id' => 2,
-            'country_id' => 2,
+            'country_id' => 5,
             'city' => 'ロサンゼルス',
             'latitude' => '33.9991',
             'longitude' => '118.4117',
