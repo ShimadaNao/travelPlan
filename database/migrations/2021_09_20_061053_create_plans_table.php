@@ -17,6 +17,7 @@ class CreatePlansTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('country_id');
+            $table->string('title');
             // $table->string('city');
             // $table->string('latitude')->comment('緯度');
             // $table->string('longitude')->comment('経度');
