@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Session;
 
 class MapController extends Controller
 {
+    public function __construct(Plan $plan)
+    {
+        $this->planModel = $plan;
+    }
+
     public function showTopPage()
     {
         $places = [
@@ -17,5 +25,20 @@ class MapController extends Controller
         return view('top', [
             'places' => $places,
         ]);
+    }
+
+    public function registerTravelTitle(Request $request)
+    {
+        $travelTitle = [
+            'user_id' => Auth::id(),
+            'title' => $request->title,
+            'country_id' => $request->country,
+            'from' => $request->from,
+            'to' => $request->to,
+        ];
+        $travelTitleRegister = $this->planModel::firstOrCreate($travelTitle);
+        session()->flash('registeredMsg', '旅行計画を登録しました！');
+        
+        return view('user.dashboard');
     }
 }
