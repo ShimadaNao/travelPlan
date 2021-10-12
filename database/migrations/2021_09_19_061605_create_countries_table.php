@@ -22,6 +22,8 @@ class CreateCountriesTable extends Migration
             $table->string('2characters');
             $table->string('location');
             $table->string('administrativeDivision');
+            $table->string('lat');
+            $table->string('lng');
             // $table->timestamps();
         });
     }
