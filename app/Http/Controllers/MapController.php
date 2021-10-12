@@ -39,6 +39,16 @@ class MapController extends Controller
         $travelTitleRegister = $this->planModel::firstOrCreate($travelTitle);
         session()->flash('registeredMsg', '旅行計画を登録しました！');
         
-        return view('user.dashboard');
+        // return view('user.dashboard');
+        return redirect('users/showMyPlan');
+    }
+
+    public function showMyPlan()
+    {
+        $myPlans = $this->planModel->getPlans();
+
+        return view('user.showMyPlan', [
+            'myPlans' => $myPlans,
+        ]);
     }
 }
