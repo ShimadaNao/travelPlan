@@ -15,7 +15,15 @@
     <div class="bg-indigo-200">
         <header class="flex flex-col items-center container mx-auto text-grey">
             <h1 class="flex justify-center">
-                <a href="/" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @auth('users')
+                    <a href="{{ route('userDashboard') }}" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @endauth
+                @auth('admins')
+                    <a href="{{ route('adminDashboard') }}" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @endauth
+                @guest
+                    <a href="/" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @endguest
             </h1>
                 <nav>
                 <ul class="flex justify-center">
