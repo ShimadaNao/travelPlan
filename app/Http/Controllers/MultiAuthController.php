@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MultiAuthController extends Controller
 {
+    public function __construct(Country $country, Plan $plan)
+    {
+        $this->countryModel = $country;
+        $this->planModel = $plan;
+    }
     public function showLoginForm()
     {
         return view('multi_auth.login');
@@ -34,7 +41,14 @@ class MultiAuthController extends Controller
 
     public function showUserDashboard()
     {
-        return view('user.dashboard');
+        $user_id = Auth::id();
+        $userPlans = $this->planModel::where('user_id', $user_id)->get();
+        // dd($userPlans);
+        $countries = $this->countryModel::all();
+        return view('user.dashboard', [
+            'countries' => $countries,
+            'userPlans' => $userPlans,
+        ]);
     }
 
     public function showAdminDashboard()
