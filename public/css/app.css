@@ -1136,6 +1136,9 @@ select {
 .m-5 {
 	margin: 1.25rem;
 }
+.m-3 {
+	margin: 0.75rem;
+}
 .mx-auto {
 	margin-left: auto;
 	margin-right: auto;
