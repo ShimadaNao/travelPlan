@@ -33,7 +33,7 @@
                     @endguest
                     <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">マップ</a></li>
                     <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ショップ</a></li>
-                    <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">お問い合わせ</a></li>
+                    <li><a href="/logout"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ログアウト</a></li>
                 </ul>
                 </nav>
         </header>
