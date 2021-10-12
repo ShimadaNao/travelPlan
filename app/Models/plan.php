@@ -18,6 +18,6 @@ class Plan extends Model
     {
         $user_id = Auth::id();
         $myPlans = $this->where('user_id', $user_id)->get();
-        return ['myplans'];
+        return $myPlans;
     }
 }
