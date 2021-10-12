@@ -33,12 +33,6 @@ class MultiAuthController extends Controller
         ]);
     }
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect('/')->with('msg', 'ログアウトしました！');
-    }
-
     public function showUserDashboard()
     {
         $user_id = Auth::id();

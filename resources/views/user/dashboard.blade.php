@@ -1,7 +1,7 @@
 <x-header>
     ユーザーとしてログインしました！
     {{ Auth::user()->name}}
-    <a href="/multi_login/logout">ログアウト</a>
+    <a href="/logout">ログアウト</a>
     <h1>メニュー</h1>
     @if (Session::has('registeredMsg'))
         <div class="text-red-500 ">

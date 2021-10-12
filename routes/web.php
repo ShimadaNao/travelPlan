@@ -18,9 +18,6 @@ use App\Http\Controllers\MultiAuthController;
 Route::get('multi_login', [MultiAuthController::class, 'showLoginForm'])->name('multi_login');
 Route::post('multi_login', [MultiAuthController::class, 'login']);
 
-// ログアウト
-Route::get('multi_login/logout', [\App\Http\Controllers\MultiAuthController::class, 'logout'])->name('multi_logout');
-
 // ログイン後のページ
 Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('dashboard', [MultiAuthController::class, 'showUserDashboard'])->name('userDashboard');
