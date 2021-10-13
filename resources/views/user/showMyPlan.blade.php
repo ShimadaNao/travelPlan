@@ -30,10 +30,3 @@
         <script src="{{ mix('js/toppage.js') }}"></script>
     </div>
 </x-header>
-
-<script>
-    var selected = document.querySelector('[name="myPlans"]');
-    selected.onchange = event => {
-         console.log(selected.value);
-    }
-</script>
