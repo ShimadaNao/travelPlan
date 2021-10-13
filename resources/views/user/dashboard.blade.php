@@ -1,11 +1,24 @@
 <x-header>
-ユーザーとしてログインしました！
-<a href="/multi_login/logout">ログアウト</a>
-<h1>メニュー</h1>
+    ユーザーとしてログインしました！
+    {{ Auth::user()->name}}
+    <a href="/logout">ログアウト</a>
+    <h1>メニュー</h1>
+    @if (Session::has('registeredMsg'))
+        <div class="text-red-500 ">
+        {{ session('registeredMsg') }}
+        </div>
+    @endif
     <ul class="list-disc m-5">
         <li><a>旅行計画登録</a></li>
         <li><a>旅行予定を見る</a></li>
     </ul>
+    @if (isset($userPlans) && !$userPlans->isEmpty())
+        <select name="userPlans">
+            @foreach ($userPlans as $userPlan)
+                <option value="{{ $userPlan['id'] }}">{{ $userPlan['title'] }}</option>
+            @endforeach
+        </select>
+    @endif
     <x-slot name="leafletCss">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
             integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -21,7 +34,25 @@
         <link rel="stylesheet" href="/css/Control.OSMGeocoder.css" />
         <script src="{{ mix('js/Control.OSMGeocoder.js') }}"></script>
     </x-slot>
-    <div id="map" style="height: 70%">
+    <div id="map">
+        @if (isset($countries))
+        <div class="planTitleWrapper">
+            <form method="post" action="{{ route('registerTravelTitle') }}" class="planTitle">
+                @csrf
+                <h2 class="text-base">旅行名を登録してください</h2>
+                旅行名：<input type="text" name="title">
+                国名：
+                <select name="country">
+                    @foreach ($countries as $country)
+                        <option value="{{ $country['id'] }}">{{ $country['nameJP'] }}</option>
+                    @endforeach
+                </select>
+                旅行開始日：<input type="date" name="from">
+                旅行終了日：<input type="date" name="to">
+                <input type="submit" value="登録する">
+            </form>
+        </div>
+        @endif
         <script src="{{ asset('js/toppage.js') }}"></script>
     </div>
 </x-header>

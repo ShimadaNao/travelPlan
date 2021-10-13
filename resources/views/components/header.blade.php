@@ -15,7 +15,15 @@
     <div class="bg-indigo-200">
         <header class="flex flex-col items-center container mx-auto text-grey">
             <h1 class="flex justify-center">
-                <a href="/" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @auth('users')
+                    <a href="{{ route('userDashboard') }}" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @endauth
+                @auth('admins')
+                    <a href="{{ route('adminDashboard') }}" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @endauth
+                @guest
+                    <a href="/" class="title">{{ config('app.name', 'Laravel') }}</a>
+                @endguest
             </h1>
                 <nav>
                 <ul class="flex justify-center">
@@ -25,7 +33,7 @@
                     @endguest
                     <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">マップ</a></li>
                     <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ショップ</a></li>
-                    <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">お問い合わせ</a></li>
+                    <li><a href="/logout"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ログアウト</a></li>
                 </ul>
                 </nav>
         </header>

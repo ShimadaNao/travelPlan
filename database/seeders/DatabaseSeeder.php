@@ -18,12 +18,10 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         DB::table('users')->truncate();
-        DB::table('countries')->truncate();
         DB::table('plans')->truncate();
         $this->call([
             UserTableSeeder::class,
             AdminTableSeeder::class,
-            CountryTableSeeder::class,
             PlanTableSeeder::class,
         ]);
 
