@@ -18,7 +18,11 @@
     <div class="selectMyPlan flex justify-center">
         <select name="myPlans" class="m-3">
             @foreach ($myPlans as $myPlan)
-                <option value="{{ $myPlan['id'] }}">{{ $myPlan['title'] }}</option>
+                @if (isset($lastRegisteredPlanId))
+                    <option value="{{ $myPlan['id'] }}" {{ $lastRegisteredPlanId == $myPlan['id'] ? 'selected': ''}}>{{ $myPlan['title'] }}</option>
+                @else
+                    <option value="{{ $myPlan['id'] }}">{{ $myPlan['title'] }}</option>
+                @endif
             @endforeach
         </select>
     </div>
