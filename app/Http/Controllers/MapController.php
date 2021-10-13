@@ -37,18 +37,21 @@ class MapController extends Controller
             'to' => $request->to,
         ];
         $travelTitleRegister = $this->planModel::firstOrCreate($travelTitle);
+        $registeredId = $travelTitleRegister['id'];
         session()->flash('registeredMsg', '旅行計画を登録しました！');
         
         // return view('user.dashboard');
-        return redirect('users/showMyPlan');
+        return redirect()->route('showMyPlan', ['id' => $registeredId]);
     }
 
-    public function showMyPlan()
+    public function showMyPlan($id)
     {
         $myPlans = $this->planModel->getPlans();
+        $lastRegisteredPlan = $this->planModel->getLastRegisteredPlan($id); //新規登録された旅行タイトル
 
         return view('user.showMyPlan', [
             'myPlans' => $myPlans,
+            'lastRegisteredPlanId' => $lastRegisteredPlan['id'],
         ]);
     }
 }
