@@ -18,6 +18,18 @@ class Plan extends Model
     {
         $user_id = Auth::id();
         $myPlans = $this->where('user_id', $user_id)->get();
+        // $selectedPlan = $this->where('user_id', $user_id)
+        //                     ->where('id', $id)->first();
+        // return [$myPlans, $selectedPlan];
         return $myPlans;
+    }
+
+    public function getLastRegisteredPlan($id)
+    {
+        $user_id = Auth::id();
+        $lastRegisteredPlan = $this->where('user_id', $user_id)
+                                    ->where('id', $id)
+                                    ->first();
+        return $lastRegisteredPlan;
     }
 }
