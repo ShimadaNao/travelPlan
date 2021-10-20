@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MultiAuthController;
 
@@ -24,6 +25,7 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::post('registerTravelTitle', [MapController::class, 'registerTravelTitle'])->name('registerTravelTitle');
     Route::get('showMyPlan/{id}', [MapController::class, 'showMyPlan'])->name('showMyPlan');
 });
+Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan'])->middleware('auth:users');
 Route::prefix('admins')->middleware('auth:admins')->group(function () {
     Route::get('dashboard', [MultiAuthController::class, 'showAdminDashboard'])->name('adminDashboard');
 });
