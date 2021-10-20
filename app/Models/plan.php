@@ -14,6 +14,11 @@ class Plan extends Model
         'id'
     ];
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function getPlans()
     {
         $user_id = Auth::id();
