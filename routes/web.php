@@ -23,7 +23,9 @@ Route::post('multi_login', [MultiAuthController::class, 'login']);
 Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('dashboard', [MultiAuthController::class, 'showUserDashboard'])->name('userDashboard');
     Route::post('registerTravelTitle', [MapController::class, 'registerTravelTitle'])->name('registerTravelTitle');
-    Route::get('showMyPlan/{id}', [MapController::class, 'showMyPlan'])->name('showMyPlan');
+    // Route::get('showMyPlan/{id}', [MapController::class, 'showMyPlan'])->name('showMyPlan');
+    Route::get('showMyPlan', [MapController::class, 'showMyPlan'])->name('showMyPlan');
+
 });
 Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan'])->middleware('auth:users');
 Route::prefix('admins')->middleware('auth:admins')->group(function () {
