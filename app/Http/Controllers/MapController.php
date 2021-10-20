@@ -44,14 +44,29 @@ class MapController extends Controller
         return redirect()->route('showMyPlan', ['id' => $registeredId]);
     }
 
-    public function showMyPlan($id)
-    {
-        $myPlans = $this->planModel->getPlans();
-        $lastRegisteredPlan = $this->planModel->getLastRegisteredPlan($id); //新規登録された旅行タイトル
+    // public function showMyPlan($id)
+    // {
+    //     $myPlans = $this->planModel->getPlans();
+    //     $selectedPlan = $this->planModel->getSelectedPlan($id); //新規登録された旅行タイトル
+    //     if($selectedPlan === null) {
+    //         return view('user.showMyPlan', [
+    //             'myPlans' => $myPlans,
+    //         ])->with('msg', 'このIDのプランは見つかりませんでした');
+    //     }
 
+    //     return view('user.showMyPlan', [
+    //         'myPlans' => $myPlans,
+    //         'selectedPlan' => $selectedPlan,
+    //     ]);
+    // }
+
+    public function showMyPlan()
+    {
+        $myPlans = $this->planModel->getplans();
+        $firstPlan = $this->planModel->getFirstPlan();
         return view('user.showMyPlan', [
             'myPlans' => $myPlans,
-            'lastRegisteredPlanId' => $lastRegisteredPlan['id'],
+            'firstPlan' => $firstPlan,
         ]);
     }
 }
