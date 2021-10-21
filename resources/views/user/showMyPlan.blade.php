@@ -20,8 +20,8 @@
     <div class="selectMyPlan flex justify-center">
         <select name="myPlans" class="m-3">
             @foreach ($myPlans as $myPlan)
-                @if (isset($selectedPlan))
-                    <option value="{{ $myPlan['id'] }}" {{ $selectedPlan['id'] == $myPlan['id'] ? 'selected': ''}}>{{ $myPlan['title'] }}</option>
+                @if (isset($nowRegisteredPlan)) {{-- 新規登録したらそのプランを表示 --}}
+                    <option value="{{ $myPlan['id'] }}" {{ $nowRegisteredPlan['id'] == $myPlan['id'] ? 'selected': ''}}>{{ $myPlan['title'] }}</option>
                 @else
                     <option value="{{ $myPlan['id'] }}">{{ $myPlan['title'] }}</option>
                 @endif
@@ -34,11 +34,11 @@
     </div>
 </x-header>
 <script>
-    //予定を見るをクリックしたときに1件目のプランの位置に移動
-    var firstPlan = @json($firstPlan);
-    var firstLat = firstPlan['country']['lat'];
-    var firstLng = firstPlan['country']['lng'];
-    map.setView([firstLat, firstLng]);
+    //予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
+    var firstShowPlan = @json($firstShowPlan);
+    var firstShowLat = firstShowPlan['country']['lat'];
+    var firstShowLng = firstShowPlan['country']['lng'];
+    map.setView([firstShowLat, firstShowLng]);
 
     var selected = document.querySelector('[name="myPlans"]');
     var countryLatLng = {};
