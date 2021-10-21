@@ -3,7 +3,7 @@ var __webpack_exports__ = {};
 /*!*********************************!*\
   !*** ./resources/js/toppage.js ***!
   \*********************************/
-var map = L.map('map', {
+map = L.map('map', {
   center: [37.5598, 126.9862],
   zoom: 16
 });

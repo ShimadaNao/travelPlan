@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/Control.OSMGeocoder.js": "/js/Control.OSMGeocoder.js",
     "/js/toppage.js": "/js/toppage.js",
+    "/js/showSelectedPlan.js": "/js/showSelectedPlan.js",
     "/css/app.css": "/css/app.css"
 }

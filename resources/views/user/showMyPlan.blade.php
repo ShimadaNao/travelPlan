@@ -14,12 +14,14 @@
         <link rel="stylesheet" href="/css/Control.OSMGeocoder.css" />
         <script src="{{ mix('js/Control.OSMGeocoder.js') }}"></script>
     </x-slot>
-
+    @if(session('msg'))
+        {{session('msg')}}
+    @endif
     <div class="selectMyPlan flex justify-center">
         <select name="myPlans" class="m-3">
             @foreach ($myPlans as $myPlan)
-                @if (isset($lastRegisteredPlanId))
-                    <option value="{{ $myPlan['id'] }}" {{ $lastRegisteredPlanId == $myPlan['id'] ? 'selected': ''}}>{{ $myPlan['title'] }}</option>
+                @if (isset($nowRegisteredPlan)) {{-- 新規登録したらそのプランを表示 --}}
+                    <option value="{{ $myPlan['id'] }}" {{ $nowRegisteredPlan['id'] == $myPlan['id'] ? 'selected': ''}}>{{ $myPlan['title'] }}</option>
                 @else
                     <option value="{{ $myPlan['id'] }}">{{ $myPlan['title'] }}</option>
                 @endif
@@ -28,5 +30,10 @@
     </div>
     <div id="map">
         <script src="{{ mix('js/toppage.js') }}"></script>
+        <script>
+            window.firstShowPlan = '';
+            window.firstShowPlan = @json($firstShowPlan);
+        </script>
+        <script src="{{ mix('js/showSelectedPlan.js') }}"></script>
     </div>
 </x-header>

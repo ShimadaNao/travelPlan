@@ -14,6 +14,11 @@ class Plan extends Model
         'id'
     ];
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function getPlans()
     {
         $user_id = Auth::id();
@@ -24,12 +29,22 @@ class Plan extends Model
         return $myPlans;
     }
 
-    public function getLastRegisteredPlan($id)
+    public function getFirstPlan()
     {
         $user_id = Auth::id();
-        $lastRegisteredPlan = $this->where('user_id', $user_id)
+        $firstPlan = $this->where('user_id', $user_id)
+                            ->with('country')
+                            ->first();
+        return $firstPlan;
+    }
+
+    public function getNowRegisteredPlan($id)
+    {
+        $user_id = Auth::id();
+        $selectedPlan = $this->where('user_id', $user_id)
                                     ->where('id', $id)
+                                    ->with('country')
                                     ->first();
-        return $lastRegisteredPlan;
+        return $selectedPlan;
     }
 }

@@ -41,17 +41,30 @@ class MapController extends Controller
         session()->flash('registeredMsg', '旅行計画を登録しました！');
         
         // return view('user.dashboard');
-        return redirect()->route('showMyPlan', ['id' => $registeredId]);
+        return redirect()->route('showNowRegisteredPlan', ['id' => $registeredId]);
     }
 
-    public function showMyPlan($id)
+    public function showNowRegisteredPlan($id)
     {
         $myPlans = $this->planModel->getPlans();
-        $lastRegisteredPlan = $this->planModel->getLastRegisteredPlan($id); //新規登録された旅行タイトル
+        $nowRegisteredPlan = $this->planModel->getNowRegisteredPlan($id); //新規登録された旅行タイトル
+        $firstShowPlan = $nowRegisteredPlan;
 
         return view('user.showMyPlan', [
             'myPlans' => $myPlans,
-            'lastRegisteredPlanId' => $lastRegisteredPlan['id'],
+            'nowRegisteredPlan' => $nowRegisteredPlan,
+            'firstShowPlan' => $firstShowPlan,
+        ]);
+    }
+
+    public function showMyPlan()
+    {
+        $myPlans = $this->planModel->getplans();
+        $firstShowPlan = $this->planModel->getFirstPlan();
+
+        return view('user.showMyPlan', [
+            'myPlans' => $myPlans,
+            'firstShowPlan' => $firstShowPlan,
         ]);
     }
 }
