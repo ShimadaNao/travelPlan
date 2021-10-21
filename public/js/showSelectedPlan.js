@@ -860,6 +860,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
+var firstShowPlan = window.firstShowPlan;
+var firstShowLat = firstShowPlan['country']['lat'];
+var firstShowLng = firstShowPlan['country']['lng'];
+map.setView([firstShowLat, firstShowLng]);
 var selected = document.querySelector('[name="myPlans"]');
 var countryLatLng = {};
 
