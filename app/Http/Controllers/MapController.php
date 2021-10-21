@@ -41,32 +41,30 @@ class MapController extends Controller
         session()->flash('registeredMsg', '旅行計画を登録しました！');
         
         // return view('user.dashboard');
-        return redirect()->route('showMyPlan', ['id' => $registeredId]);
+        return redirect()->route('showNowRegisteredPlan', ['id' => $registeredId]);
     }
 
-    // public function showMyPlan($id)
-    // {
-    //     $myPlans = $this->planModel->getPlans();
-    //     $selectedPlan = $this->planModel->getSelectedPlan($id); //新規登録された旅行タイトル
-    //     if($selectedPlan === null) {
-    //         return view('user.showMyPlan', [
-    //             'myPlans' => $myPlans,
-    //         ])->with('msg', 'このIDのプランは見つかりませんでした');
-    //     }
+    public function showNowRegisteredPlan($id)
+    {
+        $myPlans = $this->planModel->getPlans();
+        $nowRegisteredPlan = $this->planModel->getNowRegisteredPlan($id); //新規登録された旅行タイトル
+        $firstShowPlan = $nowRegisteredPlan;
 
-    //     return view('user.showMyPlan', [
-    //         'myPlans' => $myPlans,
-    //         'selectedPlan' => $selectedPlan,
-    //     ]);
-    // }
+        return view('user.showMyPlan', [
+            'myPlans' => $myPlans,
+            'nowRegisteredPlan' => $nowRegisteredPlan,
+            'firstShowPlan' => $firstShowPlan,
+        ]);
+    }
 
     public function showMyPlan()
     {
         $myPlans = $this->planModel->getplans();
-        $firstPlan = $this->planModel->getFirstPlan();
+        $firstShowPlan = $this->planModel->getFirstPlan();
+
         return view('user.showMyPlan', [
             'myPlans' => $myPlans,
-            'firstPlan' => $firstPlan,
+            'firstShowPlan' => $firstShowPlan,
         ]);
     }
 }
