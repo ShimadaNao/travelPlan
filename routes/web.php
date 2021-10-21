@@ -23,7 +23,7 @@ Route::post('multi_login', [MultiAuthController::class, 'login']);
 Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('dashboard', [MultiAuthController::class, 'showUserDashboard'])->name('userDashboard');
     Route::post('registerTravelTitle', [MapController::class, 'registerTravelTitle'])->name('registerTravelTitle');
-    // Route::get('showMyPlan/{id}', [MapController::class, 'showMyPlan'])->name('showMyPlan');
+    Route::get('showMyPlan/{id}', [MapController::class, 'showNowRegisteredPlan'])->name('showNowRegisteredPlan');
     Route::get('showMyPlan', [MapController::class, 'showMyPlan'])->name('showMyPlan');
 
 });
