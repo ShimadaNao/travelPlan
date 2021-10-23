@@ -29,18 +29,10 @@ class MapController extends Controller
 
     public function registerTravelTitle(Request $request)
     {
-        $travelTitle = [
-            'user_id' => Auth::id(),
-            'title' => $request->title,
-            'country_id' => $request->country,
-            'start' => $request->start,
-            'end' => $request->end,
-        ];
-        $travelTitleRegister = $this->planModel::firstOrCreate($travelTitle);
+        $travelTitleRegister = $this->planModel->registerPlan($request);
         $registeredId = $travelTitleRegister['id'];
         session()->flash('registeredMsg', '旅行計画を登録しました！');
-        
-        // return view('user.dashboard');
+
         return redirect()->route('showNowRegisteredPlan', ['id' => $registeredId]);
     }
 

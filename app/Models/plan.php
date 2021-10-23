@@ -25,6 +25,20 @@ class Plan extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function registerPlan($request)
+    {
+        $travelTitle = [
+            'user_id' => Auth::id(),
+            'title' => $request->title,
+            'country_id' => $request->country,
+            'start' => $request->start,
+            'end' => $request->end,
+        ];
+        $travelTitleRegister = $this::firstOrCreate($travelTitle);
+
+        return $travelTitleRegister;
+    }
+
     public function getPlans()
     {
         $user_id = Auth::id();
