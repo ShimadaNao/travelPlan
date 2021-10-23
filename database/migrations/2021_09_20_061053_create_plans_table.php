@@ -21,8 +21,8 @@ class CreatePlansTable extends Migration
             // $table->string('city');
             // $table->string('latitude')->comment('緯度');
             // $table->string('longitude')->comment('経度');
-            $table->date('from')->comment('旅行開始日');
-            $table->date('to')->comment('旅行終了日');
+            $table->date('start')->comment('旅行開始日');
+            $table->date('end')->comment('旅行終了日');
             $table->timestamps();
 
             $table->foreign('user_id')

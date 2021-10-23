@@ -50,8 +50,8 @@
                         <option value="{{ $country['id'] }}">{{ $country['nameJP'] }}</option>
                     @endforeach
                 </select>
-                旅行開始日：<input type="date" name="from">
-                旅行終了日：<input type="date" name="to">
+                旅行開始日：<input type="date" name="start">
+                旅行終了日：<input type="date" name="end">
                 <input type="submit" value="登録する">
             </form>
         </div>
