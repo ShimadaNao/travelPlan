@@ -15,11 +15,6 @@ class Plan extends Model
         'id'
     ];
 
-    public function __construct()
-    {
-        $this->today = Carbon::today('Asia/Tokyo')->toDateString();
-    }
-
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -42,7 +37,7 @@ class Plan extends Model
     public function getPlans()
     {
         $user_id = Auth::id();
-        $today = $this->today;
+        $today = Carbon::today('Asia/Tokyo')->toDateString();
         //旅行最終日が今日以降のもの(最終日が今日だったら$futurePlansに含まれる)
         $futurePlans = $this->where('user_id', $user_id)
                             ->whereDate('end', '>=', $today)
@@ -58,7 +53,7 @@ class Plan extends Model
     public function getFirstPlan()
     {
         $user_id = Auth::id();
-        $today = $this->today;
+        $today = Carbon::today('Asia/Tokyo')->toDateString();
         $firstPlan = $this->where('user_id', $user_id)
                             ->whereDate('end', '>=', $today)
                             ->with('country')
