@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,11 @@ class Plan extends Model
         'id'
     ];
 
+    public function __construct()
+    {
+        $this->today = Carbon::today('Asia/Tokyo')->toDateString();
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -22,17 +28,25 @@ class Plan extends Model
     public function getPlans()
     {
         $user_id = Auth::id();
-        $myPlans = $this->where('user_id', $user_id)->get();
-        // $selectedPlan = $this->where('user_id', $user_id)
-        //                     ->where('id', $id)->first();
-        // return [$myPlans, $selectedPlan];
-        return $myPlans;
+        $today = $this->today;
+        //旅行最終日が今日以降のもの(最終日が今日だったら$futurePlansに含まれる)
+        $futurePlans = $this->where('user_id', $user_id)
+                            ->whereDate('end', '>=', $today)
+                            ->get();
+        //旅行最終日が昨日以前のもの
+        $pastPlans = $this->where('user_id', $user_id)
+                            ->whereDate('end', '<', $today)
+                            ->get();
+
+        return [$futurePlans, $pastPlans, $today];
     }
 
     public function getFirstPlan()
     {
         $user_id = Auth::id();
+        $today = $this->today;
         $firstPlan = $this->where('user_id', $user_id)
+                            ->whereDate('end', '>=', $today)
                             ->with('country')
                             ->first();
         return $firstPlan;
