@@ -14,15 +14,15 @@ class ApiController extends Controller
     {
         // dd(Auth::id());
         $user_id = Auth::id();
-        $myPlans = $planModel->with('country')
+        $selectedPlan = $planModel->with('country')
                                 ->where('user_id', $user_id)
                                 ->where('id', $id)
                                 ->first();
         $countryLatLng = [
-            'lat' => $myPlans['country']['lat'],
-            'lng' => $myPlans['country']['lng'],
+            'lat' => $selectedPlan['country']['lat'],
+            'lng' => $selectedPlan['country']['lng'],
         ];
 
-        return [$myPlans, $countryLatLng];
+        return [$selectedPlan, $countryLatLng];
     }
 }

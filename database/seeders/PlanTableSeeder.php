@@ -22,8 +22,8 @@ class PlanTableSeeder extends Seeder
             // 'city' => '大阪',
             // 'latitude' => '34.6778',
             // 'longitude' => '135.4546',
-            'from' => '2022-04-22',
-            'to' => '2022-04-28',
+            'start' => '2022-04-22',
+            'end' => '2022-04-28',
         ]);
         DB::table('plans')->insert([
             'id' => 2,
@@ -33,8 +33,8 @@ class PlanTableSeeder extends Seeder
             // 'city' => 'ロサンゼルス',
             // 'latitude' => '33.9991',
             // 'longitude' => '118.4117',
-            'from' => '2022-11-08',
-            'to' => '2022-11-15',
+            'start' => '2022-11-08',
+            'end' => '2022-11-15',
         ]);
     }
 }

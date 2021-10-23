@@ -29,29 +29,25 @@ class MapController extends Controller
 
     public function registerTravelTitle(Request $request)
     {
-        $travelTitle = [
-            'user_id' => Auth::id(),
-            'title' => $request->title,
-            'country_id' => $request->country,
-            'from' => $request->from,
-            'to' => $request->to,
-        ];
-        $travelTitleRegister = $this->planModel::firstOrCreate($travelTitle);
+        $travelTitleRegister = $this->planModel->registerPlan($request);
         $registeredId = $travelTitleRegister['id'];
         session()->flash('registeredMsg', '旅行計画を登録しました！');
-        
-        // return view('user.dashboard');
+
         return redirect()->route('showNowRegisteredPlan', ['id' => $registeredId]);
     }
 
     public function showNowRegisteredPlan($id)
     {
-        $myPlans = $this->planModel->getPlans();
+        // $myPlans = $this->planModel->getPlans();
+        $plans = $this->planModel->getPlans();
+        $futurePlans = $plans[0];
+        $pastPlans = $plans[1];
         $nowRegisteredPlan = $this->planModel->getNowRegisteredPlan($id); //新規登録された旅行タイトル
         $firstShowPlan = $nowRegisteredPlan;
 
         return view('user.showMyPlan', [
-            'myPlans' => $myPlans,
+            'futurePlans' => $futurePlans,
+            'pastPlans' => $pastPlans,
             'nowRegisteredPlan' => $nowRegisteredPlan,
             'firstShowPlan' => $firstShowPlan,
         ]);
@@ -59,11 +55,16 @@ class MapController extends Controller
 
     public function showMyPlan()
     {
-        $myPlans = $this->planModel->getplans();
+        // $myPlans = $this->planModel->getPlans();
+        $plans = $this->planModel->getPlans();
+        $futurePlans = $plans[0];
+        $pastPlans = $plans[1];
+
         $firstShowPlan = $this->planModel->getFirstPlan();
 
         return view('user.showMyPlan', [
-            'myPlans' => $myPlans,
+            'futurePlans' => $futurePlans,
+            'pastPlans' => $pastPlans,
             'firstShowPlan' => $firstShowPlan,
         ]);
     }

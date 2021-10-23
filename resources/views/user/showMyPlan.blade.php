@@ -19,12 +19,16 @@
     @endif
     <div class="selectMyPlan flex justify-center">
         <select name="myPlans" class="m-3">
-            @foreach ($myPlans as $myPlan)
+            @foreach ($futurePlans as $futurePlan)
                 @if (isset($nowRegisteredPlan)) {{-- 新規登録したらそのプランを表示 --}}
-                    <option value="{{ $myPlan['id'] }}" {{ $nowRegisteredPlan['id'] == $myPlan['id'] ? 'selected': ''}}>{{ $myPlan['title'] }}</option>
+                    <option value="{{ $futurePlan['id'] }}" {{ $nowRegisteredPlan['id'] == $futurePlan['id'] ? 'selected': ''}}>{{ $futurePlan['title'] }}</option>
                 @else
-                    <option value="{{ $myPlan['id'] }}">{{ $myPlan['title'] }}</option>
+                    <option value="{{ $futurePlan['id'] }}">{{ $futurePlan['title'] }}</option>
                 @endif
+            @endforeach
+            <option disabled>--過去の旅行プランです--</option>
+            @foreach ($pastPlans as $pastPlan)
+                <option class="bg-gray-400" value="{{ $pastPlan['id'] }}">{{ $pastPlan['title'] }}</option>
             @endforeach
         </select>
     </div>
