@@ -28,7 +28,11 @@
             @endforeach
             <option disabled>--過去の旅行プランです--</option>
             @foreach ($pastPlans as $pastPlan)
-                <option class="bg-gray-400" value="{{ $pastPlan['id'] }}">{{ $pastPlan['title'] }}</option>
+                @if (isset($nowRegisteredPlan))
+                    <option class="bg-gray-400" value="{{ $pastPlan['id'] }}" {{ $nowRegisteredPlan['id'] == $pastPlan['id'] ? 'selected' : ''}}>{{ $pastPlan['title'] }}</option>
+                @else
+                    <option class="bg-gray-400" value="{{ $pastPlan['id'] }}">{{ $pastPlan['title'] }}</option>
+                @endif
             @endforeach
         </select>
     </div>
