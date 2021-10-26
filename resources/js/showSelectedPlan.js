@@ -1,9 +1,19 @@
 //予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
-
     var firstShowPlan = window.firstShowPlan;
     var firstShowLat = firstShowPlan['country']['lat'];
     var firstShowLng = firstShowPlan['country']['lng'];
+
+    if(firstShowPlan['plan_detail']) {
+    var firstShowPlanDetails = firstShowPlan['plan_detail'];
+    var detailLatLng = '';
+    for(let firstShowPlanDetail of firstShowPlanDetails) {
+        detailLatLng = [firstShowPlanDetail['latitude'], firstShowPlanDetail['longitude']]; //planDetailの目的地の緯度経度をまとめて1つに
+        var marker = L.marker(detailLatLng).addTo(map);
+    }
+    map.setView(detailLatLng);
+    } else {
     map.setView([firstShowLat, firstShowLng]);
+    }
 
     var selected = document.querySelector('[name="myPlans"]');
     var countryLatLng = {};
