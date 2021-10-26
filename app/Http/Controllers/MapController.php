@@ -42,7 +42,7 @@ class MapController extends Controller
         $plans = $this->planModel->getPlans();
         $futurePlans = $plans[0];
         $pastPlans = $plans[1];
-        $nowRegisteredPlan = $this->planModel->getNowRegisteredPlan($id); //新規登録された旅行タイトル
+        $nowRegisteredPlan = $this->planModel->getSelectedPlan($id); //新規登録された旅行タイトル
         $firstShowPlan = $nowRegisteredPlan;
 
         return view('user.showMyPlan', [

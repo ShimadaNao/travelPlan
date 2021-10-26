@@ -66,7 +66,7 @@ class Plan extends Model
         return $firstPlan;
     }
 
-    public function getNowRegisteredPlan($id)
+    public function getSelectedPlan($id)
     {
         $user_id = Auth::id();
         $selectedPlan = $this->where('user_id', $user_id)
