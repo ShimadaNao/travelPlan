@@ -20,6 +20,11 @@ class Plan extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function planDetail()
+    {
+        return $this->hasMany(PlanDetail::class);
+    }
+
     public function registerPlan($request)
     {
         $travelTitle = [
