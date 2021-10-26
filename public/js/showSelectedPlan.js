@@ -871,7 +871,9 @@ var firstShowPlan = window.firstShowPlan;
 var firstShowLat = firstShowPlan['country']['lat'];
 var firstShowLng = firstShowPlan['country']['lng'];
 
-if (firstShowPlan['plan_detail']) {
+if (firstShowPlan['plan_detail'].length === 0) {
+  map.setView([firstShowLat, firstShowLng]);
+} else {
   var firstShowPlanDetails = firstShowPlan['plan_detail'];
   var detailLatLng = '';
 
@@ -883,7 +885,6 @@ if (firstShowPlan['plan_detail']) {
       var firstShowPlanDetail = _step.value;
       detailLatLng = [firstShowPlanDetail['latitude'], firstShowPlanDetail['longitude']]; //planDetailの目的地の緯度経度をまとめて1つに
 
-      console.log(detailLatLng);
       var marker = L.marker(detailLatLng).addTo(map);
     }
   } catch (err) {
@@ -893,8 +894,6 @@ if (firstShowPlan['plan_detail']) {
   }
 
   map.setView(detailLatLng);
-} else {
-  map.setView([firstShowLat, firstShowLng]);
 }
 
 var selected = document.querySelector('[name="myPlans"]');

@@ -3,7 +3,10 @@
     var firstShowLat = firstShowPlan['country']['lat'];
     var firstShowLng = firstShowPlan['country']['lng'];
 
-    if(firstShowPlan['plan_detail']) {
+    //リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
+    if(firstShowPlan['plan_detail'].length === 0) {
+        map.setView([firstShowLat, firstShowLng]);
+    } else {
     var firstShowPlanDetails = firstShowPlan['plan_detail'];
     var detailLatLng = '';
     for(let firstShowPlanDetail of firstShowPlanDetails) {
@@ -11,9 +14,8 @@
         var marker = L.marker(detailLatLng).addTo(map);
     }
     map.setView(detailLatLng);
-    } else {
-    map.setView([firstShowLat, firstShowLng]);
     }
+   
 
     var selected = document.querySelector('[name="myPlans"]');
     var countryLatLng = {};
