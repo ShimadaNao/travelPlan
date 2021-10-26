@@ -9,6 +9,8 @@ class PlanDetail extends Model
 {
     use HasFactory;
 
+    protected $table = 'planDetails';
+
     protected $guarded = [
         'id'
     ];
