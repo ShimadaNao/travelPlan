@@ -75,6 +75,7 @@ class Plan extends Model
         $selectedPlan = $this->where('user_id', $user_id)
                                     ->where('id', $id)
                                     ->with('country')
+                                    ->with('planDetail')
                                     ->first();
         return $selectedPlan;
     }
