@@ -869,7 +869,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
 var firstShowPlan = window.firstShowPlan;
 var firstShowLat = firstShowPlan['country']['lat'];
-var firstShowLng = firstShowPlan['country']['lng'];
+var firstShowLng = firstShowPlan['country']['lng']; //リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
 
 if (firstShowPlan['plan_detail'].length === 0) {
   map.setView([firstShowLat, firstShowLng]);
@@ -898,6 +898,8 @@ if (firstShowPlan['plan_detail'].length === 0) {
 
 var selected = document.querySelector('[name="myPlans"]');
 var countryLatLng = {};
+var planInfo = '';
+var planDetails = '';
 
 selected.onchange = function (event) {
   getData("/show_MyPlan/" + selected.value).then(function (data) {
@@ -908,11 +910,43 @@ selected.onchange = function (event) {
 
 
 var moveToCountry = function moveToCountry(data) {
+  planInfo = data[0]; //旅行計画にcountry,planDetailテーブルからリレーションで紐づけた情報も一緒に取得
+
   countryLatLng = data[1]; //国の緯度・経度をcountryLatLngに代入
+  //ここで移動の処理を書いていく
 
-  console.log(countryLatLng); //ここで移動の処理を書いていく
+  planDetails = planInfo['plan_detail'];
 
-  map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
+  if (planDetails.length === 0) {
+    map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
+  } else {
+    var lat = '';
+    var lng = '';
+
+    var _iterator2 = _createForOfIteratorHelper(planDetails),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var planDetail = _step2.value;
+        lat = planDetail['latitude'];
+        lng = planDetail['longitude']; //Numberしないとlat,lngが文字列となったためNumber()で型変換
+
+        var position = [Number(lat), Number(lng)];
+        var popup = L.popup({
+          //複数のpopupができるようにするため
+          autoClose: false
+        }).setLatLng(position).setContent(planInfo['title'] + '<br>' + planDetail['name']).openOn(map);
+        console.log(planInfo['title']);
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+
+    map.setView([lat, lng]);
+  }
 };
 
 function getData() {

@@ -19,9 +19,11 @@
 
     var selected = document.querySelector('[name="myPlans"]');
     var countryLatLng = {};
+    var planInfo = '';
+    var planDetails = '';
     selected.onchange = event => {
         getData("/show_MyPlan/"+selected.value)
-            .then(data => {
+            .then(data => { 
             //    console.log(data); // `data.json()` の呼び出しで解釈された JSON データ
                moveToCountry(data); // 緯度と経度のデータ渡すから、マーカー処理してね
             });
@@ -29,10 +31,33 @@
 
     // 緯度と経度のデータをもらったのでマーカーの処理をしますね
     var moveToCountry = function(data){
+        planInfo = data[0]; //旅行計画にcountry,planDetailテーブルからリレーションで紐づけた情報も一緒に取得
         countryLatLng = data[1]; //国の緯度・経度をcountryLatLngに代入
-        console.log(countryLatLng);
         //ここで移動の処理を書いていく
-        map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
+        planDetails = planInfo['plan_detail'];
+        if(planDetails.length === 0) {
+            map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
+        } else {
+            var lat = '';
+            var lng = '';
+            for(let planDetail of planDetails) {
+                lat = planDetail['latitude'];
+                lng = planDetail['longitude'];
+                //Numberしないとlat,lngが文字列となったためNumber()で型変換
+                var position = [Number(lat), Number(lng)];
+                var popup = L.popup({
+                    //複数のpopupができるようにするため
+                    autoClose: false 
+                  })
+                    .setLatLng(position)
+                    .setContent(planInfo['title'] + '<br>' + planDetail['name'])
+                    .openOn(map);
+                    console.log(planInfo['title']);
+            }
+            map.setView([lat, lng]);
+        }
+        
+
     };
     async function getData(url = '') {
         // 既定のオプションには * が付いています
