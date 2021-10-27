@@ -20,6 +20,11 @@ class Plan extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function planDetail()
+    {
+        return $this->hasMany(PlanDetail::class);
+    }
+
     public function registerPlan($request)
     {
         $travelTitle = [
@@ -41,10 +46,12 @@ class Plan extends Model
         //旅行最終日が今日以降のもの(最終日が今日だったら$futurePlansに含まれる)
         $futurePlans = $this->where('user_id', $user_id)
                             ->whereDate('end', '>=', $today)
+                            ->with('planDetail')
                             ->get();
         //旅行最終日が昨日以前のもの
         $pastPlans = $this->where('user_id', $user_id)
                             ->whereDate('end', '<', $today)
+                            ->with('planDetail')
                             ->get();
 
         return [$futurePlans, $pastPlans, $today];
@@ -57,11 +64,12 @@ class Plan extends Model
         $firstPlan = $this->where('user_id', $user_id)
                             ->whereDate('end', '>=', $today)
                             ->with('country')
+                            ->with('planDetail')
                             ->first();
         return $firstPlan;
     }
 
-    public function getNowRegisteredPlan($id)
+    public function getSelectedPlan($id)
     {
         $user_id = Auth::id();
         $selectedPlan = $this->where('user_id', $user_id)
