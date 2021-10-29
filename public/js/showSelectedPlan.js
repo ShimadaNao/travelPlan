@@ -920,32 +920,39 @@ var moveToCountry = function moveToCountry(data) {
   if (planDetails.length === 0) {
     map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
   } else {
-    var lat = '';
-    var lng = '';
+    for (var i = 0; i < planDetails.length; i++) {
+      var popup = L.popup({
+        closeOnClick: false,
+        autoClose: false
+      });
+      var content = planInfo.title + '<br>' + planDetails[i].name;
 
-    var _iterator2 = _createForOfIteratorHelper(planDetails),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var planDetail = _step2.value;
-        lat = planDetail['latitude'];
-        lng = planDetail['longitude']; //Numberしないとlat,lngが文字列となったためNumber()で型変換
-
-        var position = [Number(lat), Number(lng)];
-        var popup = L.popup({
-          //複数のpopupができるようにするため
-          autoClose: false
-        }).setLatLng(position).setContent(planInfo['title'] + '<br>' + planDetail['name']).openOn(map);
-        console.log(planInfo['title']);
+      if (planDetails[i].dayToVisit) {
+        var date = planDetails[i].dayToVisit.split('-');
+        date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+        content += '<br>' + '訪問日：' + date;
       }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
 
-    map.setView([lat, lng]);
+      if (planDetails[i].timeToVisit) {
+        var time = planDetails[i].timeToVisit.split(':');
+        time = time[0] + '時' + time[1] + '分';
+        content += '<br>' + '予定時間；' + time;
+      }
+
+      if (planDetails[i].comment) {
+        content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+      }
+
+      popup.setContent(content);
+      var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
+      marker.bindPopup(popup);
+      marker.addTo(map);
+    } //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
+
+
+    var lastDestination = planDetails[planDetails.length - 1];
+    var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
+    map.setView(lastLatLng);
   }
 };
 

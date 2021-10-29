@@ -38,26 +38,37 @@
         if(planDetails.length === 0) {
             map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
         } else {
-            var lat = '';
-            var lng = '';
-            for(let planDetail of planDetails) {
-                lat = planDetail['latitude'];
-                lng = planDetail['longitude'];
-                //Numberしないとlat,lngが文字列となったためNumber()で型変換
-                var position = [Number(lat), Number(lng)];
+            for (let i = 0; i < planDetails.length; i++) {
                 var popup = L.popup({
-                    //複数のpopupができるようにするため
-                    autoClose: false 
-                  })
-                    .setLatLng(position)
-                    .setContent(planInfo['title'] + '<br>' + planDetail['name'])
-                    .openOn(map);
-                    console.log(planInfo['title']);
+                    closeOnClick: false,
+                    autoClose:false
+                });
+                var content = planInfo.title + '<br>' + planDetails[i].name;
+                if(planDetails[i].dayToVisit) {
+                    var date = planDetails[i].dayToVisit.split('-');
+                    date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+                    content += '<br>' + '訪問日：' + date;
+                }
+                if(planDetails[i].timeToVisit) {
+                    var time = planDetails[i].timeToVisit.split(':');
+                    time = time[0] + '時' + time[1] + '分';
+                    content += '<br>' + '予定時間；' + time;
+                }
+                if(planDetails[i].comment) {
+                    content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+                }
+                popup.setContent(content);
+
+                var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
+                marker.bindPopup(popup);
+                marker.addTo(map);
             }
-            map.setView([lat, lng]);
+            //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
+            var lastDestination = planDetails[planDetails.length -1];
+            var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
+            map.setView(lastLatLng);
         }
         
-
     };
     async function getData(url = '') {
         // 既定のオプションには * が付いています
