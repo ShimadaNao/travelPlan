@@ -3,20 +3,46 @@
     var firstShowLat = firstShowPlan['country']['lat'];
     var firstShowLng = firstShowPlan['country']['lng'];
 
+    function showPopups(planDetails, planInfo) {
+        for (let i = 0; i < planDetails.length; i++) {
+            var popup = L.popup({
+                closeOnClick: false,
+                autoClose: false
+            });
+            var content = planInfo.title + '<br>' + planDetails[i].name;
+                    if(planDetails[i].dayToVisit) {
+                        var date = planDetails[i].dayToVisit.split('-');
+                        date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+                        content += '<br>' + '訪問日：' + date;
+                    }
+                    if(planDetails[i].timeToVisit) {
+                        var time = planDetails[i].timeToVisit.split(':');
+                        time = time[0] + '時' + time[1] + '分';
+                        content += '<br>' + '予定時間；' + time;
+                    }
+                    if(planDetails[i].comment) {
+                        content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+                    }
+            popup.setContent(content);
+            var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
+            marker.bindPopup(popup);
+            marker.addTo(map);
+        }
+        //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
+        var lastDestination = planDetails[planDetails.length -1];
+        var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
+        map.setView(lastLatLng);
+    }
+
     //リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
     if(firstShowPlan['plan_detail'].length === 0) {
         map.setView([firstShowLat, firstShowLng]);
     } else {
-    var firstShowPlanDetails = firstShowPlan['plan_detail'];
-    var detailLatLng = '';
-    for(let firstShowPlanDetail of firstShowPlanDetails) {
-        detailLatLng = [firstShowPlanDetail['latitude'], firstShowPlanDetail['longitude']]; //planDetailの目的地の緯度経度をまとめて1つに
-        var marker = L.marker(detailLatLng).addTo(map);
+        var planDetails = firstShowPlan['plan_detail'];
+        var planInfo = firstShowPlan;
+        showPopups(planDetails, planInfo);
     }
-    map.setView(detailLatLng);
-    }
-   
-
+   //selectボックスが変更されたときの処理
     var selected = document.querySelector('[name="myPlans"]');
     var countryLatLng = {};
     var planInfo = '';
@@ -38,37 +64,8 @@
         if(planDetails.length === 0) {
             map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
         } else {
-            for (let i = 0; i < planDetails.length; i++) {
-                var popup = L.popup({
-                    closeOnClick: false,
-                    autoClose:false
-                });
-                var content = planInfo.title + '<br>' + planDetails[i].name;
-                if(planDetails[i].dayToVisit) {
-                    var date = planDetails[i].dayToVisit.split('-');
-                    date = date[0] + '年' + date[1] + '月' + date[2] + '日';
-                    content += '<br>' + '訪問日：' + date;
-                }
-                if(planDetails[i].timeToVisit) {
-                    var time = planDetails[i].timeToVisit.split(':');
-                    time = time[0] + '時' + time[1] + '分';
-                    content += '<br>' + '予定時間；' + time;
-                }
-                if(planDetails[i].comment) {
-                    content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
-                }
-                popup.setContent(content);
-
-                var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
-                marker.bindPopup(popup);
-                marker.addTo(map);
-            }
-            //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
-            var lastDestination = planDetails[planDetails.length -1];
-            var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
-            map.setView(lastLatLng);
+            showPopups(planDetails, planInfo);
         }
-        
     };
     async function getData(url = '') {
         // 既定のオプションには * が付いています
