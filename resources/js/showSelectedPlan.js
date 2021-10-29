@@ -19,9 +19,11 @@
 
     var selected = document.querySelector('[name="myPlans"]');
     var countryLatLng = {};
+    var planInfo = '';
+    var planDetails = '';
     selected.onchange = event => {
         getData("/show_MyPlan/"+selected.value)
-            .then(data => {
+            .then(data => { 
             //    console.log(data); // `data.json()` の呼び出しで解釈された JSON データ
                moveToCountry(data); // 緯度と経度のデータ渡すから、マーカー処理してね
             });
@@ -29,10 +31,44 @@
 
     // 緯度と経度のデータをもらったのでマーカーの処理をしますね
     var moveToCountry = function(data){
+        planInfo = data[0]; //旅行計画にcountry,planDetailテーブルからリレーションで紐づけた情報も一緒に取得
         countryLatLng = data[1]; //国の緯度・経度をcountryLatLngに代入
-        console.log(countryLatLng);
         //ここで移動の処理を書いていく
-        map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
+        planDetails = planInfo['plan_detail'];
+        if(planDetails.length === 0) {
+            map.setView([countryLatLng["lat"], countryLatLng["lng"]]);
+        } else {
+            for (let i = 0; i < planDetails.length; i++) {
+                var popup = L.popup({
+                    closeOnClick: false,
+                    autoClose:false
+                });
+                var content = planInfo.title + '<br>' + planDetails[i].name;
+                if(planDetails[i].dayToVisit) {
+                    var date = planDetails[i].dayToVisit.split('-');
+                    date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+                    content += '<br>' + '訪問日：' + date;
+                }
+                if(planDetails[i].timeToVisit) {
+                    var time = planDetails[i].timeToVisit.split(':');
+                    time = time[0] + '時' + time[1] + '分';
+                    content += '<br>' + '予定時間；' + time;
+                }
+                if(planDetails[i].comment) {
+                    content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+                }
+                popup.setContent(content);
+
+                var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
+                marker.bindPopup(popup);
+                marker.addTo(map);
+            }
+            //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
+            var lastDestination = planDetails[planDetails.length -1];
+            var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
+            map.setView(lastLatLng);
+        }
+        
     };
     async function getData(url = '') {
         // 既定のオプションには * が付いています
