@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\planRegisterRequest;
 use App\Models\Plan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class MapController extends Controller
         ]);
     }
 
-    public function registerTravelTitle(Request $request)
+    public function registerTravelTitle(planRegisterRequest $request)
     {
         $travelTitleRegister = $this->planModel->registerPlan($request);
         $registeredId = $travelTitleRegister['id'];
