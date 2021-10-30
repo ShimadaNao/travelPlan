@@ -43,5 +43,6 @@
             window.firstShowPlan = @json($firstShowPlan);
         </script>
         <script src="{{ mix('js/showSelectedPlan.js') }}"></script>
+        <script src="{{ mix('js/addPlanDetailByClick.js') }}"></script>
     </div>
 </x-header>
