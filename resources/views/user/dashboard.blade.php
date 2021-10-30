@@ -43,14 +43,34 @@
             <form method="post" action="{{ route('registerTravelTitle') }}" class="planTitle">
                 @csrf
                 <h2 class="text-base">旅行名を登録してください</h2>
+                @if ($errors->has('title'))
+                    <div class="text-red-600">
+                        {{ $errors->first('title')}}
+                    </div>
+                @endif
                 旅行名：<input type="text" name="title">
+                @if ($errors->has('country'))
+                    <div class="text-red-600">
+                        {{ $errors->first('title')}}
+                    </div>
+                @endif
                 国名：
                 <select name="country">
                     @foreach ($countries as $country)
                         <option value="{{ $country['id'] }}">{{ $country['nameJP'] }}</option>
                     @endforeach
                 </select>
+                @if ($errors->has('start'))
+                    <div class="text-red-600">
+                        {{ $errors->first('start')}}
+                    </div>
+                @endif
                 旅行開始日：<input type="date" name="start">
+                @if ($errors->has('end'))
+                    <div class="text-red-600">
+                        {{ $errors->first('end')}}
+                    </div>
+                @endif 
                 旅行終了日：<input type="date" name="end">
                 <input type="submit" value="登録する">
             </form>
