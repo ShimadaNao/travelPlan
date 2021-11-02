@@ -10,6 +10,7 @@
     {{ $leafletJavaScript }}
     {{ $addressPlugin }}
     @endif
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     <div class="bg-indigo-200">
