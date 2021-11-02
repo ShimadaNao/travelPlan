@@ -1,4 +1,5 @@
 var selectedPlan = document.querySelector('[name = "myPlans"]');
+var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
 map.on('click', showForm);
 function showForm(e) {
@@ -10,6 +11,7 @@ function showForm(e) {
         closeOnClick: false,
     });
     var formContent = '<form class="fetchForm">' +
+        '<input type="hidden" name="_token" value="' + csrf_token + '">' +
         '旅行地：' + '<input type="text" name="name">' + '<br>' +
         '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' +
         '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' +
@@ -26,7 +28,7 @@ function showForm(e) {
 // fetchでPOSTしていく
 postFetch = function(){
     // postで投げる際のURLを指定
-    const url = '/registerPlanDetail';
+    const url = "/registerPlanDetail";
     const fetchForm = document.querySelector('.fetchForm');
     // これだけでPOSTする際のBODYの値が定義できる
     let formData = new FormData(fetchForm);
@@ -37,17 +39,23 @@ postFetch = function(){
     // urlに向けてBODYを付与してPOSTする
     fetch(url, {
         method: 'POST',
-        body: formData
+        body: formData,
     // よしちゃんとPOST(されたら)(then)
     // consoleにokを出しましょう
-    }).then((response) => {
+    })
+    .then((response) => {
         console.log('ok');
-        return response.json();
+        console.log(response);
+        return response.text();
+    })
     // ちゃんとjson形式にレスポンスを変換(したら)(then)
-    }).then((data) => {
+    // .then(res => res.text())
+    // .then(text => console.log(text))
+    .then((data) => {
         // consoleでdataを出力しましょう
         console.log(data);
-    }).catch((error) => {
+    })
+    .catch((error) => {
         console.log(error)
     });
 };

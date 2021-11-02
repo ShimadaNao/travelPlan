@@ -10,6 +10,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var selectedPlan = document.querySelector('[name = "myPlans"]');
+var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
 map.on('click', showForm);
 
@@ -21,28 +22,16 @@ function showForm(e) {
     autoClose: false,
     closeOnClick: false
   });
-  var formContent = '<form class="fetchForm">' + '旅行地：' + '<input type="text" name="name">' + '<br>' + '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' + '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' + 'コメント' + '<input type="text" name="comment">' + '<br>' + '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' + '<input type="hidden" name="lat" value="' + lat + '">' + '<input type="hidden" name="lng" value="' + lng + '">' + '<input type="button" value="送信" onclick="postFetch()" class="btn">' + '</form>';
-  popup.setContent(formContent); // popup.setContent('<form class="fetchForm">' +
-  //     '旅行地：' + '<input type="text" name="name">' + '<br>' +
-  //     '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' +
-  //     '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' +
-  //     'コメント' + '<input type="text" name="comment">' + '<br>' +
-  //     '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' +
-  //     '<input type="hidden" name="lat" value="' + lat + '">' +
-  //     '<input type="hidden" name="lng" value="' + lng + '">' +
-  //     '<input type="button" value="送信" class="btn">' +
-  //     '</form>');
-
+  var formContent = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '旅行地：' + '<input type="text" name="name">' + '<br>' + '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' + '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' + 'コメント' + '<input type="text" name="comment">' + '<br>' + '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' + '<input type="hidden" name="lat" value="' + lat + '">' + '<input type="hidden" name="lng" value="' + lng + '">' + '<input type="button" value="送信" onclick="postFetch()" class="btn">' + '</form>';
+  popup.setContent(formContent);
   marker.bindPopup(popup);
   marker.addTo(map);
-  console.log(formContent);
-  console.log(document.getElementsByTagName('form')[0]); // postで投げる際のURLを指定
-
-  var url = '/registerPlanDetail';
 } // fetchでPOSTしていく
 
 
 postFetch = function postFetch() {
+  // postで投げる際のURLを指定
+  var url = "/registerPlanDetail";
   var fetchForm = document.querySelector('.fetchForm'); // これだけでPOSTする際のBODYの値が定義できる
 
   var formData = new FormData(fetchForm); // 実際に値を見てみましょう
@@ -69,8 +58,12 @@ postFetch = function postFetch() {
 
   }).then(function (response) {
     console.log('ok');
-    return response.json(); // ちゃんとjson形式にレスポンスを変換(したら)(then)
-  }).then(function (data) {
+    console.log(response);
+    return response.text();
+  }) // ちゃんとjson形式にレスポンスを変換(したら)(then)
+  // .then(res => res.text())
+  // .then(text => console.log(text))
+  .then(function (data) {
     // consoleでdataを出力しましょう
     console.log(data);
   })["catch"](function (error) {
