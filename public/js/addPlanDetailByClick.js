@@ -13,6 +13,7 @@ var selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
 map.on('click', showForm);
+nowMarker = '';
 
 function showForm(e) {
   var lat = e.latlng.lat;
@@ -22,11 +23,19 @@ function showForm(e) {
     autoClose: false,
     closeOnClick: false
   });
-  var formContent = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '旅行地：' + '<input type="text" name="name">' + '<br>' + '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' + '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' + 'コメント' + '<input type="text" name="comment">' + '<br>' + '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' + '<input type="hidden" name="lat" value="' + lat + '">' + '<input type="hidden" name="lng" value="' + lng + '">' + '<input type="button" value="送信" onclick="postFetch()" class="btn">' + '</form>';
+  var formContent = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '旅行地：' + '<input type="text" name="name">' + '<br>' + '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' + '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' + 'コメント' + '<input type="text" name="comment">' + '<br>' + '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' + '<input type="hidden" name="lat" value="' + lat + '">' + '<input type="hidden" name="lng" value="' + lng + '">' + '<input type="button" value="送信" onclick="postFetch()" class="btn">' + '<input type="button" value="削除" onclick="deletePopup()" class="btn">' + '</form>';
   popup.setContent(formContent);
   marker.bindPopup(popup);
   marker.addTo(map);
-} // fetchでPOSTしていく
+  marker.on('click', function (e) {
+    nowMarker = marker;
+  });
+} //ポップアップの削除ボタンを押したときに、マーカーを削除
+
+
+deletePopup = function deletePopup() {
+  map.removeLayer(nowMarker);
+}; // fetchでPOSTしていく
 
 
 postFetch = function postFetch() {
@@ -70,5 +79,9 @@ postFetch = function postFetch() {
     console.log(error);
   });
 };
+
+function clickMarkers(e) {
+  map.removeLayer(e.target);
+}
 /******/ })()
 ;
