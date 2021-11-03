@@ -1,7 +1,9 @@
+
 var selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
 map.on('click', showForm);
+nowMarker = '';
 function showForm(e) {
     var lat = e.latlng.lat;
     var lng = e.latlng.lng;
@@ -20,11 +22,20 @@ function showForm(e) {
         '<input type="hidden" name="lat" value="' + lat + '">' +
         '<input type="hidden" name="lng" value="' + lng + '">' +
         '<input type="button" value="送信" onclick="postFetch()" class="btn">' +
+        '<input type="button" value="削除" onclick="deletePopup()" class="btn">' +
         '</form>';
     popup.setContent(formContent);
     marker.bindPopup(popup);
     marker.addTo(map);
+    marker.on('click',function(e){
+        nowMarker = marker;
+    });
 }
+//ポップアップの削除ボタンを押したときに、マーカーを削除
+deletePopup = function(){
+    map.removeLayer(nowMarker);
+}
+
 // fetchでPOSTしていく
 postFetch = function(){
     // postで投げる際のURLを指定
@@ -59,3 +70,6 @@ postFetch = function(){
         console.log(error)
     });
 };
+function clickMarkers(e) {
+    map.removeLayer(e.target);
+}
