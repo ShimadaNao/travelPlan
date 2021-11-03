@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use App\Models\Plan;
+use App\Models\PlanDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    public function __construct(PlanDetail $planDetailModel)
+    {
+        $this->planDetailModel = $planDetailModel;
+    }
     public function showSelectedPlan(Plan $planModel, $id)
     {
         $user_id = Auth::id();
@@ -21,4 +26,31 @@ class ApiController extends Controller
 
         return [$selectedPlan, $countryLatLng];
     }
+
+    public function registerPlanDetail(Request $request)
+     {
+        $planDetail = [
+            'name' => $request->name,
+            'plan_id' => $request->plan_id,
+            'latitude' => $request->lat,
+            'longitude' => $request->lng,
+        ];
+        if (isset($request->dayToVisit)) {
+            $planDetail['dayToVisit'] = $request->dayToVisit;
+        }
+        if (isset($request->timeToVisit)) {
+            $planDetail['timeToVisit'] = $request->timeToVisit;
+        }
+        if (isset($request->comment)) {
+            $planDetail['comment'] = $request->comment;
+        }
+        $registeredPlanDetail = $this->planDetailModel->registerPlanDetail($planDetail);
+        // $registeredPlanDetailId = $registeredPlanDetail->id;
+        $registeredPlanMsg = '登録しました';
+        return $registeredPlanMsg;
+
+        // 非同期通信で実装したけど、db登録後にredirectとかしたいならfetchでなく普通のpostすべき?
+        // 今のままだとdb登録されてコンソールログに登録メッセージは表示されるけど、ポップアップが入力中状態になる
+        // return redirect()->route('showMyPlan');
+     }
 }

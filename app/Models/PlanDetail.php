@@ -14,4 +14,9 @@ class PlanDetail extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function registerPlanDetail($planDetail)
+    {
+        $this->firstOrCreate($planDetail);
+    }
 }

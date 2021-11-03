@@ -3,5 +3,6 @@
     "/js/Control.OSMGeocoder.js": "/js/Control.OSMGeocoder.js",
     "/js/toppage.js": "/js/toppage.js",
     "/js/showSelectedPlan.js": "/js/showSelectedPlan.js",
+    "/js/addPlanDetailByClick.js": "/js/addPlanDetailByClick.js",
     "/css/app.css": "/css/app.css"
 }
