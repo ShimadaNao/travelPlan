@@ -9,8 +9,8 @@ function showForm(e) {
     var lng = e.latlng.lng;
     var marker = L.marker([lat, lng]);
     var popup = L.popup({
-        autoClose: false,
-        closeOnClick: false,
+        // autoClose: false,
+        // closeOnClick: false,
     });
     var formContent = '<form class="fetchForm">' +
         '<input type="hidden" name="_token" value="' + csrf_token + '">' +
