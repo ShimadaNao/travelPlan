@@ -1,4 +1,5 @@
 
+
 var selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
@@ -9,8 +10,6 @@ function showForm(e) {
     var lng = e.latlng.lng;
     var marker = L.marker([lat, lng]);
     var popup = L.popup({
-        // autoClose: false,
-        // closeOnClick: false,
     });
     var formContent = '<form class="fetchForm">' +
         '<input type="hidden" name="_token" value="' + csrf_token + '">' +
@@ -28,8 +27,15 @@ function showForm(e) {
     marker.bindPopup(popup);
     marker.addTo(map);
     marker.on('click',function(e){
+        //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
+        if (!nowMarker == '') {
+            map.removeLayer(nowMarker);
+            nowMarker = '';
+        }
         nowMarker = marker;
     });
+
+    // nowMarkerの緯度経度が今のクリックしたマーカーの緯度経度と違うかったらnowMarkerのマーカーを削除
 }
 //ポップアップの削除ボタンを押したときに、マーカーを削除
 deletePopup = function(){
