@@ -1,10 +1,12 @@
 
+
+
 //予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
     var firstShowPlan = window.firstShowPlan;
     var firstShowLat = firstShowPlan['country']['lat'];
     var firstShowLng = firstShowPlan['country']['lng'];
     var selectedPlanDetail = '';
-    var nowPlan = '';
+    var nowPlan = {};
     //planDetailテーブルにデータがあればshowpopupsが動く
     function showPopups(planDetails, planInfo) {
         for (let i = 0; i < planDetails.length; i++) {
@@ -12,6 +14,8 @@
                 closeOnClick: false,
                 autoClose: false
             });
+
+            //inputタグにして編集->update対応する
             var content = planInfo.title + '<br>' + planDetails[i].name;
                     if(planDetails[i].dayToVisit) {
                         var date = planDetails[i].dayToVisit.split('-');
@@ -26,14 +30,16 @@
                     if(planDetails[i].comment) {
                         content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
                     }
-                    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id +')" class="btn">';
+                    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
                     content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
                     selectedPlanDetail = planDetails[i];
             popup.setContent(content);
             let marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
             marker.bindPopup(popup);
+            //nowPlan配列にmarkerを追加していく。keyはmarkerのplanDetailのid
+            nowPlan[planDetails[i].id] = marker;
             marker.on('click',function(e){
-                nowPlan = marker;
+                console.log(nowPlan);
             });
             marker.addTo(map);
         }
@@ -43,13 +49,14 @@
             deleteDetail("/deletePlanDetail/" + id)
                 .then((response) => {
                     console.log('ok');
+                    console.log(response);
                     return response;
                 })
                 .then(data => {
                     console.log(data);
+                    map.removeLayer(nowPlan[id]);
+                    delete nowPlan[id];
                 });
-            //データベースからplanDetailが削除されたので、マーカー・ポップアップも削除の処理
-             map.removeLayer(nowPlan);
         }
         async function deleteDetail(url = '') {
             const response = await fetch(url, {
@@ -62,7 +69,8 @@
                 },
                 referrerPolicy: 'no-referrer'
             })
-            return response.text();
+            // return response.text();
+            return response.json();
         }
 
 
