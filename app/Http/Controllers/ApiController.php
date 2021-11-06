@@ -52,7 +52,15 @@ class ApiController extends Controller
 
     public function deletePlanDetail($id)
     {
-        $deleteResult = $this->planDetailModel->deleteDetail($id);
-        return $deleteResult;
+        // $deleteResult = $this->planDetailModel->deleteDetail($id);
+        $result = $this->planDetailModel->deleteDetail($id);
+        $deletedContent = [
+            'planDetail' => $result[0],
+            'deletedResult' => $result[1],
+        ];
+        $planDetail = $result[0];
+        $deleteResult = $result[1];
+        // return $deleteResult;
+        return $deletedContent;
     }
 }
