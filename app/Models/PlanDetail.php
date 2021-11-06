@@ -29,6 +29,6 @@ class PlanDetail extends Model
         } else {
             $deleteMsg = '削除失敗';
         }
-        return $deleteMsg;
+        return [$planDetail, $deleteMsg];
     }
 }
