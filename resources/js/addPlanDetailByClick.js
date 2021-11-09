@@ -11,8 +11,13 @@ function showForm(e) {
     if(nowMarker == ''){
         var lat = e.latlng.lat;
         var lng = e.latlng.lng;
+        //任意のアイコン
+        // var icon = L.icon({
+        //     iconUrl: 'public/images/icon.png', 
+        // });
+        // var marker = L.marker([lat, lng], { icon: icon });
         var marker = L.marker([lat, lng]);
-        var popup = L.popup({
+        popup = L.popup({
         });
         var formContent = '<form class="fetchForm">' +
             '<input type="hidden" name="_token" value="' + csrf_token + '">' +
@@ -72,6 +77,15 @@ function showForm(e) {
             }
             window.nowMarker = this;
         });
+    } else {
+        $(function(){
+            setInterval(function(){
+            $(".leaflet-marker-icon leaflet-zoom-animated leaflet-interactive").fadeOut(500).fadeIn(500);
+            },1000);
+            });
+            // alert('aaa');
+        alert('フォームポップアップは1つのみ表示可能です');
+      
     }
 }
 //ポップアップの削除ボタンを押したときに、マーカーを削除
