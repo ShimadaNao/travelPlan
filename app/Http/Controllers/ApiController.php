@@ -28,7 +28,7 @@ class ApiController extends Controller
     }
 
     public function registerPlanDetail(Request $request)
-     {
+    {
         $planDetail = [
             'name' => $request->name,
             'plan_id' => $request->plan_id,
@@ -48,9 +48,19 @@ class ApiController extends Controller
         // $registeredPlanDetailId = $registeredPlanDetail->id;
         $registeredPlanMsg = '登録しました';
         return $registeredPlanMsg;
+    }
 
-        // 非同期通信で実装したけど、db登録後にredirectとかしたいならfetchでなく普通のpostすべき?
-        // 今のままだとdb登録されてコンソールログに登録メッセージは表示されるけど、ポップアップが入力中状態になる
-        // return redirect()->route('showMyPlan');
-     }
+    public function deletePlanDetail($id)
+    {
+        // $deleteResult = $this->planDetailModel->deleteDetail($id);
+        $result = $this->planDetailModel->deleteDetail($id);
+        $deletedContent = [
+            'planDetail' => $result[0],
+            'deletedResult' => $result[1],
+        ];
+        $planDetail = $result[0];
+        $deleteResult = $result[1];
+        // return $deleteResult;
+        return $deletedContent;
+    }
 }

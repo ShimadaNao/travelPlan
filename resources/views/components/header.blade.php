@@ -11,6 +11,7 @@
     {{ $addressPlugin }}
     @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
     <div class="bg-indigo-200">

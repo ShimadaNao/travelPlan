@@ -864,13 +864,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var firstShowPlan = window.firstShowPlan;
 var firstShowLat = firstShowPlan['country']['lat'];
 var firstShowLng = firstShowPlan['country']['lng'];
+var selectedPlanDetail = '';
+var nowPlan = {}; //planDetailテーブルにデータがあればshowpopupsが動く
 
 function showPopups(planDetails, planInfo) {
   for (var i = 0; i < planDetails.length; i++) {
     var popup = L.popup({
       closeOnClick: false,
       autoClose: false
-    });
+    }); //inputタグにして編集->update対応する
+
     var content = planInfo.title + '<br>' + planDetails[i].name;
 
     if (planDetails[i].dayToVisit) {
@@ -889,17 +892,87 @@ function showPopups(planDetails, planInfo) {
       content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
     }
 
+    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail(' + planDetails[i].id + ')" class="btn">';
+    content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
+    selectedPlanDetail = planDetails[i];
     popup.setContent(content);
     var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
-    marker.bindPopup(popup);
+    marker.bindPopup(popup); //nowPlan配列にmarkerを追加していく。keyはmarkerのplanDetailのid
+
+    nowPlan[planDetails[i].id] = marker;
+    marker.on('click', function (e) {
+      console.log(nowPlan);
+    });
     marker.addTo(map);
+  } //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。
+
+
+  window.deletePlanDetail = function (id) {
+    console.log(id);
+    deleteDetail("/deletePlanDetail/" + id).then(function (response) {
+      console.log('ok');
+      console.log(response);
+      return response;
+    }).then(function (data) {
+      console.log(data);
+      map.removeLayer(nowPlan[id]);
+      delete nowPlan[id];
+    });
+  };
+
+  function deleteDetail() {
+    return _deleteDetail.apply(this, arguments);
   } //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
 
+
+  function _deleteDetail() {
+    _deleteDetail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var url,
+          response,
+          _args = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              url = _args.length > 0 && _args[0] !== undefined ? _args[0] : '';
+              _context.next = 3;
+              return fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                referrerPolicy: 'no-referrer'
+              });
+
+            case 3:
+              response = _context.sent;
+              return _context.abrupt("return", response.json());
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _deleteDetail.apply(this, arguments);
+  }
 
   var lastDestination = planDetails[planDetails.length - 1];
   var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
   map.setView(lastLatLng);
-} //リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
+} //ファイルが読み込まれたときに、この要素が生成されてないからエラーが出る。jqueryでbodyに付与するとできるようになる。
+// document.getElementById("deletePlanDetail").onclick = function(){
+//     console.log(document.getElementById("deletePlanDetail"));
+// };
+// 削除ボタンがクリックされたときに、fetch/getでplanDetailテーブルから情報を削除する処理を書く
+// window.deletePlanDetail = function(){
+//     console.log('aaa');
+// }  
+//リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
 
 
 if (firstShowPlan['plan_detail'].length === 0) {
@@ -944,16 +1017,16 @@ function getData() {
 }
 
 function _getData() {
-  _getData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+  _getData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
     var url,
         response,
-        _args = arguments;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        _args2 = arguments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            url = _args.length > 0 && _args[0] !== undefined ? _args[0] : '';
-            _context.next = 3;
+            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : '';
+            _context2.next = 3;
             return fetch(url, {
               method: 'GET',
               // *GET, POST, PUT, DELETE, etc.
@@ -971,15 +1044,15 @@ function _getData() {
             });
 
           case 3:
-            response = _context.sent;
-            return _context.abrupt("return", response.json());
+            response = _context2.sent;
+            return _context2.abrupt("return", response.json());
 
           case 5:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee);
+    }, _callee2);
   }));
   return _getData.apply(this, arguments);
 }

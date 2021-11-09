@@ -1,14 +1,21 @@
+
+
+
 //予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
     var firstShowPlan = window.firstShowPlan;
     var firstShowLat = firstShowPlan['country']['lat'];
     var firstShowLng = firstShowPlan['country']['lng'];
-
+    var selectedPlanDetail = '';
+    var nowPlan = {};
+    //planDetailテーブルにデータがあればshowpopupsが動く
     function showPopups(planDetails, planInfo) {
         for (let i = 0; i < planDetails.length; i++) {
             var popup = L.popup({
                 closeOnClick: false,
                 autoClose: false
             });
+
+            //inputタグにして編集->update対応する
             var content = planInfo.title + '<br>' + planDetails[i].name;
                     if(planDetails[i].dayToVisit) {
                         var date = planDetails[i].dayToVisit.split('-');
@@ -23,16 +30,67 @@
                     if(planDetails[i].comment) {
                         content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
                     }
+                    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
+                    content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
+                    selectedPlanDetail = planDetails[i];
             popup.setContent(content);
-            var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
+            let marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
             marker.bindPopup(popup);
+            //nowPlan配列にmarkerを追加していく。keyはmarkerのplanDetailのid
+            nowPlan[planDetails[i].id] = marker;
+            marker.on('click',function(e){
+                console.log(nowPlan);
+            });
             marker.addTo(map);
         }
+        //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。
+        window.deletePlanDetail = function(id){
+            console.log(id);
+            deleteDetail("/deletePlanDetail/" + id)
+                .then((response) => {
+                    console.log('ok');
+                    console.log(response);
+                    return response;
+                })
+                .then(data => {
+                    console.log(data);
+                    map.removeLayer(nowPlan[id]);
+                    delete nowPlan[id];
+                });
+        }
+        async function deleteDetail(url = '') {
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                referrerPolicy: 'no-referrer'
+            })
+            // return response.text();
+            return response.json();
+        }
+
+
+
         //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
         var lastDestination = planDetails[planDetails.length -1];
         var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
         map.setView(lastLatLng);
     }
+
+    //ファイルが読み込まれたときに、この要素が生成されてないからエラーが出る。jqueryでbodyに付与するとできるようになる。
+    // document.getElementById("deletePlanDetail").onclick = function(){
+    //     console.log(document.getElementById("deletePlanDetail"));
+    // };
+
+    // 削除ボタンがクリックされたときに、fetch/getでplanDetailテーブルから情報を削除する処理を書く
+    // window.deletePlanDetail = function(){
+    //     console.log('aaa');
+    // }  
+
 
     //リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
     if(firstShowPlan['plan_detail'].length === 0) {
@@ -81,3 +139,4 @@
         })
         return response.json(); // レスポンスの JSON を解析
     };
+    

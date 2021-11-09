@@ -19,4 +19,16 @@ class PlanDetail extends Model
     {
         $this->firstOrCreate($planDetail);
     }
+
+    public function deleteDetail($id)
+    {
+        $planDetail = $this->find($id);
+        $deletedPlan = $planDetail->delete();
+        if($deletedPlan == 1) {
+            $deleteMsg = 'プラン詳細を削除しました';
+        } else {
+            $deleteMsg = '削除失敗';
+        }
+        return [$planDetail, $deleteMsg];
+    }
 }

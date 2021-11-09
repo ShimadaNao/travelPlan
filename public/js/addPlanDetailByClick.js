@@ -19,17 +19,20 @@ function showForm(e) {
   var lat = e.latlng.lat;
   var lng = e.latlng.lng;
   var marker = L.marker([lat, lng]);
-  var popup = L.popup({
-    autoClose: false,
-    closeOnClick: false
-  });
+  var popup = L.popup({});
   var formContent = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '旅行地：' + '<input type="text" name="name">' + '<br>' + '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' + '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' + 'コメント' + '<input type="text" name="comment">' + '<br>' + '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' + '<input type="hidden" name="lat" value="' + lat + '">' + '<input type="hidden" name="lng" value="' + lng + '">' + '<input type="button" value="送信" onclick="postFetch()" class="btn">' + '<input type="button" value="削除" onclick="deletePopup()" class="btn">' + '</form>';
   popup.setContent(formContent);
   marker.bindPopup(popup);
   marker.addTo(map);
   marker.on('click', function (e) {
+    //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
+    if (!nowMarker == '') {
+      map.removeLayer(nowMarker);
+      nowMarker = '';
+    }
+
     nowMarker = marker;
-  });
+  }); // nowMarkerの緯度経度が今のクリックしたマーカーの緯度経度と違うかったらnowMarkerのマーカーを削除
 } //ポップアップの削除ボタンを押したときに、マーカーを削除
 
 
