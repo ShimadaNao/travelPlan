@@ -860,7 +860,14 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content; //予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
+
 var firstShowPlan = window.firstShowPlan;
 var firstShowLat = firstShowPlan['country']['lat'];
 var firstShowLng = firstShowPlan['country']['lng'];
@@ -872,29 +879,51 @@ function showPopups(planDetails, planInfo) {
     var popup = L.popup({
       closeOnClick: false,
       autoClose: false
-    }); //inputタグにして編集->update対応する
-
-    var content = planInfo.title + '<br>' + planDetails[i].name;
+    });
+    var content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<input type="text" name="title" value="' + planInfo.title + '" disabled>' + '<br>' + '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
 
     if (planDetails[i].dayToVisit) {
-      var date = planDetails[i].dayToVisit.split('-');
-      date = date[0] + '年' + date[1] + '月' + date[2] + '日';
-      content += '<br>' + '訪問日：' + date;
+      var date = planDetails[i].dayToVisit; // date = date[0] + '-' + date[1] + '-' + date[2];
+      // date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+      // content += '<br>' + '訪問日：' + date;
+
+      content += '<br>' + '訪問日：' + '<input type="date" name="date" value="' + date + '" disabled>';
     }
 
     if (planDetails[i].timeToVisit) {
       var time = planDetails[i].timeToVisit.split(':');
-      time = time[0] + '時' + time[1] + '分';
-      content += '<br>' + '予定時間；' + time;
+      time = time[0] + ':' + time[1]; // time = time[0] + '時' + time[1] + '分';
+      // content += '<br>' + '予定時間；' + time;
+
+      content += '<br>' + '予定時間；' + '<input type="time" name="time" value="' + time + '" disabled>';
     }
 
     if (planDetails[i].comment) {
-      content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+      // content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+      content += '<br>' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' + planDetails[i].comment + '" disabled>';
     }
 
+    content += '<br>' + '<input type="button" value="編集" id="deletePlanDetail" onclick="updatePlanDetail()" class="updateBtn">';
     content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail(' + planDetails[i].id + ')" class="btn">';
-    content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
-    selectedPlanDetail = planDetails[i];
+    content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">' + '</form>'; //inputタグにして編集->update対応する
+    // var content = planInfo.title + '<br>' + planDetails[i].name;
+    //         if(planDetails[i].dayToVisit) {
+    //             var date = planDetails[i].dayToVisit.split('-');
+    //             date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+    //             content += '<br>' + '訪問日：' + date;
+    //         }
+    //         if(planDetails[i].timeToVisit) {
+    //             var time = planDetails[i].timeToVisit.split(':');
+    //             time = time[0] + '時' + time[1] + '分';
+    //             content += '<br>' + '予定時間；' + time;
+    //         }
+    //         if(planDetails[i].comment) {
+    //             content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+    //         }
+    //         content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
+    //         content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
+    //         selectedPlanDetail = planDetails[i];
+
     popup.setContent(content);
     var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
     marker.bindPopup(popup); //nowPlan配列にmarkerを追加していく。keyはmarkerのplanDetailのid
@@ -904,7 +933,56 @@ function showPopups(planDetails, planInfo) {
       console.log(nowPlan);
     });
     marker.addTo(map);
-  } //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。
+  } //updateの処理
+
+
+  window.updatePlanDetail = function () {
+    var fetchPlanDetail = document.querySelector('.fetchForm');
+
+    var _iterator = _createForOfIteratorHelper(fetchPlanDetail),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var tag = _step.value;
+        console.log(tag);
+        tag.disabled = false;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    fetchPlanDetail.disabled = false;
+    var url = "/updatePlanDetail";
+    var formData = new FormData(fetchPlanDetail);
+
+    var _iterator2 = _createForOfIteratorHelper(formData.entries()),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var value = _step2.value;
+        console.log(value);
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    }).then(function (response) {
+      console.log('ok');
+      console.log(response);
+      return response.json();
+    }).then(function (data) {
+      console.log(data);
+    });
+  }; //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。
 
 
   window.deletePlanDetail = function (id) {
@@ -922,7 +1000,8 @@ function showPopups(planDetails, planInfo) {
 
   function deleteDetail() {
     return _deleteDetail.apply(this, arguments);
-  } //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
+  } // 編集注はほかのを編集できないように・編集をキャンセルされたら、元の情報にもどる
+  //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
 
 
   function _deleteDetail() {
@@ -964,15 +1043,7 @@ function showPopups(planDetails, planInfo) {
   var lastDestination = planDetails[planDetails.length - 1];
   var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
   map.setView(lastLatLng);
-} //ファイルが読み込まれたときに、この要素が生成されてないからエラーが出る。jqueryでbodyに付与するとできるようになる。
-// document.getElementById("deletePlanDetail").onclick = function(){
-//     console.log(document.getElementById("deletePlanDetail"));
-// };
-// 削除ボタンがクリックされたときに、fetch/getでplanDetailテーブルから情報を削除する処理を書く
-// window.deletePlanDetail = function(){
-//     console.log('aaa');
-// }  
-//リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
+} //リレーション['plan_detail']の長さが0じゃなかったらその位置へ移動(長さが0ということはplanDetailテーブルにレコードがないということ)
 
 
 if (firstShowPlan['plan_detail'].length === 0) {
