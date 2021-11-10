@@ -30,6 +30,7 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
 Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan'])->middleware('auth:users');
 Route::post('/registerPlanDetail', [ApiController::class, 'registerPlanDetail'])->middleware('auth:users');
 Route::get('/deletePlanDetail/{id}', [ApiController::class, 'deletePlanDetail'])->middleware(('auth:users'));
+Route::post('/updatePlanDetail', [ApiController::class, 'updatePlanDetail'])->middleware(('auth:users'));
 Route::prefix('admins')->middleware('auth:admins')->group(function () {
     Route::get('dashboard', [MultiAuthController::class, 'showAdminDashboard'])->name('adminDashboard');
 });
