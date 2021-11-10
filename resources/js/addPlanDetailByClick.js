@@ -1,45 +1,97 @@
 
-
 var selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
 map.on('click', showForm);
-nowMarker = '';
+window.nowMarker = '';
+var popup = L.popup({
+});
 function showForm(e) {
-    var lat = e.latlng.lat;
-    var lng = e.latlng.lng;
-    var marker = L.marker([lat, lng]);
-    var popup = L.popup({
-    });
-    var formContent = '<form class="fetchForm">' +
-        '<input type="hidden" name="_token" value="' + csrf_token + '">' +
-        '旅行地：' + '<input type="text" name="name">' + '<br>' +
-        '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' +
-        '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' +
-        'コメント' + '<input type="text" name="comment">' + '<br>' +
-        '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' +
-        '<input type="hidden" name="lat" value="' + lat + '">' +
-        '<input type="hidden" name="lng" value="' + lng + '">' +
-        '<input type="button" value="送信" onclick="postFetch()" class="btn">' +
-        '<input type="button" value="削除" onclick="deletePopup()" class="btn">' +
-        '</form>';
-    popup.setContent(formContent);
-    marker.bindPopup(popup);
-    marker.addTo(map);
-    marker.on('click',function(e){
-        //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
-        if (!nowMarker == '') {
-            map.removeLayer(nowMarker);
-            nowMarker = '';
-        }
-        nowMarker = marker;
-    });
+    //nowMarkerがなかったらマーカーを立てる処理(addFormでは2つ以上のマーカーを同時に立てられなくするため)
+    if(nowMarker == ''){
+        var lat = e.latlng.lat;
+        var lng = e.latlng.lng;
+        //任意のアイコン
+        // var icon = L.icon({
+        //     iconUrl: 'public/images/icon.png', 
+        // });
+        // var marker = L.marker([lat, lng], { icon: icon });
+        var marker = L.marker([lat, lng]);
+        popup = L.popup({
+        });
+        var formContent = '<form class="fetchForm">' +
+            '<input type="hidden" name="_token" value="' + csrf_token + '">' +
+            '旅行地：' + '<input type="text" name="name">' + '<br>' +
+            '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' +
+            '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' +
+            'コメント' + '<input type="text" name="comment">' + '<br>' +
+            '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' +
+            '<input type="hidden" name="lat" value="' + lat + '">' +
+            '<input type="hidden" name="lng" value="' + lng + '">' +
+            '<input type="button" value="送信" onclick="postFetch()" class="btn">' +
+            '<input type="button" value="削除" onclick="deletePopup()" class="btn">' +
+            '</form>';
+        popup.setContent(formContent);
+        marker.bindPopup(popup);
+        marker.addTo(map);
 
-    // nowMarkerの緯度経度が今のクリックしたマーカーの緯度経度と違うかったらnowMarkerのマーカーを削除
+        // ここから前コード
+        // marker.on('click',function(e){
+            //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
+        //     if (!nowMarker == '') {
+        //         map.removeLayer(nowMarker);
+        //         nowMarker = '';
+        //     }
+        //     nowMarker = marker;
+        // });
+        // ここまで前コード
+
+        //2つ目のマーカーをクリックした時点でnowMarkerが更新されているのが問題
+        // ここでチェックしてからnowMarkerを更新することでDB取得以外のものを消えないようにしたい
+
+        marker.on('click',function(e){
+            // let nowMarker = window.nowMarker;
+            //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
+            // if(nowMarker == ''){
+            //     nowMarker = marker;
+            // } else {
+            //     var content = nowMarker._popup._content;
+            //     var div = document.createElement('div');
+            //     div.style.display = 'none';
+            //     div.innerHTML = content;
+            //     document.body.appendChild(div);
+            //     if(document.getElementsByClassName('fetchForm')){
+            //         map.removeLayer(nowMarker);
+            //         nowMarker = marker;
+            //     }
+            //     document.body.removeChild(div);
+            //     nowMarker = marker;
+            // }
+
+            if (!nowMarker == '' && nowMarker != this) {
+                let content = nowMarker._popup._content;
+                if(content.indexOf('form') > -1){
+                    map.removeLayer(nowMarker);
+                };
+                window.nowMarker = '';
+            }
+            window.nowMarker = this;
+        });
+    } else {
+        $(function(){
+            setInterval(function(){
+            $(".leaflet-marker-icon leaflet-zoom-animated leaflet-interactive").fadeOut(500).fadeIn(500);
+            },1000);
+            });
+            // alert('aaa');
+        alert('フォームポップアップは1つのみ表示可能です');
+      
+    }
 }
 //ポップアップの削除ボタンを押したときに、マーカーを削除
 deletePopup = function(){
-    map.removeLayer(nowMarker);
+    map.removeLayer(window.nowMarker);
+    nowMarker = '';
 }
 
 // fetchでPOSTしていく
@@ -71,6 +123,37 @@ postFetch = function(){
     .then((data) => {
         // consoleでdataを出力しましょう
         console.log(data);
+
+        var formContent = document.querySelector('.fetchForm');
+        var content = formContent.elements['name'].value;
+        content += '<br>' + '<input type="button" name="deleteBtn" value="削除">';
+        formContent.remove();
+        // map.removeLayer(nowMarker);
+        // var registeredPopup = L.popup({
+        //     closeOnClick: false,
+        //     autoClose: false
+        // });
+        
+        popup.setContent(content);
+        // nowMarker.bindPopup(popup);
+        // var content = planInfo.title + '<br>' + planDetails[i].name;
+        //             if(planDetails[i].dayToVisit) {
+        //                 var date = planDetails[i].dayToVisit.split('-');
+        //                 date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+        //                 content += '<br>' + '訪問日：' + date;
+        //             }
+        //             if(planDetails[i].timeToVisit) {
+        //                 var time = planDetails[i].timeToVisit.split(':');
+        //                 time = time[0] + '時' + time[1] + '分';
+        //                 content += '<br>' + '予定時間；' + time;
+        //             }
+        //             if(planDetails[i].comment) {
+        //                 content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
+        //             }
+        //             content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
+        //             content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
+        //             selectedPlanDetail = planDetails[i];
+
     })
     .catch((error) => {
         console.log(error)
