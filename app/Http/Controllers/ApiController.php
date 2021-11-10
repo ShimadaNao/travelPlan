@@ -63,4 +63,30 @@ class ApiController extends Controller
         // return $deleteResult;
         return $deletedContent;
     }
+
+    public function updatePlanDetail(Request $request)
+    {   
+        $planDetail_id = $request->planDetail_id;
+        $data = [
+            'name' => $request->planDetailName,
+        ];
+        if(isset($date)){
+            $data['dayToVisit'] = $request->date;
+        }
+        if(isset($time)){
+            $data['time'] = $request->time;
+        }
+        if(isset($comment)){
+            $data['comment'] = $request->comment;
+        }
+        $updatedPlanDetail = $this->planDetailModel->where('id', $planDetail_id)->update($data);
+        if ($updatedPlanDetail >= 1) {
+            $updateMsg = '更新しました';
+        } else {
+            $updateMsg = '更新できませんでした';
+        }
+        $updatedData = $this->planDetailModel->where('id', $planDetail_id)->first();
+
+        return [$updateMsg, $updatedData];
+    }
 }
