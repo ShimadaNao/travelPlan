@@ -5,7 +5,11 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     var firstShowLat = firstShowPlan['country']['lat'];
     var firstShowLng = firstShowPlan['country']['lng'];
     var selectedPlanDetail = '';
-    var nowPlan = {};
+    window.nowPlan = {};
+    window.popupOnDisplay = '';
+    window.selectedMarkerContent = '';
+    //クリックしたマーカーを格納していく配列
+    window.clickedMarkers = {};
     //planDetailテーブルにデータがあればshowpopupsが動く
     function showPopups(planDetails, planInfo) {
         for (let i = 0; i < planDetails.length; i++) {
@@ -36,8 +40,8 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                         // content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
                         content += '<br>' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' +  planDetails[i].comment + '" disabled>';
                     }
-                    content += '<br>' + '<input type="button" value="編集" id="deletePlanDetail" onclick="updatePlanDetail()" class="updateBtn">';
-                    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
+                    content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="updateBtn">';
+                    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
                     content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">' + '</form>';
 
 
@@ -66,8 +70,47 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             nowPlan[planDetails[i].id] = marker;
             marker.on('click',function(e){
                 console.log(nowPlan);
+                popupOnDisplay = nowPlan[planDetails[i].id];
+                //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納していく
+                clickedMarkers[planDetails[i].id] = marker;
+                console.log(clickedMarkers);
+                // console.log(popupOnDisplay);
             });
             marker.addTo(map);
+        }
+
+        window.editPlanDetail = function(e,id) {
+            //ここでmarker
+            //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
+            // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
+
+            c = e.currentTarget
+            //結果<input type=​"button" value=​"編集" id=​"editPlanDetail" onclick=​"window.editPlanDetail(event,94)​" class=​"updateBtn">​
+            fet = c.closest(".fetchForm")
+            // でformの要素が取得できるこれにfor文でdisabledfalseにしていく
+            var lastClickedMarker = clickedMarkers[clickedMarkers.length-1];
+            console.log(lastClickedMarker);
+            console.log(popupOnDisplay);
+            selectedMarkerContent = popupOnDisplay._popup._content;
+            var div = document.createElement('div');
+            div.style.display = 'none';
+            div.innerHTML = selectedMarkerContent;
+            document.body.appendChild(div);
+            console.log(selectedMarkerContent);
+            console.log(this);
+            // for(var tag of selectedMarkerContent){
+            //     console.log(tag);
+            // }
+
+            var form = this.document.querySelector('.fetchForm');
+            // if(popupOnDisplay != '' && popupOnDisplay != this){
+                    // alert ('他のポップアップを表示中のため編集できません');
+                // }else{
+                for(var tag of form){
+                    console.log(tag);
+                    tag.disabled = false;
+                }
+            // }
         }
 
         //updateの処理

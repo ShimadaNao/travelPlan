@@ -872,18 +872,22 @@ var firstShowPlan = window.firstShowPlan;
 var firstShowLat = firstShowPlan['country']['lat'];
 var firstShowLng = firstShowPlan['country']['lng'];
 var selectedPlanDetail = '';
-var nowPlan = {}; //planDetailテーブルにデータがあればshowpopupsが動く
+window.nowPlan = {};
+window.popupOnDisplay = '';
+window.selectedMarkerContent = ''; //クリックしたマーカーを格納していく配列
+
+window.clickedMarkers = {}; //planDetailテーブルにデータがあればshowpopupsが動く
 
 function showPopups(planDetails, planInfo) {
-  for (var i = 0; i < planDetails.length; i++) {
-    var popup = L.popup({
+  var _loop = function _loop(i) {
+    popup = L.popup({
       closeOnClick: false,
       autoClose: false
     });
-    var content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<input type="text" name="title" value="' + planInfo.title + '" disabled>' + '<br>' + '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
+    content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<input type="text" name="title" value="' + planInfo.title + '" disabled>' + '<br>' + '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
 
     if (planDetails[i].dayToVisit) {
-      var date = planDetails[i].dayToVisit; // date = date[0] + '-' + date[1] + '-' + date[2];
+      date = planDetails[i].dayToVisit; // date = date[0] + '-' + date[1] + '-' + date[2];
       // date = date[0] + '年' + date[1] + '月' + date[2] + '日';
       // content += '<br>' + '訪問日：' + date;
 
@@ -891,7 +895,7 @@ function showPopups(planDetails, planInfo) {
     }
 
     if (planDetails[i].timeToVisit) {
-      var time = planDetails[i].timeToVisit.split(':');
+      time = planDetails[i].timeToVisit.split(':');
       time = time[0] + ':' + time[1]; // time = time[0] + '時' + time[1] + '分';
       // content += '<br>' + '予定時間；' + time;
 
@@ -903,8 +907,8 @@ function showPopups(planDetails, planInfo) {
       content += '<br>' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' + planDetails[i].comment + '" disabled>';
     }
 
-    content += '<br>' + '<input type="button" value="編集" id="deletePlanDetail" onclick="updatePlanDetail()" class="updateBtn">';
-    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail(' + planDetails[i].id + ')" class="btn">';
+    content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="updateBtn">';
+    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail(' + planDetails[i].id + ')" class="btn">';
     content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">' + '</form>'; //inputタグにして編集->update対応する
     // var content = planInfo.title + '<br>' + planDetails[i].name;
     //         if(planDetails[i].dayToVisit) {
@@ -931,15 +935,45 @@ function showPopups(planDetails, planInfo) {
     nowPlan[planDetails[i].id] = marker;
     marker.on('click', function (e) {
       console.log(nowPlan);
+      popupOnDisplay = nowPlan[planDetails[i].id]; //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納していく
+
+      clickedMarkers[planDetails[i].id] = marker;
+      console.log(clickedMarkers); // console.log(popupOnDisplay);
     });
     marker.addTo(map);
-  } //updateの処理
+  };
 
+  for (var i = 0; i < planDetails.length; i++) {
+    var popup;
+    var content;
+    var date;
+    var time;
 
-  window.updatePlanDetail = function () {
-    var fetchPlanDetail = document.querySelector('.fetchForm');
+    _loop(i);
+  }
 
-    var _iterator = _createForOfIteratorHelper(fetchPlanDetail),
+  window.editPlanDetail = function (e, id) {
+    //ここでmarker
+    //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
+    // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
+    var lastClickedMarker = clickedMarkers[clickedMarkers.length - 1];
+    console.log(lastClickedMarker);
+    console.log(popupOnDisplay);
+    selectedMarkerContent = popupOnDisplay._popup._content;
+    var div = document.createElement('div');
+    div.style.display = 'none';
+    div.innerHTML = selectedMarkerContent;
+    document.body.appendChild(div);
+    console.log(selectedMarkerContent);
+    console.log(this); // for(var tag of selectedMarkerContent){
+    //     console.log(tag);
+    // }
+
+    var form = this.document.querySelector('.fetchForm'); // if(popupOnDisplay != '' && popupOnDisplay != this){
+    // alert ('他のポップアップを表示中のため編集できません');
+    // }else{
+
+    var _iterator = _createForOfIteratorHelper(form),
         _step;
 
     try {
@@ -947,29 +981,50 @@ function showPopups(planDetails, planInfo) {
         var tag = _step.value;
         console.log(tag);
         tag.disabled = false;
-      }
+      } // }
+
     } catch (err) {
       _iterator.e(err);
     } finally {
       _iterator.f();
+    }
+  }; //updateの処理
+
+
+  window.updatePlanDetail = function () {
+    var fetchPlanDetail = document.querySelector('.fetchForm');
+
+    var _iterator2 = _createForOfIteratorHelper(fetchPlanDetail),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var tag = _step2.value;
+        console.log(tag);
+        tag.disabled = false;
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
     }
 
     fetchPlanDetail.disabled = false;
     var url = "/updatePlanDetail";
     var formData = new FormData(fetchPlanDetail);
 
-    var _iterator2 = _createForOfIteratorHelper(formData.entries()),
-        _step2;
+    var _iterator3 = _createForOfIteratorHelper(formData.entries()),
+        _step3;
 
     try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var value = _step2.value;
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var value = _step3.value;
         console.log(value);
       }
     } catch (err) {
-      _iterator2.e(err);
+      _iterator3.e(err);
     } finally {
-      _iterator2.f();
+      _iterator3.f();
     }
 
     fetch(url, {
