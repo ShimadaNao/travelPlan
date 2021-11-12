@@ -874,7 +874,10 @@ var firstShowLng = firstShowPlan['country']['lng'];
 var selectedPlanDetail = '';
 window.nowPlan = {};
 window.popupOnDisplay = '';
-window.selectedMarkerContent = ''; //クリックしたマーカーを格納していく配列
+window.selectedMarkerContent = '';
+window.clickedEditBtn = '';
+window.clickedEditForm = '';
+window.editingPlanDetail = ''; //クリックしたマーカーを格納していく配列
 
 window.clickedMarkers = {}; //planDetailテーブルにデータがあればshowpopupsが動く
 
@@ -907,7 +910,8 @@ function showPopups(planDetails, planInfo) {
       content += '<br>' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' + planDetails[i].comment + '" disabled>';
     }
 
-    content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="updateBtn">';
+    content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="editBtn">';
+    content += '<br>' + '<input type="button" value="更新"  onclick="updatePlanDetail(event,' + planDetails[i].id + ')" class="updateBtn" class="bg-black" disabled>';
     content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail(' + planDetails[i].id + ')" class="btn">';
     content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">' + '</form>'; //inputタグにして編集->update対応する
     // var content = planInfo.title + '<br>' + planDetails[i].name;
@@ -956,75 +960,70 @@ function showPopups(planDetails, planInfo) {
     //ここでmarker
     //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
     // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
-    var lastClickedMarker = clickedMarkers[clickedMarkers.length - 1];
-    console.log(lastClickedMarker);
-    console.log(popupOnDisplay);
-    selectedMarkerContent = popupOnDisplay._popup._content;
-    var div = document.createElement('div');
-    div.style.display = 'none';
-    div.innerHTML = selectedMarkerContent;
-    document.body.appendChild(div);
-    console.log(selectedMarkerContent);
-    console.log(this); // for(var tag of selectedMarkerContent){
+    if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
+      clickedEditBtn = e.currentTarget;
+      clickedEditForm = clickedEditBtn.closest(".fetchForm");
+
+      var _iterator = _createForOfIteratorHelper(clickedEditForm),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var tag = _step.value;
+          tag.disabled = false; // editingPlanDetail = 
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    } else {
+      alert('他のプランの編集を完了してからクリックしてください');
+    } // でformの要素が取得できるこれにfor文でdisabledfalseにしていく
+    // var lastClickedMarker = clickedMarkers[clickedMarkers.length-1];
+    // console.log(lastClickedMarker);
+    // console.log(popupOnDisplay);
+    // selectedMarkerContent = popupOnDisplay._popup._content;
+    // var div = document.createElement('div');
+    // div.style.display = 'none';
+    // div.innerHTML = selectedMarkerContent;
+    // document.body.appendChild(div);
+    // console.log(selectedMarkerContent);
+    // console.log(this);
+    // for(var tag of selectedMarkerContent){
     //     console.log(tag);
     // }
-
-    var form = this.document.querySelector('.fetchForm'); // if(popupOnDisplay != '' && popupOnDisplay != this){
+    // var form = this.document.querySelector('.fetchForm');
+    // if(popupOnDisplay != '' && popupOnDisplay != this){
     // alert ('他のポップアップを表示中のため編集できません');
     // }else{
+    // for(var tag of form){
+    //     console.log(tag);
+    //     tag.disabled = false;
+    // }
+    // }
 
-    var _iterator = _createForOfIteratorHelper(form),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var tag = _step.value;
-        console.log(tag);
-        tag.disabled = false;
-      } // }
-
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
   }; //updateの処理
 
 
-  window.updatePlanDetail = function () {
-    var fetchPlanDetail = document.querySelector('.fetchForm');
+  window.updatePlanDetail = function (e, id) {
+    // const fetchPlanDetail = document.querySelector('.fetchForm');
+    var fetchPlanDetail = e.currentTarget.closest('.fetchForm');
+    var url = "/updatePlanDetail";
+    var formData = new FormData(fetchPlanDetail);
 
-    var _iterator2 = _createForOfIteratorHelper(fetchPlanDetail),
+    var _iterator2 = _createForOfIteratorHelper(formData.entries()),
         _step2;
 
     try {
       for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var tag = _step2.value;
-        console.log(tag);
-        tag.disabled = false;
+        var value = _step2.value;
+        console.log(value);
       }
     } catch (err) {
       _iterator2.e(err);
     } finally {
       _iterator2.f();
-    }
-
-    fetchPlanDetail.disabled = false;
-    var url = "/updatePlanDetail";
-    var formData = new FormData(fetchPlanDetail);
-
-    var _iterator3 = _createForOfIteratorHelper(formData.entries()),
-        _step3;
-
-    try {
-      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-        var value = _step3.value;
-        console.log(value);
-      }
-    } catch (err) {
-      _iterator3.e(err);
-    } finally {
-      _iterator3.f();
     }
 
     fetch(url, {
@@ -1036,6 +1035,7 @@ function showPopups(planDetails, planInfo) {
       return response.json();
     }).then(function (data) {
       console.log(data);
+      clickedEditBtn = '';
     });
   }; //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。
 
