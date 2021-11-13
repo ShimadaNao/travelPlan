@@ -877,7 +877,8 @@ window.popupOnDisplay = '';
 window.selectedMarkerContent = '';
 window.clickedEditBtn = '';
 window.clickedEditForm = '';
-window.editingPlanDetail = ''; //クリックしたマーカーを格納していく配列
+window.editingPlanDetail = '';
+window.fetchPlanDetail = ''; //クリックしたマーカーを格納していく配列
 
 window.clickedMarkers = {}; //planDetailテーブルにデータがあればshowpopupsが動く
 
@@ -887,7 +888,11 @@ function showPopups(planDetails, planInfo) {
       closeOnClick: false,
       autoClose: false
     });
-    content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<input type="text" name="title" value="' + planInfo.title + '" disabled>' + '<br>' + '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
+    myPlans = document.querySelector('[name = "myPlans"]');
+    selectedPlan = myPlans.value; //選択中のoptionタグのvalueが入る
+
+    selectedPlanText = document.querySelector('option[value="' + selectedPlan + '"]').text;
+    content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<p>' + selectedPlanText + '</p>' + '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
 
     if (planDetails[i].dayToVisit) {
       date = planDetails[i].dayToVisit; // date = date[0] + '-' + date[1] + '-' + date[2];
@@ -949,6 +954,9 @@ function showPopups(planDetails, planInfo) {
 
   for (var i = 0; i < planDetails.length; i++) {
     var popup;
+    var myPlans;
+    var selectedPlan;
+    var selectedPlanText;
     var content;
     var date;
     var time;
@@ -1008,7 +1016,7 @@ function showPopups(planDetails, planInfo) {
 
   window.updatePlanDetail = function (e, id) {
     // const fetchPlanDetail = document.querySelector('.fetchForm');
-    var fetchPlanDetail = e.currentTarget.closest('.fetchForm');
+    fetchPlanDetail = e.currentTarget.closest('.fetchForm');
     var url = "/updatePlanDetail";
     var formData = new FormData(fetchPlanDetail);
 
@@ -1035,6 +1043,7 @@ function showPopups(planDetails, planInfo) {
       return response.json();
     }).then(function (data) {
       console.log(data);
+      var planDetailName = document.querySelector('input[name="planDetailName"]');
       clickedEditBtn = '';
     });
   }; //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。

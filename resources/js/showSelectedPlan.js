@@ -11,6 +11,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
     window.clickedEditBtn = '';
     window.clickedEditForm = '';
     window.editingPlanDetail = '';
+    window.fetchPlanDetail = '';
     //クリックしたマーカーを格納していく配列
     window.clickedMarkers = {};
     //planDetailテーブルにデータがあればshowpopupsが動く
@@ -20,10 +21,13 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                 closeOnClick: false,
                 autoClose: false
             });
+            var myPlans = document.querySelector('[name = "myPlans"]');
+            var selectedPlan = myPlans.value;//選択中のoptionタグのvalueが入る
+            var selectedPlanText = document.querySelector('option[value="' + selectedPlan + '"]').text;
 
             var content = '<form class="fetchForm">' +
             '<input type="hidden" name="_token" value="' + csrf_token + '">' +
-            '<input type="text" name="title" value="' + planInfo.title + '" disabled>' + '<br>' +
+            '<p>' + selectedPlanText + '</p>' +
             '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
                     if(planDetails[i].dayToVisit) {
                         var date = planDetails[i].dayToVisit;
@@ -126,7 +130,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
         //updateの処理
         window.updatePlanDetail = function(e, id){
             // const fetchPlanDetail = document.querySelector('.fetchForm');
-            const fetchPlanDetail = e.currentTarget.closest('.fetchForm');
+            fetchPlanDetail = e.currentTarget.closest('.fetchForm');
             const url = "/updatePlanDetail";
             let formData = new FormData(fetchPlanDetail);
             for (let value of formData.entries()) {
