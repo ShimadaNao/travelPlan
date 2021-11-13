@@ -70,13 +70,13 @@ class ApiController extends Controller
         $data = [
             'name' => $request->planDetailName,
         ];
-        if(isset($date)){
+        if(isset($request->date)){
             $data['dayToVisit'] = $request->date;
         }
-        if(isset($time)){
-            $data['time'] = $request->time;
+        if(isset($request->time)){
+            $data['timeToVisit'] = $request->time;
         }
-        if(isset($comment)){
+        if(isset($request->comment)){
             $data['comment'] = $request->comment;
         }
         $updatedPlanDetail = $this->planDetailModel->where('id', $planDetail_id)->update($data);
