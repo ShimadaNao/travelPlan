@@ -52,25 +52,6 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                     content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
                     content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">' + '</form>';
 
-
-            //inputタグにして編集->update対応する
-            // var content = planInfo.title + '<br>' + planDetails[i].name;
-            //         if(planDetails[i].dayToVisit) {
-            //             var date = planDetails[i].dayToVisit.split('-');
-            //             date = date[0] + '年' + date[1] + '月' + date[2] + '日';
-            //             content += '<br>' + '訪問日：' + date;
-            //         }
-            //         if(planDetails[i].timeToVisit) {
-            //             var time = planDetails[i].timeToVisit.split(':');
-            //             time = time[0] + '時' + time[1] + '分';
-            //             content += '<br>' + '予定時間；' + time;
-            //         }
-            //         if(planDetails[i].comment) {
-            //             content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
-            //         }
-            //         content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
-            //         content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
-            //         selectedPlanDetail = planDetails[i];
             popup.setContent(content);
             let marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
             marker.bindPopup(popup);
@@ -87,100 +68,13 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             marker.addTo(map);
         }
 
-        window.editPlanDetail = function(e,id) {
-            //ここでmarker
-            //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
-            // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
-            if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
-                clickedEditBtn = e.currentTarget;
-                clickedEditForm = clickedEditBtn.closest(".fetchForm");
-                for (var tag of clickedEditForm) {
-                    tag.disabled = false;
-                    // editingPlanDetail = 
-                }
-            } else {
-                alert('他のプランの編集を完了してからクリックしてください');
-            }
-            // でformの要素が取得できるこれにfor文でdisabledfalseにしていく
-            // var lastClickedMarker = clickedMarkers[clickedMarkers.length-1];
-            // console.log(lastClickedMarker);
-            // console.log(popupOnDisplay);
-            // selectedMarkerContent = popupOnDisplay._popup._content;
-            // var div = document.createElement('div');
-            // div.style.display = 'none';
-            // div.innerHTML = selectedMarkerContent;
-            // document.body.appendChild(div);
-            // console.log(selectedMarkerContent);
-            // console.log(this);
-            // for(var tag of selectedMarkerContent){
-            //     console.log(tag);
-            // }
-
-            // var form = this.document.querySelector('.fetchForm');
-            // if(popupOnDisplay != '' && popupOnDisplay != this){
-                    // alert ('他のポップアップを表示中のため編集できません');
-                // }else{
-                // for(var tag of form){
-                //     console.log(tag);
-                //     tag.disabled = false;
-                // }
-            // }
-        }
-
-        //updateの処理
-        window.updatePlanDetail = function(e, id){
-            // const fetchPlanDetail = document.querySelector('.fetchForm');
-            fetchPlanDetail = e.currentTarget.closest('.fetchForm');
-            const url = "/updatePlanDetail";
-            let formData = new FormData(fetchPlanDetail);
-            for (let value of formData.entries()) {
-                console.log(value);
-            }
-            fetch(url, {
-                method:'POST',
-                body:formData,
-            })
-            .then((response) => {
-                console.log('ok');
-                console.log(response);
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                clickedEditBtn = '';
-            })
-        }
-
-        //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。
-        window.deletePlanDetail = function(id){
-            console.log(id);
-            deleteDetail("/deletePlanDetail/" + id)
-                .then((response) => {
-                    console.log('ok');
-                    console.log(response);
-                    return response;
-                })
-                .then(data => {
-                    console.log(data);
-                    map.removeLayer(nowPlan[id]);
-                    delete nowPlan[id];
-                });
-        }
-        async function deleteDetail(url = '') {
-            const response = await fetch(url, {
-                method: 'GET',
-                mode: 'cors',
-                cache: 'no-cache',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                referrerPolicy: 'no-referrer'
-            })
-            // return response.text();
-            return response.json();
-        }
-// 編集注はほかのを編集できないように・編集をキャンセルされたら、元の情報にもどる
+        //ここからedit
+        //ここまでedit
+        //ここからupdate
+        //ここまでupdate
+        //ここからdelete
+        //ここまでdelete
+        
         //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
         var lastDestination = planDetails[planDetails.length -1];
         var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
@@ -234,4 +128,93 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
         })
         return response.json(); // レスポンスの JSON を解析
     };
-    
+
+    //edit処理
+    window.editPlanDetail = function(e,id) {
+        //ここでmarker
+        //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
+        // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
+        if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
+            clickedEditBtn = e.currentTarget;
+            clickedEditForm = clickedEditBtn.closest(".fetchForm");
+            for (var tag of clickedEditForm) {
+                tag.disabled = false;
+                // editingPlanDetail = 
+            }
+        } else {
+            alert('他のプランの編集を完了してからクリックしてください');
+        }
+    }
+
+    //updateの処理
+    window.updatePlanDetail = function(e, id){
+        // const fetchPlanDetail = document.querySelector('.fetchForm');
+        fetchPlanDetail = e.currentTarget.closest('.fetchForm');
+        const url = "/updatePlanDetail";
+        let formData = new FormData(fetchPlanDetail);
+        for (let value of formData.entries()) {
+            console.log(value);
+        }
+        fetch(url, {
+            method:'POST',
+            body:formData,
+        })
+        .then((response) => {
+            console.log('ok');
+            console.log(response);
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            var updatedDetailId = data[1]["id"];
+            let div = document.createElement('div');
+            div.innerHTML = nowPlan[updatedDetailId]._popup._content;
+            if(div.querySelector("input[name='date']")){
+                let date = div.querySelector("input[name='date']");
+                date.setAttribute("value", data[1]["dayToVisit"]);
+            }
+            if(div.querySelector("input[name='time']")){
+                let time = div.querySelector("input[name='time']");
+                time.setAttribute('value', data[1]["timeToVisit"]);
+            }
+            if(div.querySelector("input[name='comment']")){
+                let comment = div.querySelector("input[name='comment']");
+                comment.setAttribute('value', data[1]["comment"]);
+            }
+            let name = div.querySelector("input[name='planDetailName']");
+            name.setAttribute("value",data[1]["name"]);
+            let form = div.querySelector("form");
+            nowPlan[updatedDetailId]._popup._content = form.outerHTML
+            clickedEditBtn = '';
+        })
+    }
+
+    window.deletePlanDetail = function(id){
+        console.log(id);
+        deleteDetail("/deletePlanDetail/" + id)
+            .then((response) => {
+                console.log('ok');
+                console.log(response);
+                return response;
+            })
+            .then(data => {
+                console.log(data);
+                map.removeLayer(nowPlan[id]);
+                delete nowPlan[id];
+            });
+    }
+    async function deleteDetail(url = '') {
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            referrerPolicy: 'no-referrer'
+        })
+        // return response.text();
+        return response.json();
+    }
+

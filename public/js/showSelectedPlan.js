@@ -856,15 +856,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content; //予定を見るからきたら、セレクトボックスの最初に表示されるプランの位置へ移動。新規登録から来たときは、そのプランの位置へ移動
 
@@ -918,25 +918,7 @@ function showPopups(planDetails, planInfo) {
     content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="editBtn">';
     content += '<br>' + '<input type="button" value="更新"  onclick="updatePlanDetail(event,' + planDetails[i].id + ')" class="updateBtn" class="bg-black" disabled>';
     content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail(' + planDetails[i].id + ')" class="btn">';
-    content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">' + '</form>'; //inputタグにして編集->update対応する
-    // var content = planInfo.title + '<br>' + planDetails[i].name;
-    //         if(planDetails[i].dayToVisit) {
-    //             var date = planDetails[i].dayToVisit.split('-');
-    //             date = date[0] + '年' + date[1] + '月' + date[2] + '日';
-    //             content += '<br>' + '訪問日：' + date;
-    //         }
-    //         if(planDetails[i].timeToVisit) {
-    //             var time = planDetails[i].timeToVisit.split(':');
-    //             time = time[0] + '時' + time[1] + '分';
-    //             content += '<br>' + '予定時間；' + time;
-    //         }
-    //         if(planDetails[i].comment) {
-    //             content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
-    //         }
-    //         content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
-    //         content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
-    //         selectedPlanDetail = planDetails[i];
-
+    content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">' + '</form>';
     popup.setContent(content);
     var marker = L.marker([Number(planDetails[i].latitude), Number(planDetails[i].longitude)]);
     marker.bindPopup(popup); //nowPlan配列にmarkerを追加していく。keyはmarkerのplanDetailのid
@@ -962,147 +944,14 @@ function showPopups(planDetails, planInfo) {
     var time;
 
     _loop(i);
-  }
-
-  window.editPlanDetail = function (e, id) {
-    //ここでmarker
-    //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
-    // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
-    if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
-      clickedEditBtn = e.currentTarget;
-      clickedEditForm = clickedEditBtn.closest(".fetchForm");
-
-      var _iterator = _createForOfIteratorHelper(clickedEditForm),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var tag = _step.value;
-          tag.disabled = false; // editingPlanDetail = 
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-    } else {
-      alert('他のプランの編集を完了してからクリックしてください');
-    } // でformの要素が取得できるこれにfor文でdisabledfalseにしていく
-    // var lastClickedMarker = clickedMarkers[clickedMarkers.length-1];
-    // console.log(lastClickedMarker);
-    // console.log(popupOnDisplay);
-    // selectedMarkerContent = popupOnDisplay._popup._content;
-    // var div = document.createElement('div');
-    // div.style.display = 'none';
-    // div.innerHTML = selectedMarkerContent;
-    // document.body.appendChild(div);
-    // console.log(selectedMarkerContent);
-    // console.log(this);
-    // for(var tag of selectedMarkerContent){
-    //     console.log(tag);
-    // }
-    // var form = this.document.querySelector('.fetchForm');
-    // if(popupOnDisplay != '' && popupOnDisplay != this){
-    // alert ('他のポップアップを表示中のため編集できません');
-    // }else{
-    // for(var tag of form){
-    //     console.log(tag);
-    //     tag.disabled = false;
-    // }
-    // }
-
-  }; //updateの処理
-
-
-  window.updatePlanDetail = function (e, id) {
-    // const fetchPlanDetail = document.querySelector('.fetchForm');
-    fetchPlanDetail = e.currentTarget.closest('.fetchForm');
-    var url = "/updatePlanDetail";
-    var formData = new FormData(fetchPlanDetail);
-
-    var _iterator2 = _createForOfIteratorHelper(formData.entries()),
-        _step2;
-
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var value = _step2.value;
-        console.log(value);
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-
-    fetch(url, {
-      method: 'POST',
-      body: formData
-    }).then(function (response) {
-      console.log('ok');
-      console.log(response);
-      return response.json();
-    }).then(function (data) {
-      console.log(data);
-      var planDetailName = document.querySelector('input[name="planDetailName"]');
-      clickedEditBtn = '';
-    });
-  }; //ポップアップの削除ボタンを押したときに走るdeletePlanDetail()の引数にplan_idを持たせて、それをここで取得して削除する。
-
-
-  window.deletePlanDetail = function (id) {
-    console.log(id);
-    deleteDetail("/deletePlanDetail/" + id).then(function (response) {
-      console.log('ok');
-      console.log(response);
-      return response;
-    }).then(function (data) {
-      console.log(data);
-      map.removeLayer(nowPlan[id]);
-      delete nowPlan[id];
-    });
-  };
-
-  function deleteDetail() {
-    return _deleteDetail.apply(this, arguments);
-  } // 編集注はほかのを編集できないように・編集をキャンセルされたら、元の情報にもどる
+  } //ここからedit
+  //ここまでedit
+  //ここからupdate
+  //ここまでupdate
+  //ここからdelete
+  //ここまでdelete
   //選ばれた計画に対応するplanDetailテーブルにある最後のレコードを取得し、その緯度に表示移動
 
-
-  function _deleteDetail() {
-    _deleteDetail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var url,
-          response,
-          _args = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              url = _args.length > 0 && _args[0] !== undefined ? _args[0] : '';
-              _context.next = 3;
-              return fetch(url, {
-                method: 'GET',
-                mode: 'cors',
-                cache: 'no-cache',
-                credentials: 'same-origin',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                referrerPolicy: 'no-referrer'
-              });
-
-            case 3:
-              response = _context.sent;
-              return _context.abrupt("return", response.json());
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-    return _deleteDetail.apply(this, arguments);
-  }
 
   var lastDestination = planDetails[planDetails.length - 1];
   var lastLatLng = [Number(lastDestination["latitude"]), Number(lastDestination["longitude"])];
@@ -1152,16 +1001,16 @@ function getData() {
 }
 
 function _getData() {
-  _getData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+  _getData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var url,
         response,
-        _args2 = arguments;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        _args = arguments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context.prev = _context.next) {
           case 0:
-            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : '';
-            _context2.next = 3;
+            url = _args.length > 0 && _args[0] !== undefined ? _args[0] : '';
+            _context.next = 3;
             return fetch(url, {
               method: 'GET',
               // *GET, POST, PUT, DELETE, etc.
@@ -1179,6 +1028,144 @@ function _getData() {
             });
 
           case 3:
+            response = _context.sent;
+            return _context.abrupt("return", response.json());
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _getData.apply(this, arguments);
+}
+
+; //edit処理
+
+window.editPlanDetail = function (e, id) {
+  //ここでmarker
+  //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
+  // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
+  if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
+    clickedEditBtn = e.currentTarget;
+    clickedEditForm = clickedEditBtn.closest(".fetchForm");
+
+    var _iterator = _createForOfIteratorHelper(clickedEditForm),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var tag = _step.value;
+        tag.disabled = false; // editingPlanDetail = 
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  } else {
+    alert('他のプランの編集を完了してからクリックしてください');
+  }
+}; //updateの処理
+
+
+window.updatePlanDetail = function (e, id) {
+  // const fetchPlanDetail = document.querySelector('.fetchForm');
+  fetchPlanDetail = e.currentTarget.closest('.fetchForm');
+  var url = "/updatePlanDetail";
+  var formData = new FormData(fetchPlanDetail);
+
+  var _iterator2 = _createForOfIteratorHelper(formData.entries()),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var value = _step2.value;
+      console.log(value);
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  fetch(url, {
+    method: 'POST',
+    body: formData
+  }).then(function (response) {
+    console.log('ok');
+    console.log(response);
+    return response.json();
+  }).then(function (data) {
+    console.log(data);
+    var updatedDetailId = data[1]["id"];
+    var div = document.createElement('div');
+    div.innerHTML = nowPlan[updatedDetailId]._popup._content;
+
+    if (div.querySelector("input[name='date']")) {
+      var date = div.querySelector("input[name='date']");
+      date.setAttribute("value", data[1]["dayToVisit"]);
+    }
+
+    if (div.querySelector("input[name='time']")) {
+      var time = div.querySelector("input[name='time']");
+      time.setAttribute('value', data[1]["timeToVisit"]);
+    }
+
+    if (div.querySelector("input[name='comment']")) {
+      var comment = div.querySelector("input[name='comment']");
+      comment.setAttribute('value', data[1]["comment"]);
+    }
+
+    var name = div.querySelector("input[name='planDetailName']");
+    name.setAttribute("value", data[1]["name"]);
+    var form = div.querySelector("form");
+    nowPlan[updatedDetailId]._popup._content = form.outerHTML;
+    clickedEditBtn = '';
+  });
+};
+
+window.deletePlanDetail = function (id) {
+  console.log(id);
+  deleteDetail("/deletePlanDetail/" + id).then(function (response) {
+    console.log('ok');
+    console.log(response);
+    return response;
+  }).then(function (data) {
+    console.log(data);
+    map.removeLayer(nowPlan[id]);
+    delete nowPlan[id];
+  });
+};
+
+function deleteDetail() {
+  return _deleteDetail.apply(this, arguments);
+}
+
+function _deleteDetail() {
+  _deleteDetail = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    var url,
+        response,
+        _args2 = arguments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            url = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : '';
+            _context2.next = 3;
+            return fetch(url, {
+              method: 'GET',
+              mode: 'cors',
+              cache: 'no-cache',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              referrerPolicy: 'no-referrer'
+            });
+
+          case 3:
             response = _context2.sent;
             return _context2.abrupt("return", response.json());
 
@@ -1189,10 +1176,8 @@ function _getData() {
       }
     }, _callee2);
   }));
-  return _getData.apply(this, arguments);
+  return _deleteDetail.apply(this, arguments);
 }
-
-;
 })();
 
 /******/ })()
