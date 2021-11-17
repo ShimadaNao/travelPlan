@@ -160,9 +160,13 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             body:formData,
         })
         .then((response) => {
+            if(!response.ok){
+                throw new Error(response.statusText);
+            } else {
             console.log('ok');
             console.log(response);
             return response.json();
+            }
         })
         .then((data) => {
             console.log(data);
@@ -186,7 +190,12 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             let form = div.querySelector("form");
             nowPlan[updatedDetailId]._popup._content = form.outerHTML
             clickedEditBtn = '';
+            nowPlan[updatedDetailId].closePopup(); //更新したポップアップを閉じる
+            alert('旅行計画を更新しました！');
         })
+        .catch(error => {
+            alert('エラーが発生しました', error);
+        });
     }
 
     window.deletePlanDetail = function(id){

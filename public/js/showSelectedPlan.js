@@ -1094,9 +1094,13 @@ window.updatePlanDetail = function (e, id) {
     method: 'POST',
     body: formData
   }).then(function (response) {
-    console.log('ok');
-    console.log(response);
-    return response.json();
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    } else {
+      console.log('ok');
+      console.log(response);
+      return response.json();
+    }
   }).then(function (data) {
     console.log(data);
     var updatedDetailId = data[1]["id"];
@@ -1123,6 +1127,11 @@ window.updatePlanDetail = function (e, id) {
     var form = div.querySelector("form");
     nowPlan[updatedDetailId]._popup._content = form.outerHTML;
     clickedEditBtn = '';
+    nowPlan[updatedDetailId].closePopup(); //更新したポップアップを閉じる
+
+    alert('旅行計画を更新しました！');
+  })["catch"](function (error) {
+    alert('エラーが発生しました', error);
   });
 };
 
