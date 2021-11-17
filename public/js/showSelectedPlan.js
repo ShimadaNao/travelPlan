@@ -1115,12 +1115,20 @@ window.updatePlanDetail = function (e, id) {
     if (div.querySelector("input[name='time']")) {
       var time = div.querySelector("input[name='time']");
       time.setAttribute('value', data[1]["timeToVisit"]);
-    }
+    } //コメントが空で更新されたらコメントinputを削除
 
-    if (div.querySelector("input[name='comment']")) {
-      var comment = div.querySelector("input[name='comment']");
+
+    var comment = div.querySelector("input[name='comment']");
+
+    if (comment && data[1]['comment'] === null) {
+      comment.remove();
+    } else {
       comment.setAttribute('value', data[1]["comment"]);
-    }
+    } // if(div.querySelector("input[name='comment']")){
+    //     let comment = div.querySelector("input[name='comment']");
+    //     comment.setAttribute('value', data[1]["comment"]);
+    // }
+
 
     var name = div.querySelector("input[name='planDetailName']");
     name.setAttribute("value", data[1]["name"]);

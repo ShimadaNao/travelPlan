@@ -181,10 +181,18 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                 let time = div.querySelector("input[name='time']");
                 time.setAttribute('value', data[1]["timeToVisit"]);
             }
-            if(div.querySelector("input[name='comment']")){
-                let comment = div.querySelector("input[name='comment']");
+            //コメントが空で更新されたらコメントinputを削除
+            var comment = div.querySelector("input[name='comment']");
+            if(comment && data[1]['comment'] === null){
+                comment.remove();
+            }else{
                 comment.setAttribute('value', data[1]["comment"]);
             }
+            // if(div.querySelector("input[name='comment']")){
+            //     let comment = div.querySelector("input[name='comment']");
+            //     comment.setAttribute('value', data[1]["comment"]);
+            // }
+    
             let name = div.querySelector("input[name='planDetailName']");
             name.setAttribute("value",data[1]["name"]);
             let form = div.querySelector("form");
