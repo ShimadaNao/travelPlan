@@ -45,7 +45,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                     }
                     if(planDetails[i].comment) {
                         // content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
-                        content += '<br>' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' +  planDetails[i].comment + '" disabled>';
+                        content += '<br>' + '<div class="commentTag">' +'!コメント!' + '<br>' + '<input type="text" name="comment" value="' +  planDetails[i].comment + '" disabled>' + '</div>';
                     }
                     content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="editBtn">';
                     content += '<br>' + '<input type="button" value="更新"  onclick="updatePlanDetail(event,' + planDetails[i].id + ')" class="updateBtn" class="bg-black" disabled>';
@@ -181,18 +181,17 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                 let time = div.querySelector("input[name='time']");
                 time.setAttribute('value', data[1]["timeToVisit"]);
             }
-            //コメントが空で更新されたらコメントinputを削除
-            var comment = div.querySelector("input[name='comment']");
+            //コメントが空で更新されたらコメントブロックを削除
+            // var comment = div.querySelector("input[name='comment']");
+            var commentBlock = div.querySelector("div[class='commentTag']");
+            var comment = commentBlock.querySelector("input[name='comment']");
             if(comment && data[1]['comment'] === null){
-                comment.remove();
+                commentBlock.remove();
             }else{
                 comment.setAttribute('value', data[1]["comment"]);
             }
-            // if(div.querySelector("input[name='comment']")){
-            //     let comment = div.querySelector("input[name='comment']");
-            //     comment.setAttribute('value', data[1]["comment"]);
-            // }
-    
+            //ここまでコメント空で更新されたらブロックを削除
+
             let name = div.querySelector("input[name='planDetailName']");
             name.setAttribute("value",data[1]["name"]);
             let form = div.querySelector("form");

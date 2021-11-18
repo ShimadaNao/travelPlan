@@ -912,7 +912,7 @@ function showPopups(planDetails, planInfo) {
 
     if (planDetails[i].comment) {
       // content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
-      content += '<br>' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' + planDetails[i].comment + '" disabled>';
+      content += '<br>' + '<div class="commentTag">' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' + planDetails[i].comment + '" disabled>' + '</div>';
     }
 
     content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="editBtn">';
@@ -1115,13 +1115,15 @@ window.updatePlanDetail = function (e, id) {
     if (div.querySelector("input[name='time']")) {
       var time = div.querySelector("input[name='time']");
       time.setAttribute('value', data[1]["timeToVisit"]);
-    } //コメントが空で更新されたらコメントinputを削除
+    } //コメントが空で更新されたらコメントブロックを削除
+    // var comment = div.querySelector("input[name='comment']");
 
 
-    var comment = div.querySelector("input[name='comment']");
+    var commentBlock = div.querySelector("div[class='commentTag']");
+    var comment = commentBlock.querySelector("input[name='comment']");
 
     if (comment && data[1]['comment'] === null) {
-      comment.remove();
+      commentBlock.remove();
     } else {
       comment.setAttribute('value', data[1]["comment"]);
     } // if(div.querySelector("input[name='comment']")){
