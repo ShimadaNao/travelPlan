@@ -134,16 +134,29 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
         //ここでmarker
         //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
         // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
-        if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
+        // if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
             clickedEditBtn = e.currentTarget;
             clickedEditForm = clickedEditBtn.closest(".fetchForm");
+            //編集ボタンをクリックしたら、コメント用のinputがなかったら追加する処理
+            if(!(clickedEditForm.querySelector("div[class='commentTag']"))){
+                var editBtn = clickedEditForm.querySelector("input[class='editBtn']");
+                var newBlock = document.createElement('div');
+                newBlock.classList.add('commentTag');
+                newBlock.textContent = 'コメント';
+                editBtn.before(newBlock);
+                var newInput = document.createElement('input');
+                newInput.setAttribute('type', 'text');
+                newInput.setAttribute('name', 'comment');
+                newBlock.after(newInput);
+            }
+            //ここまでコメント用input
             for (var tag of clickedEditForm) {
                 tag.disabled = false;
                 // editingPlanDetail = 
             }
-        } else {
-            alert('他のプランの編集を完了してからクリックしてください');
-        }
+        // } else {
+        //     alert('他のプランの編集を完了してからクリックしてください');
+        // }
     }
 
     //updateの処理
@@ -173,6 +186,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             var updatedDetailId = data[1]["id"];
             let div = document.createElement('div');
             div.innerHTML = nowPlan[updatedDetailId]._popup._content;
+            //上でpopup._content取得している(divに入るのは元のコメントがなかったときのもの)だから._popup._contentにコメント欄を登録しないといけない
             if(div.querySelector("input[name='date']")){
                 let date = div.querySelector("input[name='date']");
                 date.setAttribute("value", data[1]["dayToVisit"]);
@@ -183,13 +197,25 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             }
             //コメントが空で更新されたらコメントブロックを削除
             // var comment = div.querySelector("input[name='comment']");
-            var commentBlock = div.querySelector("div[class='commentTag']");
-            var comment = commentBlock.querySelector("input[name='comment']");
-            if(comment && data[1]['comment'] === null){
-                commentBlock.remove();
-            }else{
-                comment.setAttribute('value', data[1]["comment"]);
-            }
+            //ここで取得しているのはただの画面上のhtmlの話で、leafletのポップアップではないから更新したときに反映されない
+                // data[1]["comment"]があったらeditのhtml追加のようにnewBlock.classList.add('commentTag');していくとよいかも
+                var commentBlock = div.querySelector("div[class='commentTag']");
+                //commentBlock ? commentBlock.querySelector("input[name='comment']") : false;
+                if(commentBlock){
+                var comment = commentBlock.querySelector("input[name='comment']");
+                    if (comment && data[1]['comment'] === null) {
+                        commentBlock.remove();
+                    } else {
+                    comment.setAttribute('value', data[1]["comment"]);
+                    }
+                }
+            // var commentBlock = div.querySelector("div[class='commentTag']");
+            // var comment = commentBlock.querySelector("input[name='comment']");
+            // if(comment && data[1]['comment'] === null){
+            //     commentBlock.remove();
+            // }else{
+            //     comment.setAttribute('value', data[1]["comment"]);
+            // }
             //ここまでコメント空で更新されたらブロックを削除
 
             let name = div.querySelector("input[name='planDetailName']");

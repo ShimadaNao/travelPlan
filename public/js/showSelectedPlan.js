@@ -1047,25 +1047,38 @@ window.editPlanDetail = function (e, id) {
   //ここでmarker
   //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
   // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
-  if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
-    clickedEditBtn = e.currentTarget;
-    clickedEditForm = clickedEditBtn.closest(".fetchForm");
+  // if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
+  clickedEditBtn = e.currentTarget;
+  clickedEditForm = clickedEditBtn.closest(".fetchForm"); //編集ボタンをクリックしたら、コメント用のinputがなかったら追加する処理
 
-    var _iterator = _createForOfIteratorHelper(clickedEditForm),
-        _step;
+  if (!clickedEditForm.querySelector("div[class='commentTag']")) {
+    var editBtn = clickedEditForm.querySelector("input[class='editBtn']");
+    var newBlock = document.createElement('div');
+    newBlock.classList.add('commentTag');
+    newBlock.textContent = 'コメント';
+    editBtn.before(newBlock);
+    var newInput = document.createElement('input');
+    newInput.setAttribute('type', 'text');
+    newInput.setAttribute('name', 'comment');
+    newBlock.after(newInput);
+  } //ここまでコメント用input
 
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var tag = _step.value;
-        tag.disabled = false; // editingPlanDetail = 
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-  } else {
-    alert('他のプランの編集を完了してからクリックしてください');
+
+  var _iterator = _createForOfIteratorHelper(clickedEditForm),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var tag = _step.value;
+      tag.disabled = false; // editingPlanDetail = 
+    } // } else {
+    //     alert('他のプランの編集を完了してからクリックしてください');
+    // }
+
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
   }
 }; //updateの処理
 
@@ -1119,17 +1132,24 @@ window.updatePlanDetail = function (e, id) {
     // var comment = div.querySelector("input[name='comment']");
 
 
-    var commentBlock = div.querySelector("div[class='commentTag']");
-    var comment = commentBlock.querySelector("input[name='comment']");
+    var commentBlock = div.querySelector("div[class='commentTag']"); //commentBlock ? commentBlock.querySelector("input[name='comment']") : false;
 
-    if (comment && data[1]['comment'] === null) {
-      commentBlock.remove();
-    } else {
-      comment.setAttribute('value', data[1]["comment"]);
-    } // if(div.querySelector("input[name='comment']")){
-    //     let comment = div.querySelector("input[name='comment']");
+    if (commentBlock) {
+      var comment = commentBlock.querySelector("input[name='comment']");
+
+      if (comment && data[1]['comment'] === null) {
+        commentBlock.remove();
+      } else {
+        comment.setAttribute('value', data[1]["comment"]);
+      }
+    } // var commentBlock = div.querySelector("div[class='commentTag']");
+    // var comment = commentBlock.querySelector("input[name='comment']");
+    // if(comment && data[1]['comment'] === null){
+    //     commentBlock.remove();
+    // }else{
     //     comment.setAttribute('value', data[1]["comment"]);
     // }
+    //ここまでコメント空で更新されたらブロックを削除
 
 
     var name = div.querySelector("input[name='planDetailName']");
