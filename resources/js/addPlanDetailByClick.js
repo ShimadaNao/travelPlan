@@ -80,14 +80,7 @@ function showForm(e) {
             window.nowMarker = this;
         });
     } else {
-        $(function(){
-            setInterval(function(){
-            $(".leaflet-marker-icon leaflet-zoom-animated leaflet-interactive").fadeOut(500).fadeIn(500);
-            },1000);
-            });
-            // alert('aaa');
         alert('フォームポップアップは1つのみ表示可能です');
-      
     }
 }
 //ポップアップの削除ボタンを押したときに、マーカーを削除
