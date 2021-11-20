@@ -45,7 +45,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                     }
                     if(planDetails[i].comment) {
                         // content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
-                        content += '<br>' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' +  planDetails[i].comment + '" disabled>';
+                        content += '<br>' + '<div class="commentTag">' +'!コメント!' + '<br>' + '<input type="text" name="comment" value="' +  planDetails[i].comment + '" disabled>' + '</div>';
                     }
                     content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + planDetails[i].id + ')" class="editBtn">';
                     content += '<br>' + '<input type="button" value="更新"  onclick="updatePlanDetail(event,' + planDetails[i].id + ')" class="updateBtn" class="bg-black" disabled>';
@@ -134,16 +134,29 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
         //ここでmarker
         //マーカークリックでそのマーカーをclickedMarkersキーをそのplanDetailテーブルidとしてに格納したけど、連想配列のキーとしてidを入れているので
         // 最後にクリックしたものでもidが早い番号だと先に入ってしまい、length-1で正確に取得できない。
-        if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
+        // if (clickedEditBtn == '' || clickedEditBtn == e.currentTarget) {
             clickedEditBtn = e.currentTarget;
             clickedEditForm = clickedEditBtn.closest(".fetchForm");
+            //編集ボタンをクリックしたら、コメント用のinputがなかったら追加する処理
+            if(!(clickedEditForm.querySelector("div[class='commentTag']"))){
+                var editBtn = clickedEditForm.querySelector("input[class='editBtn']");
+                var newBlock = document.createElement('div');
+                newBlock.classList.add('commentTag');
+                newBlock.textContent = 'コメント';
+                editBtn.before(newBlock);
+                var newInput = document.createElement('input');
+                newInput.setAttribute('type', 'text');
+                newInput.setAttribute('name', 'comment');
+                newBlock.after(newInput);
+            }
+            //ここまでコメント用input
             for (var tag of clickedEditForm) {
                 tag.disabled = false;
                 // editingPlanDetail = 
             }
-        } else {
-            alert('他のプランの編集を完了してからクリックしてください');
-        }
+        // } else {
+        //     alert('他のプランの編集を完了してからクリックしてください');
+        // }
     }
 
     //updateの処理
@@ -173,6 +186,22 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             var updatedDetailId = data[1]["id"];
             let div = document.createElement('div');
             div.innerHTML = nowPlan[updatedDetailId]._popup._content;
+            //元々commentTagがなくて更新された情報にcommentがあったらpopupにdivタグ, inputタグ追加
+            if(!(div.querySelector("div[class='commentTag']")) && data[1]['comment']){
+                var editBtn = div.querySelector("input[class='editBtn']");
+                // まず<div class="commentTag">を編集ボタンの直前に追加
+                var newCommentBlock = document.createElement('div');
+                newCommentBlock.classList.add('commentTag');
+                newCommentBlock.textContent = 'コメント';
+                editBtn.before(newCommentBlock);
+                // 次にcomment用のinputタグを先に作成した<div class="commentTag">の末尾に追加
+                var commentInput = document.createElement('input');
+                commentInput.setAttribute("type", "text");
+                commentInput.setAttribute("name", "comment");
+                commentInput.setAttribute("value", data[1]['comment']);
+                commentInput.setAttribute("disabled", true);
+                newCommentBlock.appendChild(commentInput);
+            }
             if(div.querySelector("input[name='date']")){
                 let date = div.querySelector("input[name='date']");
                 date.setAttribute("value", data[1]["dayToVisit"]);
@@ -181,10 +210,17 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                 let time = div.querySelector("input[name='time']");
                 time.setAttribute('value', data[1]["timeToVisit"]);
             }
-            if(div.querySelector("input[name='comment']")){
-                let comment = div.querySelector("input[name='comment']");
-                comment.setAttribute('value', data[1]["comment"]);
-            }
+            //コメントが空で更新されたらコメントブロックを削除
+                var commentBlock = div.querySelector("div[class='commentTag']");
+                //commentBlock ? commentBlock.querySelector("input[name='comment']") : false;
+                if(commentBlock){
+                var comment = commentBlock.querySelector("input[name='comment']");
+                    if (data[1]['comment'] === null) {
+                        commentBlock.remove();
+                    } else {
+                    comment.setAttribute('value', data[1]["comment"]);
+                    }
+                }
             let name = div.querySelector("input[name='planDetailName']");
             name.setAttribute("value",data[1]["name"]);
             let form = div.querySelector("form");

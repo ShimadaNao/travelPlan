@@ -76,8 +76,11 @@ class ApiController extends Controller
         if(isset($request->time)){
             $data['timeToVisit'] = $request->time;
         }
+        //コメントがあったらそれを追加、コメントがない若しくは空だったらnullを代入
         if(isset($request->comment)){
             $data['comment'] = $request->comment;
+        } else {
+            $data['comment'] = null;
         }
         $updatedPlanDetail = $this->planDetailModel->where('id', $planDetail_id)->update($data);
         if ($updatedPlanDetail >= 1) {
