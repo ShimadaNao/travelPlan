@@ -1,4 +1,3 @@
-
 window.selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
@@ -9,6 +8,7 @@ var popup = L.popup({
 function showForm(e) {
     //nowMarkerがなかったらマーカーを立てる処理(addFormでは2つ以上のマーカーを同時に立てられなくするため)
     if(nowMarker == ''){
+        nowMarker = this;
         var lat = e.latlng.lat;
         var lng = e.latlng.lng;
         //任意のアイコン
@@ -36,47 +36,8 @@ function showForm(e) {
         popup.setContent(formContent);
         marker.bindPopup(popup);
         marker.addTo(map);
-
-        // ここから前コード
-        // marker.on('click',function(e){
-            //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
-        //     if (!nowMarker == '') {
-        //         map.removeLayer(nowMarker);
-        //         nowMarker = '';
-        //     }
-        //     nowMarker = marker;
-        // });
-        // ここまで前コード
-
-        //2つ目のマーカーをクリックした時点でnowMarkerが更新されているのが問題
-        // ここでチェックしてからnowMarkerを更新することでDB取得以外のものを消えないようにしたい
-
+        
         marker.on('click',function(e){
-            // let nowMarker = window.nowMarker;
-            //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
-            // if(nowMarker == ''){
-            //     nowMarker = marker;
-            // } else {
-            //     var content = nowMarker._popup._content;
-            //     var div = document.createElement('div');
-            //     div.style.display = 'none';
-            //     div.innerHTML = content;
-            //     document.body.appendChild(div);
-            //     if(document.getElementsByClassName('fetchForm')){
-            //         map.removeLayer(nowMarker);
-            //         nowMarker = marker;
-            //     }
-            //     document.body.removeChild(div);
-            //     nowMarker = marker;
-            // }
-
-            if (!nowMarker == '' && nowMarker != this) {
-                let content = nowMarker._popup._content;
-                if(content.indexOf('form') > -1){
-                    map.removeLayer(nowMarker);
-                };
-                window.nowMarker = '';
-            }
             window.nowMarker = this;
         });
     } else {
@@ -148,7 +109,7 @@ postFetch = function(){
         //             content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
         //             content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
         //             selectedPlanDetail = planDetails[i];
-
+        nowMarker = '';
     })
     .catch((error) => {
         console.log(error)

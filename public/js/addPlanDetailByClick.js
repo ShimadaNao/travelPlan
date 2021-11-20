@@ -19,6 +19,7 @@ var popup = L.popup({});
 function showForm(e) {
   //nowMarkerがなかったらマーカーを立てる処理(addFormでは2つ以上のマーカーを同時に立てられなくするため)
   if (nowMarker == '') {
+    nowMarker = this;
     var lat = e.latlng.lat;
     var lng = e.latlng.lng; //任意のアイコン
     // var icon = L.icon({
@@ -33,57 +34,11 @@ function showForm(e) {
     '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' + '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' + 'コメント' + '<input type="text" name="comment">' + '<br>' + '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' + '<input type="hidden" name="lat" value="' + lat + '">' + '<input type="hidden" name="lng" value="' + lng + '">' + '<input type="button" value="送信" onclick="postFetch()" class="btn">' + '<input type="button" value="削除" onclick="deletePopup()" class="btn">' + '</form>';
     popup.setContent(formContent);
     marker.bindPopup(popup);
-    marker.addTo(map); // ここから前コード
-    // marker.on('click',function(e){
-    //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
-    //     if (!nowMarker == '') {
-    //         map.removeLayer(nowMarker);
-    //         nowMarker = '';
-    //     }
-    //     nowMarker = marker;
-    // });
-    // ここまで前コード
-    //2つ目のマーカーをクリックした時点でnowMarkerが更新されているのが問題
-    // ここでチェックしてからnowMarkerを更新することでDB取得以外のものを消えないようにしたい
-
+    marker.addTo(map);
     marker.on('click', function (e) {
-      // let nowMarker = window.nowMarker;
-      //マーカーが既にあったら(nowMarkerが生成されていたらnowMarkerを空にしてlayerを削除)
-      // if(nowMarker == ''){
-      //     nowMarker = marker;
-      // } else {
-      //     var content = nowMarker._popup._content;
-      //     var div = document.createElement('div');
-      //     div.style.display = 'none';
-      //     div.innerHTML = content;
-      //     document.body.appendChild(div);
-      //     if(document.getElementsByClassName('fetchForm')){
-      //         map.removeLayer(nowMarker);
-      //         nowMarker = marker;
-      //     }
-      //     document.body.removeChild(div);
-      //     nowMarker = marker;
-      // }
-      if (!nowMarker == '' && nowMarker != this) {
-        var content = nowMarker._popup._content;
-
-        if (content.indexOf('form') > -1) {
-          map.removeLayer(nowMarker);
-        }
-
-        ;
-        window.nowMarker = '';
-      }
-
       window.nowMarker = this;
     });
   } else {
-    $(function () {
-      setInterval(function () {
-        $(".leaflet-marker-icon leaflet-zoom-animated leaflet-interactive").fadeOut(500).fadeIn(500);
-      }, 1000);
-    }); // alert('aaa');
-
     alert('フォームポップアップは1つのみ表示可能です');
   }
 } //ポップアップの削除ボタンを押したときに、マーカーを削除
@@ -159,6 +114,8 @@ postFetch = function postFetch() {
     //             content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
     //             content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
     //             selectedPlanDetail = planDetails[i];
+
+    nowMarker = '';
   })["catch"](function (error) {
     console.log(error);
   });
