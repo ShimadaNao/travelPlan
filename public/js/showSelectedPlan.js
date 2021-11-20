@@ -1118,7 +1118,23 @@ window.updatePlanDetail = function (e, id) {
     console.log(data);
     var updatedDetailId = data[1]["id"];
     var div = document.createElement('div');
-    div.innerHTML = nowPlan[updatedDetailId]._popup._content;
+    div.innerHTML = nowPlan[updatedDetailId]._popup._content; //元々commentTagがなくて更新された情報にcommentがあったらpopupにdivタグ, inputタグ追加
+
+    if (!div.querySelector("div[class='commentTag']") && data[1]['comment']) {
+      var editBtn = div.querySelector("input[class='editBtn']"); // まず<div class="commentTag">を編集ボタンの直前に追加
+
+      var newCommentBlock = document.createElement('div');
+      newCommentBlock.classList.add('commentTag');
+      newCommentBlock.textContent = 'コメント';
+      editBtn.before(newCommentBlock); // 次にcomment用のinputタグを先に作成した<div class="commentTag">の末尾に追加
+
+      var commentInput = document.createElement('input');
+      commentInput.setAttribute("type", "text");
+      commentInput.setAttribute("name", "comment");
+      commentInput.setAttribute("value", data[1]['comment']);
+      commentInput.setAttribute("disabled", true);
+      newCommentBlock.appendChild(commentInput);
+    }
 
     if (div.querySelector("input[name='date']")) {
       var date = div.querySelector("input[name='date']");
@@ -1129,7 +1145,6 @@ window.updatePlanDetail = function (e, id) {
       var time = div.querySelector("input[name='time']");
       time.setAttribute('value', data[1]["timeToVisit"]);
     } //コメントが空で更新されたらコメントブロックを削除
-    // var comment = div.querySelector("input[name='comment']");
 
 
     var commentBlock = div.querySelector("div[class='commentTag']"); //commentBlock ? commentBlock.querySelector("input[name='comment']") : false;
@@ -1137,7 +1152,7 @@ window.updatePlanDetail = function (e, id) {
     if (commentBlock) {
       var comment = commentBlock.querySelector("input[name='comment']");
 
-      if (comment && data[1]['comment'] === null) {
+      if (data[1]['comment'] === null) {
         commentBlock.remove();
       } else {
         comment.setAttribute('value', data[1]["comment"]);

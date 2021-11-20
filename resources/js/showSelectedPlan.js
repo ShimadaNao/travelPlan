@@ -186,7 +186,22 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             var updatedDetailId = data[1]["id"];
             let div = document.createElement('div');
             div.innerHTML = nowPlan[updatedDetailId]._popup._content;
-            //上でpopup._content取得している(divに入るのは元のコメントがなかったときのもの)だから._popup._contentにコメント欄を登録しないといけない
+            //元々commentTagがなくて更新された情報にcommentがあったらpopupにdivタグ, inputタグ追加
+            if(!(div.querySelector("div[class='commentTag']")) && data[1]['comment']){
+                var editBtn = div.querySelector("input[class='editBtn']");
+                // まず<div class="commentTag">を編集ボタンの直前に追加
+                var newCommentBlock = document.createElement('div');
+                newCommentBlock.classList.add('commentTag');
+                newCommentBlock.textContent = 'コメント';
+                editBtn.before(newCommentBlock);
+                // 次にcomment用のinputタグを先に作成した<div class="commentTag">の末尾に追加
+                var commentInput = document.createElement('input');
+                commentInput.setAttribute("type", "text");
+                commentInput.setAttribute("name", "comment");
+                commentInput.setAttribute("value", data[1]['comment']);
+                commentInput.setAttribute("disabled", true);
+                newCommentBlock.appendChild(commentInput);
+            }
             if(div.querySelector("input[name='date']")){
                 let date = div.querySelector("input[name='date']");
                 date.setAttribute("value", data[1]["dayToVisit"]);
@@ -196,28 +211,16 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                 time.setAttribute('value', data[1]["timeToVisit"]);
             }
             //コメントが空で更新されたらコメントブロックを削除
-            // var comment = div.querySelector("input[name='comment']");
-            //ここで取得しているのはただの画面上のhtmlの話で、leafletのポップアップではないから更新したときに反映されない
-                // data[1]["comment"]があったらeditのhtml追加のようにnewBlock.classList.add('commentTag');していくとよいかも
                 var commentBlock = div.querySelector("div[class='commentTag']");
                 //commentBlock ? commentBlock.querySelector("input[name='comment']") : false;
                 if(commentBlock){
                 var comment = commentBlock.querySelector("input[name='comment']");
-                    if (comment && data[1]['comment'] === null) {
+                    if (data[1]['comment'] === null) {
                         commentBlock.remove();
                     } else {
                     comment.setAttribute('value', data[1]["comment"]);
                     }
                 }
-            // var commentBlock = div.querySelector("div[class='commentTag']");
-            // var comment = commentBlock.querySelector("input[name='comment']");
-            // if(comment && data[1]['comment'] === null){
-            //     commentBlock.remove();
-            // }else{
-            //     comment.setAttribute('value', data[1]["comment"]);
-            // }
-            //ここまでコメント空で更新されたらブロックを削除
-
             let name = div.querySelector("input[name='planDetailName']");
             name.setAttribute("value",data[1]["name"]);
             let form = div.querySelector("form");
