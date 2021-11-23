@@ -5,7 +5,8 @@
     email：{{ $data['email'] }}<br>
     パスワード：{{ $data['password'] }}<br>
     </div>
-    <form method="post" action="">
+    <form method="post" action="{{route('completeAdminRegister')}}">
+        @csrf
         <input type="hidden" name="name" value="{{ $data['name'] }}">
         <input type="hidden" name="email" value="{{ $data['email'] }}">
         <input type="hidden" name="password" value="{{ $data['password'] }}">
