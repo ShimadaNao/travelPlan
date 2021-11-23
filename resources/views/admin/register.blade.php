@@ -5,7 +5,7 @@
         @csrf
         管理者名:<input type="text" name="name"><br>
         email:<input type="email" name="email"><br>
-        パスワード:<input type="password"><br>
+        パスワード:<input type="password" name="password"><br>
         <div class="flex justify-center">
         <input type="submit" value="確認する">
         </div>
