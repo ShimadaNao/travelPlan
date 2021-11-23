@@ -47,7 +47,7 @@ class ApiController extends Controller
         $registeredPlanDetail = $this->planDetailModel->registerPlanDetail($planDetail);
         // $registeredPlanDetailId = $registeredPlanDetail->id;
         $registeredPlanMsg = '登録しました';
-        return $registeredPlanMsg;
+        return [$registeredPlanMsg, $planDetail];
     }
 
     public function deletePlanDetail($id)
