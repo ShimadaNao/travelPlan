@@ -17,12 +17,11 @@ class Admin extends Authenticatable
     public function register($data)
     {
         $adminRegistered = $this->firstOrCreate($data);
-        if($adminRegistered->wasRecentlyCreated){
+        if($adminRegistered->wasRecentlyCreated === true){
             $registerMsg = '新規管理者を登録しました';
         } else {
             $registerMsg = '管理者を登録できませんでした';
         }
-
         return $registerMsg;
     }
 }
