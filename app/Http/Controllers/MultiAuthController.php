@@ -49,4 +49,9 @@ class MultiAuthController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function registerAdmin()
+    {
+        return view('admin.register');
+    }
 }
