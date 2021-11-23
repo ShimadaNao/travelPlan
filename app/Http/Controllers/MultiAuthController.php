@@ -54,4 +54,17 @@ class MultiAuthController extends Controller
     {
         return view('admin.register');
     }
+
+    public function confirmAdminRegister(Request $request)
+    {
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        return view('admin.confirmRegister', [
+            'data' => $data,
+        ]);
+    }
 }
