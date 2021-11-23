@@ -80,7 +80,7 @@ postFetch = function postFetch() {
   }).then(function (response) {
     console.log('ok');
     console.log(response);
-    return response.text();
+    return response.json();
   }) // ちゃんとjson形式にレスポンスを変換(したら)(then)
   // .then(res => res.text())
   // .then(text => console.log(text))
