@@ -1157,15 +1157,7 @@ window.updatePlanDetail = function (e, id) {
       } else {
         comment.setAttribute('value', data[1]["comment"]);
       }
-    } // var commentBlock = div.querySelector("div[class='commentTag']");
-    // var comment = commentBlock.querySelector("input[name='comment']");
-    // if(comment && data[1]['comment'] === null){
-    //     commentBlock.remove();
-    // }else{
-    //     comment.setAttribute('value', data[1]["comment"]);
-    // }
-    //ここまでコメント空で更新されたらブロックを削除
-
+    }
 
     var name = div.querySelector("input[name='planDetailName']");
     name.setAttribute("value", data[1]["name"]);
