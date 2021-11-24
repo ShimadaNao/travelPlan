@@ -77,10 +77,12 @@ class MultiAuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ];
-        $registerMsg = $admin->register($data);
-
+        $registerResult = $admin->register($data);
+        $registerMsg = $registerResult[0];
+        $registeredData = $registerResult[1];
         return view('admin.completeRegister', [
-            'registerMsg' => $registerMsg
+            'registerMsg' => $registerMsg,
+            'registeredData' => $registeredData,
         ]);
     }
 }
