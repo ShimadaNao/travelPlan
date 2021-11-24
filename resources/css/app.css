@@ -25,3 +25,12 @@
 #map {
     height:70%;
 }
+.adminRegisterCompleted{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.adminRegisterCompleted p{
+    --tw-text-opacity: 1;
+    color: rgba(52, 211, 153, var(--tw-text-opacity));
+}
