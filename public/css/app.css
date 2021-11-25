@@ -1959,6 +1959,15 @@ select {
 #map {
     height:70%;
 }
+.adminRegisterCompleted{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.adminRegisterCompleted p{
+    --tw-text-opacity: 1;
+    color: rgba(52, 211, 153, var(--tw-text-opacity));
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));

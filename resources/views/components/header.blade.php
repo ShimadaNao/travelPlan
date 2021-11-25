@@ -36,6 +36,9 @@
                     <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">マップ</a></li>
                     <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ショップ</a></li>
                     <li><a href="/logout"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ログアウト</a></li>
+                    @auth('admins')
+                    <li><a href="{{route('registerAdmin')}}"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">管理者登録</a></li>
+                    @endauth
                 </ul>
                 </nav>
         </header>
