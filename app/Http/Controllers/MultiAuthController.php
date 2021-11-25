@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Country;
 use App\Models\Plan;
+use App\Http\Requests\adminRegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -57,7 +58,7 @@ class MultiAuthController extends Controller
         return view('admin.register');
     }
 
-    public function confirmAdminRegister(Request $request)
+    public function confirmAdminRegister(adminRegisterRequest $request)
     {
         $data = [
             'name' => $request->name,
