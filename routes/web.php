@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MultiAuthController;
@@ -31,6 +32,7 @@ Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');
     Route::post('confirmRegister',[MultiAuthController::class, 'confirmAdminRegister'])->name('confirmAdminRegister');
     Route::post('completeRegister', [MultiAuthController::class, 'completeAdminRegister'])->name('completeAdminRegister');
+    Route::post('reAuth', [AdminController::class, 'reAuth'])->name('reAuth');
 });
 Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan'])->middleware('auth:users');
 Route::post('/registerPlanDetail', [ApiController::class, 'registerPlanDetail'])->middleware('auth:users');
