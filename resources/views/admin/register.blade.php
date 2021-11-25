@@ -32,4 +32,13 @@
         </div>
     </form>
     </div>
+    <div class="pwCheck" style="width:80%; padding: 0 20%; margin: 0 20%; background-color:#CCFF33; height:150px; opacity:0.8;">
+        <form class="pwForm">
+            @csrf
+            パスワードを入力してください<br>
+            <input type="password" name="password">
+            <input type="button" value="送信" onclick="pwCheckPost()">
+        </form>
+    </div>
+    <script src="{{ asset('js/adminPwCheck.js') }}"></script>
 </x-header>
