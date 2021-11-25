@@ -4,5 +4,6 @@
     "/js/toppage.js": "/js/toppage.js",
     "/js/showSelectedPlan.js": "/js/showSelectedPlan.js",
     "/js/addPlanDetailByClick.js": "/js/addPlanDetailByClick.js",
+    "/js/adminPwCheck.js": "/js/adminPwCheck.js",
     "/css/app.css": "/css/app.css"
 }

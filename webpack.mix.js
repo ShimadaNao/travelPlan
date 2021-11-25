@@ -16,6 +16,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/toppage.js', 'public/js')
     .js('resources/js/showSelectedPlan.js', 'public/js')
     .js('resources/js/addPlanDetailByClick.js', 'public/js')
+    .js('resources/js/adminPwCheck.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
