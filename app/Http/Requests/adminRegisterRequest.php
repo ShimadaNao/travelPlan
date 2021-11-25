@@ -24,7 +24,7 @@ class adminRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4',
+            'name' => 'required|min:2',
             'email' => 'required|email',
             'password' => 'required|min:5',
         ];
