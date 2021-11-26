@@ -22,7 +22,7 @@ window.pwCheckPost = function(){
         console.log(data);
         //ここから確認していく run devして
         if(data === '認証に失敗しました'){
-            alert('再度認証');
+            alert('再度認証してください');
         } else {
             var checkForm = document.querySelector('.pwCheck');
             checkForm.remove();

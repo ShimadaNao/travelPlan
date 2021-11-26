@@ -42,7 +42,14 @@ window.pwCheckPost = function () {
     console.log('ok!');
     return response.text();
   }).then(function (data) {
-    console.log(data);
+    console.log(data); //ここから確認していく run devして
+
+    if (data === '認証に失敗しました') {
+      alert('再度認証してください');
+    } else {
+      var checkForm = document.querySelector('.pwCheck');
+      checkForm.remove();
+    }
   })["catch"](function (error) {
     console.log(error);
   });
