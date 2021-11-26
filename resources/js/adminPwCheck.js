@@ -20,12 +20,13 @@ window.pwCheckPost = function(){
         return response.text();
     }).then((data) => {
         console.log(data);
-        //ここから確認していく run devして
         if(data === '認証に失敗しました'){
             alert('再度認証してください');
         } else {
             var checkForm = document.querySelector('.pwCheck');
             checkForm.remove();
+            var token_input = document.querySelector('input[name="_token"]');
+            token_input.value = data;
         }
     }).catch((error) => {
         console.log(error);
