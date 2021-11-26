@@ -34,3 +34,25 @@
     --tw-text-opacity: 1;
     color: rgba(52, 211, 153, var(--tw-text-opacity));
 }
+.adminRegisterP{
+    display:flex;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 1.5rem;
+}
+.adminRegisterForm{
+    display:flex;
+    justify-content: center;
+    top: 300px;
+    margin: 100px;
+}
+.pwCheck{
+    /* width:80%; */
+    padding: 20%;
+    margin: 0 20%;
+    position: absolute;
+    top: 200px;
+    background-color:#CCFF33;
+    height:150px;
+    opacity:0.8;
+}
