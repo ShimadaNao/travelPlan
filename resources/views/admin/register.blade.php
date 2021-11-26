@@ -2,7 +2,7 @@
     <p class="adminRegisterP">管理者登録画面です</p>
     <div class="adminRegisterForm">
     <form method="post" action="{{route('confirmAdminRegister')}}">
-        @csrf
+        <input type="hidden" name="_token">
         @if($errors->has('name'))
             @foreach($errors->get('name') as $message)
             <div class="text-red-600">
