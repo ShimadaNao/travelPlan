@@ -36,7 +36,7 @@
         <form class="pwForm">
             @csrf
             パスワードを入力してください<br>
-            <input type="password" name="password">
+            <input type="password" name="password"><br>
             <input type="button" value="送信" onclick="pwCheckPost()">
         </form>
     </div>
