@@ -1,6 +1,6 @@
 <x-header>
-    <p class="flex justify-center">管理者登録画面です</p>
-    <div class="flex justify-center">
+    <p class="adminRegisterP">管理者登録画面です</p>
+    <div class="adminRegisterForm">
     <form method="post" action="{{route('confirmAdminRegister')}}">
         @csrf
         @if($errors->has('name'))
@@ -32,7 +32,7 @@
         </div>
     </form>
     </div>
-    <div class="pwCheck" style="width:80%; padding: 0 20%; margin: 0 20%; background-color:#CCFF33; height:150px; opacity:0.8;">
+    <div class="pwCheck">
         <form class="pwForm">
             @csrf
             パスワードを入力してください<br>
