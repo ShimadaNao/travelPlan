@@ -1968,6 +1968,34 @@ select {
     --tw-text-opacity: 1;
     color: rgba(52, 211, 153, var(--tw-text-opacity));
 }
+.adminRegisterP{
+    display:flex;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 1.5rem;
+}
+.adminRegisterForm{
+    display:flex;
+    justify-content: center;
+    top: 300px;
+    margin: 100px;
+}
+.pwCheck{
+    width: 40%;
+    padding: 10px;
+    position: absolute;
+    top: 200px;
+    background-color:#CCFF33;
+    height:350px;
+    opacity:0.8;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
