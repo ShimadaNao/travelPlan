@@ -17,7 +17,7 @@ class PlanDetail extends Model
 
     public function registerPlanDetail($planDetail)
     {
-        $this->firstOrCreate($planDetail);
+        return $this->firstOrCreate($planDetail);
     }
 
     public function deleteDetail($id)
