@@ -1117,7 +1117,8 @@ window.updatePlanDetail = function (e, id) {
   }).then(function (data) {
     console.log(data);
     var updatedDetailId = data[1]["id"];
-    var div = document.createElement('div');
+    var div = document.createElement('div'); //ここから追加
+
     div.innerHTML = nowPlan[updatedDetailId]._popup._content; //元々commentTagがなくて更新された情報にcommentがあったらpopupにdivタグ, inputタグ追加
 
     if (!div.querySelector("div[class='commentTag']") && data[1]['comment']) {
@@ -1182,6 +1183,7 @@ window.deletePlanDetail = function (id) {
     console.log(data);
     map.removeLayer(nowPlan[id]);
     delete nowPlan[id];
+    window.nowMarker = '';
   });
 };
 

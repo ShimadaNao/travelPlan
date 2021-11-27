@@ -185,6 +185,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             console.log(data);
             var updatedDetailId = data[1]["id"];
             let div = document.createElement('div');
+            //ここから追加
             div.innerHTML = nowPlan[updatedDetailId]._popup._content;
             //元々commentTagがなくて更新された情報にcommentがあったらpopupにdivタグ, inputタグ追加
             if(!(div.querySelector("div[class='commentTag']")) && data[1]['comment']){
@@ -246,6 +247,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                 console.log(data);
                 map.removeLayer(nowPlan[id]);
                 delete nowPlan[id];
+                window.nowMarker = '';
             });
     }
     async function deleteDetail(url = '') {
