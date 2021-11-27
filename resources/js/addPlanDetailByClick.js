@@ -23,7 +23,6 @@ function showForm(e) {
             var formContent = '<form class="fetchForm">' +
             '<input type="hidden" name="_token" value="' + csrf_token + '">' +
             '旅行地：' + '<input type="text" name="name">' + '<br>' +
-            // '旅行地：' + '<input type="text" name="name" value="' + planName + '">' + '<br>' +
             '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' +
             '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' +
             'コメント' + '<input type="text" name="comment">' + '<br>' +
@@ -70,46 +69,38 @@ postFetch = function(){
     })
     .then((response) => {
         console.log('ok');
-        console.log(response);
+        // console.log(response);
         return response.json();
     })
-    // ちゃんとjson形式にレスポンスを変換(したら)(then)
-    // .then(res => res.text())
-    // .then(text => console.log(text))
     .then((data) => {
-        // consoleでdataを出力しましょう
         console.log(data);
-
         var formContent = document.querySelector('.fetchForm');
-        var content = formContent.elements['name'].value;
-        content += '<br>' + '<input type="button" name="deleteBtn" value="削除">';
+        //ここから追加
+        var registeredInfo = data[1];
+        var content = '<form class="fetchForm">' +
+        '<input type="hidden" name="_token" value="' + csrf_token + '">' +
+        '<input type="text" name="planDetailName" value="' + registeredInfo['name'] + '" disabled>' + '<br>';
+        if(registeredInfo.dayToVisit) {
+        var date = registeredInfo.dayToVisit;
+        content += '<br>' + '訪問日：' + '<input type="date" name="date" value="' + date + '" disabled>';
+        }
+        if(registeredInfo.timeToVisit) {
+            var time = registeredInfo.timeToVisit.split(':');
+            time = time[0] + ':' + time[1];
+            content += '<br>' + '予定時間；' +'<input type="time" name="time" value="' + time + '" disabled>';
+        }
+        if(registeredInfo.comment) {
+            content += '<br>' + '<div class="commentTag">' +'!コメント!' + '<br>' + '<input type="text" name="comment" value="' +  registeredInfo.comment + '" disabled>' + '</div>';
+        }
+        content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + registeredInfo.id + ')" class="editBtn">';
+        content += '<br>' + '<input type="button" value="更新"  onclick="updatePlanDetail(event,' + registeredInfo.id + ')" class="updateBtn" class="bg-black" disabled>';
+        content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail('+ registeredInfo.id + ')" class="btn">';
+        content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + registeredInfo.id + '">' + '</form>';
+                    //ここまで追加
         formContent.remove();
-        // map.removeLayer(nowMarker);
-        // var registeredPopup = L.popup({
-        //     closeOnClick: false,
-        //     autoClose: false
-        // });
-        
         popup.setContent(content);
-        // nowMarker.bindPopup(popup);
-        // var content = planInfo.title + '<br>' + planDetails[i].name;
-        //             if(planDetails[i].dayToVisit) {
-        //                 var date = planDetails[i].dayToVisit.split('-');
-        //                 date = date[0] + '年' + date[1] + '月' + date[2] + '日';
-        //                 content += '<br>' + '訪問日：' + date;
-        //             }
-        //             if(planDetails[i].timeToVisit) {
-        //                 var time = planDetails[i].timeToVisit.split(':');
-        //                 time = time[0] + '時' + time[1] + '分';
-        //                 content += '<br>' + '予定時間；' + time;
-        //             }
-        //             if(planDetails[i].comment) {
-        //                 content += '<br>' + '!コメント!' + '<br>' + planDetails[i].comment;
-        //             }
-        //             content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="deletePlanDetail('+ planDetails[i].id + ')" class="btn">';
-        //             content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + planDetails[i].id + '">';
-        //             selectedPlanDetail = planDetails[i];
-        nowMarker = '';
+        nowPlan[registeredInfo.id] = window.nowMarker;
+        window.nowMarker = '';
     })
     .catch((error) => {
         console.log(error)
