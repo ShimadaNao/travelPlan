@@ -77,17 +77,40 @@ postFetch = function postFetch() {
     // consoleにokを出しましょう
 
   }).then(function (response) {
-    console.log('ok');
-    console.log(response);
+    console.log('ok'); // console.log(response);
+
     return response.json();
   }).then(function (data) {
     console.log(data);
-    var formContent = document.querySelector('.fetchForm');
-    var content = formContent.elements['name'].value;
-    content += '<br>' + '<input type="button" name="deleteBtn" value="削除">';
+    var formContent = document.querySelector('.fetchForm'); //ここから追加
+
+    var registeredInfo = data[1];
+    var content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<input type="text" name="planDetailName" value="' + registeredInfo['name'] + '" disabled>' + '<br>';
+
+    if (registeredInfo.dayToVisit) {
+      var date = registeredInfo.dayToVisit;
+      content += '<br>' + '訪問日：' + '<input type="date" name="date" value="' + date + '" disabled>';
+    }
+
+    if (registeredInfo.timeToVisit) {
+      var time = registeredInfo.timeToVisit.split(':');
+      time = time[0] + ':' + time[1];
+      content += '<br>' + '予定時間；' + '<input type="time" name="time" value="' + time + '" disabled>';
+    }
+
+    if (registeredInfo.comment) {
+      content += '<br>' + '<div class="commentTag">' + '!コメント!' + '<br>' + '<input type="text" name="comment" value="' + registeredInfo.comment + '" disabled>' + '</div>';
+    }
+
+    content += '<br>' + '<input type="button" value="編集" id="editPlanDetail" onclick="window.editPlanDetail(event,' + registeredInfo.id + ')" class="editBtn">';
+    content += '<br>' + '<input type="button" value="更新"  onclick="updatePlanDetail(event,' + registeredInfo.id + ')" class="updateBtn" class="bg-black" disabled>';
+    content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail(' + registeredInfo.id + ')" class="btn">';
+    content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + registeredInfo.id + '">' + '</form>'; //ここまで追加
+
     formContent.remove();
     popup.setContent(content);
-    nowMarker = '';
+    nowPlan[registeredInfo.id] = window.nowMarker;
+    window.nowMarker = '';
   })["catch"](function (error) {
     console.log(error);
   });
