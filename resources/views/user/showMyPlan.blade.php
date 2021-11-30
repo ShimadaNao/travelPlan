@@ -17,7 +17,7 @@
     @if(session('msg'))
         {{session('msg')}}
     @endif
-    <div class="selectMyPlan flex justify-center">
+    <div class="selectMyPlan flex justify-center" start="{{ $firstShowPlan['start'] }}" end="{{ $firstShowPlan['end'] }}">
         <select name="myPlans" class="m-3">
             @foreach ($futurePlans as $futurePlan)
                 @if (isset($nowRegisteredPlan)) {{-- 新規登録したらそのプランを表示 --}}
@@ -41,6 +41,8 @@
         <script>
             window.firstShowPlan = '';
             window.firstShowPlan = @json($firstShowPlan);
+            window.futurePlans = '';
+            window.futurePlans = @json($futurePlans);
         </script>
         <script src="{{ mix('js/showSelectedPlan.js') }}"></script>
         <script src="{{ mix('js/addPlanDetailByClick.js') }}"></script>
