@@ -99,6 +99,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             .then(data => { 
             //    console.log(data); // `data.json()` の呼び出しで解釈された JSON データ
                moveToCountry(data); // 緯度と経度のデータ渡すから、マーカー処理してね
+               //ここでdivのstart/endの値を書き換えるdata[0]['start']['end']の値にする
             });
             }
 
