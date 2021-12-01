@@ -4,7 +4,7 @@
     <h3 style="color:green;">これからの旅行</h3>
         <div>
             @foreach($futurePlans as $futurePlan)
-                <a href="">{{ $futurePlan['title'] }}</a><br>
+                <a href="{{ route('planDetailPage', $futurePlan['id']) }}">{{ $futurePlan['title'] }}</a><br>
             @endforeach
         </div>
     </div>
