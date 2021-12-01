@@ -1,3 +1,4 @@
+window.futurePlans = window.futurePlans;
 window.selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
@@ -19,11 +20,14 @@ function showForm(e) {
         var marker = L.marker([lat, lng]);
         popup = L.popup({
         });
+        var travelPeriod = document.querySelector(".selectMyPlan");
+        var start = travelPeriod.getAttribute("start");
+        var end = travelPeriod.getAttribute("end");
         var planName = document.querySelector('option[value="' + selectedPlan.value + '"]').text;
             var formContent = '<form class="fetchForm">' +
             '<input type="hidden" name="_token" value="' + csrf_token + '">' +
             '旅行地：' + '<input type="text" name="name">' + '<br>' +
-            '訪問予定日：' + '<input type="date" name="dayToVisit">' + '<br>' +
+            '訪問予定日：' + '<input type="date" name="dayToVisit" min="' + start  +'" max= "'+ end + '">' + '<br>' +
             '予定時間：' + '<input type="time" name="timeToVisit">' + '<br>' +
             'コメント' + '<input type="text" name="comment">' + '<br>' +
             '<input type="hidden" name="plan_id" value="' + selectedPlan.value + '">' +
