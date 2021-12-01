@@ -69,4 +69,15 @@ class MapController extends Controller
             'firstShowPlan' => $firstShowPlan,
         ]);
     }
+
+    public function showPlanPage()
+    {
+        $plans = $this->planModel->getPlans();
+        $futurePlans = $plans[0];
+        $pastPlans = $plans[1];
+        return view('user.plan', [
+            'futurePlans' => $futurePlans,
+            'pastPlans' => $pastPlans,
+        ]);
+    }
 }
