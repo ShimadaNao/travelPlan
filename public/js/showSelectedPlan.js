@@ -977,6 +977,13 @@ selected.onchange = function (event) {
   getData("/show_MyPlan/" + selected.value).then(function (data) {
     //    console.log(data); // `data.json()` の呼び出しで解釈された JSON データ
     moveToCountry(data); // 緯度と経度のデータ渡すから、マーカー処理してね
+    //ここでdivのstart/endの値を書き換えるdata[0]['start']['end']の値にする
+
+    var divTag = document.querySelector('.selectMyPlan');
+    var startDate = data[0]['start'];
+    var endDate = data[0]['end'];
+    divTag.setAttribute('start', startDate);
+    divTag.setAttribute('end', endDate);
   });
 }; // 緯度と経度のデータをもらったのでマーカーの処理をしますね
 
