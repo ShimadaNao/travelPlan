@@ -80,4 +80,17 @@ class MapController extends Controller
             'pastPlans' => $pastPlans,
         ]);
     }
+
+    public function showPlanDetailPage($id)
+    {
+        $plan = $this->planModel->getSelectedPlan($id);
+        $detailCountryData = $plan['country'];
+        $planInfo = $plan['planDetail'];
+        dd($planInfo);
+        return view('user.planDetail', [
+            'plan' => $plan,
+            'detailCountryData' => $detailCountryData,
+            'planInfo' => $planInfo,
+        ]);
+    }
 }
