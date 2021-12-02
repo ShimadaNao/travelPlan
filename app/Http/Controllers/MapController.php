@@ -85,12 +85,11 @@ class MapController extends Controller
     {
         $plan = $this->planModel->getSelectedPlan($id);
         $detailCountryData = $plan['country'];
-        $planInfo = $plan['planDetail'];
-        dd($planInfo);
+        $planDetailInfo = $plan['planDetail'];
         return view('user.planDetail', [
             'plan' => $plan,
             'detailCountryData' => $detailCountryData,
-            'planInfo' => $planInfo,
+            'planDetailInfo' => $planDetailInfo,
         ]);
     }
 }
