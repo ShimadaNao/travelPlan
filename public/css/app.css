@@ -2015,6 +2015,11 @@ tbody td{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-flow: column;
+    margin-top: 20px;
+}
+div .paginate{
+    margin-top: 20px;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
