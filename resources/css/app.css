@@ -62,3 +62,23 @@
     justify-content: center;
     align-items: center;
 }
+tbody td{
+    border:1px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(30, 64, 175, var(--tw-border-opacity));
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.detailTable{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    margin-top: 20px;
+}
+div .paginate{
+    margin-top: 20px;
+}

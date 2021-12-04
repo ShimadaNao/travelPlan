@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\planRegisterRequest;
 use App\Models\Plan;
+use App\Models\PlanDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
+use Illuminate\Support\Facades\DB;
 
 class MapController extends Controller
 {
-    public function __construct(Plan $plan)
+    public function __construct(Plan $plan, PlanDetail $planDetail)
     {
         $this->planModel = $plan;
+        $this->planDetailModel = $planDetail;
     }
 
     public function showTopPage()
@@ -67,6 +70,30 @@ class MapController extends Controller
             'futurePlans' => $futurePlans,
             'pastPlans' => $pastPlans,
             'firstShowPlan' => $firstShowPlan,
+        ]);
+    }
+
+    public function showPlanPage()
+    {
+        $plans = $this->planModel->getPlans();
+        $futurePlans = $plans[0];
+        $pastPlans = $plans[1];
+        return view('user.plan', [
+            'futurePlans' => $futurePlans,
+            'pastPlans' => $pastPlans,
+        ]);
+    }
+
+    public function showPlanDetailPage($id)
+    {
+        $plan = $this->planModel->getSelectedPlan($id);
+        $planDetail = $this->planDetailModel->getPlanDetail($id);
+        $detailCountryData = $plan['country'];
+
+        return view('user.planDetail', [
+            'plan' => $plan,
+            'detailCountryData' => $detailCountryData,
+            'planDetail' => $planDetail,
         ]);
     }
 }

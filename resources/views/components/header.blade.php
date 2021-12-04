@@ -36,7 +36,7 @@
                 <ul class="flex justify-center">
                     @auth('users')
                     <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">マップ</a></li>
-                    <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ショップ</a></li>
+                    <li><a href="{{ route('planPage') }}"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">計画予定</a></li>
                     <li><a href="/logout"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ログアウト</a></li>
                     @endauth
                     @guest
