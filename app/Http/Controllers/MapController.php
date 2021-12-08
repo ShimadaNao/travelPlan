@@ -73,7 +73,7 @@ class MapController extends Controller
         ]);
     }
 
-    public function showPlanPage()
+    public function showPlanCharts()
     {
         $plans = $this->planModel->getPlans();
         $futurePlans = $plans[0];
@@ -84,7 +84,7 @@ class MapController extends Controller
         ]);
     }
 
-    public function showPlanDetailPage($id)
+    public function showPlanChartDetails($id)
     {
         $plan = $this->planModel->getSelectedPlan($id);
         $planDetail = $this->planDetailModel->getPlanDetail($id);
