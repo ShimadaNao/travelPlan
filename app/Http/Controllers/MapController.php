@@ -73,24 +73,24 @@ class MapController extends Controller
         ]);
     }
 
-    public function showPlanPage()
+    public function showPlanCharts()
     {
         $plans = $this->planModel->getPlans();
         $futurePlans = $plans[0];
         $pastPlans = $plans[1];
-        return view('user.plan', [
+        return view('user.planChart', [
             'futurePlans' => $futurePlans,
             'pastPlans' => $pastPlans,
         ]);
     }
 
-    public function showPlanDetailPage($id)
+    public function showPlanChartDetails($id)
     {
         $plan = $this->planModel->getSelectedPlan($id);
         $planDetail = $this->planDetailModel->getPlanDetail($id);
         $detailCountryData = $plan['country'];
 
-        return view('user.planDetail', [
+        return view('user.planChartDetail', [
             'plan' => $plan,
             'detailCountryData' => $detailCountryData,
             'planDetail' => $planDetail,
