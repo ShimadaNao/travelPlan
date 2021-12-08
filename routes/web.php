@@ -26,8 +26,8 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::post('registerTravelTitle', [MapController::class, 'registerTravelTitle'])->name('registerTravelTitle');
     Route::get('showMyPlan/{id}', [MapController::class, 'showNowRegisteredPlan'])->name('showNowRegisteredPlan');
     Route::get('showMyPlan', [MapController::class, 'showMyPlan'])->name('showMyPlan');
-    Route::get('plans', [MapController::class, 'showPlanPage'])->name('planPage');
-    Route::get('planDetails/{id}', [MapController::class, 'showPlanDetailPage'])->name('planDetailPage');
+    Route::get('plansCharts', [MapController::class, 'showPlanCharts'])->name('planCharts');
+    Route::get('planChartDetails/{id}', [MapController::class, 'showPlanChartDetails'])->name('planChartDetails');
 
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function() {
