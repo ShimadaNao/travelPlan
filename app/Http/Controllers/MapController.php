@@ -78,7 +78,7 @@ class MapController extends Controller
         $plans = $this->planModel->getPlans();
         $futurePlans = $plans[0];
         $pastPlans = $plans[1];
-        return view('user.plan', [
+        return view('user.planChart', [
             'futurePlans' => $futurePlans,
             'pastPlans' => $pastPlans,
         ]);
@@ -90,7 +90,7 @@ class MapController extends Controller
         $planDetail = $this->planDetailModel->getPlanDetail($id);
         $detailCountryData = $plan['country'];
 
-        return view('user.planDetail', [
+        return view('user.planChartDetail', [
             'plan' => $plan,
             'detailCountryData' => $detailCountryData,
             'planDetail' => $planDetail,
