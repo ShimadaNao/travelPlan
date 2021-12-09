@@ -3,8 +3,10 @@ window.selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
 map.on('click', showForm);
+window.markersOnDisplay = {};
 window.nowMarker = '';
 window.fetchForm = '';
+// window.postedPopupContent = '';
 var popup = L.popup({
 });
 function showForm(e) {
@@ -35,20 +37,25 @@ function showForm(e) {
     '<input type="hidden" name="lat" value="' + lat + '">' +
     '<input type="hidden" name="lng" value="' + lng + '">' +
     '<input type="button" value="送信" onclick="postFetch(event)" class="btn">' +
-    '<input type="button" value="削除" onclick="deletePopup()" class="btn">' +
+    '<input type="button" value="削除" onclick="deletePopup(event)" class="btn">' +
     '</form>';
     popup.setContent(formContent);
     marker.bindPopup(popup);
     marker.addTo(map);
-    
+    markersOnDisplay[e.latlng.lat] = marker;
     marker.on('click',function(e){
         window.nowMarker = this;
     });
 }
 //ポップアップの削除ボタンを押したときに、マーカーを削除
-deletePopup = function(){
-    map.removeLayer(window.nowMarker);
-    nowMarker = '';
+deletePopup = function(e){
+    var targetFetchForm = e.currentTarget.closest('.fetchForm');
+    var lat = targetFetchForm.querySelector('input[name="lat"]').value;
+    var stringLat = Number(lat);
+    map.removeLayer(markersOnDisplay[stringLat]);
+    delete markersOnDisplay[stringLat];
+    // map.removeLayer(window.nowMarker);
+    // nowMarker = '';
 }
 
 // fetchでPOSTしていく
@@ -58,6 +65,7 @@ postFetch = function(e){
     //eventオブジェクトで送信ボタンを押したフォームを送信
     var btn = e.currentTarget;
     fetchForm = btn.closest('.fetchForm');
+    // window.postedPopupContent = e.path[2];
     // これだけでPOSTする際のBODYの値が定義できる
     let formData = new FormData(fetchForm);
     // 実際に値を見てみましょう
@@ -103,6 +111,7 @@ postFetch = function(e){
                     //ここまで追加
         formContent.remove();
         popup.setContent(content);
+        // window.postedPopupContent.innerText = content;
         nowPlan[registeredInfo.id] = window.nowMarker;
         window.nowMarker = '';
     })
