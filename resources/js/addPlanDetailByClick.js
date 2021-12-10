@@ -6,7 +6,7 @@ map.on('click', showForm);
 window.markersOnDisplay = {};
 window.nowMarker = '';
 window.fetchForm = '';
-// window.postedPopupContent = '';
+window.postedPopupContent = '';
 var popup = L.popup({
 });
 function showForm(e) {
@@ -65,7 +65,7 @@ postFetch = function(e){
     //eventオブジェクトで送信ボタンを押したフォームを送信
     var btn = e.currentTarget;
     fetchForm = btn.closest('.fetchForm');
-    // window.postedPopupContent = e.path[2];
+    window.postedPopupContent = e.path[2];
     // これだけでPOSTする際のBODYの値が定義できる
     let formData = new FormData(fetchForm);
     // 実際に値を見てみましょう
@@ -109,10 +109,17 @@ postFetch = function(e){
         content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail('+ registeredInfo.id + ')" class="btn">';
         content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + registeredInfo.id + '">' + '</form>';
                     //ここまで追加
-        formContent.remove();
-        popup.setContent(content);
-        // window.postedPopupContent.innerText = content;
-        nowPlan[registeredInfo.id] = window.nowMarker;
+
+        //ここからleafletでポップアップ中身変更
+        var lat = fetchForm.querySelector('input[name="lat"]').value;
+        lat = Number(lat);
+        var posted = markersOnDisplay[lat];
+        posted._popup._content = content;
+        //ここまでleafletでポップアップ中身変更
+        //ここからjavascript見た目
+        window.postedPopupContent.innerHTML = content;
+        //ここまで見た目
+        nowPlan[registeredInfo.id] = posted;
         window.nowMarker = '';
     })
     .catch((error) => {

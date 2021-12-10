@@ -119,11 +119,20 @@ postFetch = function postFetch(e) {
     content += '<br>' + '<input type="button" value="更新"  onclick="updatePlanDetail(event,' + registeredInfo.id + ')" class="updateBtn" class="bg-black" disabled>';
     content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail(' + registeredInfo.id + ')" class="btn">';
     content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + registeredInfo.id + '">' + '</form>'; //ここまで追加
+    //ここから追加
 
-    formContent.remove(); // popup.setContent(content);
+    var lat = fetchForm.querySelector('input[name="lat"]').value;
+    lat = Number(lat);
+    var posted = markersOnDisplay[lat];
+    posted._popup._content = content; //ここから削除
+    //formContent.remove();
+    //popup.setContent(content);
+    //ここまで削除
+    //ここからjavascript見た目
 
-    window.postedPopupContent.innerText = content;
-    nowPlan[registeredInfo.id] = window.nowMarker;
+    window.postedPopupContent.innerHTML = content; //ここまで見た目
+
+    nowPlan[registeredInfo.id] = posted;
     window.nowMarker = '';
   })["catch"](function (error) {
     console.log(error);
