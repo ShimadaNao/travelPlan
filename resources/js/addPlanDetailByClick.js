@@ -3,8 +3,10 @@ window.selectedPlan = document.querySelector('[name = "myPlans"]');
 var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
 console.log(selectedPlan.value);
 map.on('click', showForm);
+window.markersOnDisplay = {};
 window.nowMarker = '';
 window.fetchForm = '';
+window.postedPopupContent = '';
 var popup = L.popup({
 });
 function showForm(e) {
@@ -35,20 +37,25 @@ function showForm(e) {
     '<input type="hidden" name="lat" value="' + lat + '">' +
     '<input type="hidden" name="lng" value="' + lng + '">' +
     '<input type="button" value="送信" onclick="postFetch(event)" class="btn">' +
-    '<input type="button" value="削除" onclick="deletePopup()" class="btn">' +
+    '<input type="button" value="削除" onclick="deletePopup(event)" class="btn">' +
     '</form>';
     popup.setContent(formContent);
     marker.bindPopup(popup);
     marker.addTo(map);
-    
+    markersOnDisplay[e.latlng.lat] = marker;
     marker.on('click',function(e){
         window.nowMarker = this;
     });
 }
 //ポップアップの削除ボタンを押したときに、マーカーを削除
-deletePopup = function(){
-    map.removeLayer(window.nowMarker);
-    nowMarker = '';
+deletePopup = function(e){
+    var targetFetchForm = e.currentTarget.closest('.fetchForm');
+    var lat = targetFetchForm.querySelector('input[name="lat"]').value;
+    var stringLat = Number(lat);
+    map.removeLayer(markersOnDisplay[stringLat]);
+    delete markersOnDisplay[stringLat];
+    // map.removeLayer(window.nowMarker);
+    // nowMarker = '';
 }
 
 // fetchでPOSTしていく
@@ -58,6 +65,7 @@ postFetch = function(e){
     //eventオブジェクトで送信ボタンを押したフォームを送信
     var btn = e.currentTarget;
     fetchForm = btn.closest('.fetchForm');
+    window.postedPopupContent = e.path[2];
     // これだけでPOSTする際のBODYの値が定義できる
     let formData = new FormData(fetchForm);
     // 実際に値を見てみましょう
@@ -101,9 +109,17 @@ postFetch = function(e){
         content += '<br>' + '<input type="button" value="削除" id="deletePlanDetail" onclick="window.deletePlanDetail('+ registeredInfo.id + ')" class="btn">';
         content += '<br>' + '<input type="hidden" name="planDetail_id" value="' + registeredInfo.id + '">' + '</form>';
                     //ここまで追加
-        formContent.remove();
-        popup.setContent(content);
-        nowPlan[registeredInfo.id] = window.nowMarker;
+
+        //ここからleafletでポップアップ中身変更
+        var lat = fetchForm.querySelector('input[name="lat"]').value;
+        lat = Number(lat);
+        var posted = markersOnDisplay[lat];
+        posted._popup._content = content;
+        //ここまでleafletでポップアップ中身変更
+        //ここからjavascript見た目
+        window.postedPopupContent.innerHTML = content;
+        //ここまで見た目
+        nowPlan[registeredInfo.id] = posted;
         window.nowMarker = '';
     })
     .catch((error) => {
