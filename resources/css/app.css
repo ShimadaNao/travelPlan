@@ -86,3 +86,13 @@ div .paginate{
     display: flex;
     justify-content: center;
 }
+.planChartTitle{
+    text-align: center;
+    margin: 30px 0;
+    font-size: 25px;
+    color:hotpink;
+}
+.table-auto{
+    margin: 40px 0;
+    width: 50%;
+}
