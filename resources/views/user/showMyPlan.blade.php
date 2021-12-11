@@ -17,7 +17,7 @@
     @if(session('msg'))
         {{session('msg')}}
     @endif
-    <div class="selectMyPlan flex justify-center" start="{{ $firstShowPlan['start'] }}" end="{{ $firstShowPlan['end'] }}">
+    <div class="selectMyPlan" start="{{ $firstShowPlan['start'] }}" end="{{ $firstShowPlan['end'] }}">
         <select name="myPlans" class="m-3">
             @foreach ($futurePlans as $futurePlan)
                 @if (isset($nowRegisteredPlan)) {{-- 新規登録したらそのプランを表示 --}}
