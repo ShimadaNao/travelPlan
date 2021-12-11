@@ -38,7 +38,7 @@ class PlanDetail extends Model
     {
         $a = $this->where('plan_id', $id)
                     ->orderby('dayToVisit', 'asc')
-                    ->paginate(5);
+                    ->paginate(10);
         return $a;
     }
 }
