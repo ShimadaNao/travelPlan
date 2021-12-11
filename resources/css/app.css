@@ -82,3 +82,7 @@ tbody td{
 div .paginate{
     margin-top: 20px;
 }
+.selectMyPlan{
+    display: flex;
+    justify-content: center;
+}

@@ -1078,15 +1078,26 @@ window.editPlanDetail = function (e, id) {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var tag = _step.value;
       tag.disabled = false; // editingPlanDetail = 
-    } // } else {
-    //     alert('他のプランの編集を完了してからクリックしてください');
-    // }
+    } // 日付があれば、旅行計画の日程内のみ選択可能にするためmin,maxをinputタグに追加
 
   } catch (err) {
     _iterator.e(err);
   } finally {
     _iterator.f();
   }
+
+  var dateTag = clickedEditForm.querySelector('input[name="date"]');
+
+  if (dateTag) {
+    var plan = document.querySelector('div[class="selectMyPlan"]');
+    var start = plan.getAttribute('start');
+    var end = plan.getAttribute('end');
+    dateTag.setAttribute("min", start);
+    dateTag.setAttribute("max", end);
+  } // } else {
+  //     alert('他のプランの編集を完了してからクリックしてください');
+  // }
+
 }; //updateの処理
 
 

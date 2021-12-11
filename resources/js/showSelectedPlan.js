@@ -160,6 +160,16 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
                 tag.disabled = false;
                 // editingPlanDetail = 
             }
+            // 日付があれば、旅行計画の日程内のみ選択可能にするためmin,maxをinputタグに追加
+            var dateTag = clickedEditForm.querySelector('input[name="date"]');
+            if(dateTag){
+               var plan = document.querySelector('div[class="selectMyPlan"]');
+               var start = plan.getAttribute('start');
+               var end = plan.getAttribute('end');
+               dateTag.setAttribute("min", start);
+               dateTag.setAttribute("max", end);
+           }
+
         // } else {
         //     alert('他のプランの編集を完了してからクリックしてください');
         // }
