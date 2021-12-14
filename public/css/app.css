@@ -2025,6 +2025,16 @@ div .paginate{
     display: flex;
     justify-content: center;
 }
+.planChartTitle{
+    text-align: center;
+    margin: 30px 0;
+    font-size: 25px;
+    color:hotpink;
+}
+.table-auto{
+    margin: 40px 0;
+    width: 50%;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));

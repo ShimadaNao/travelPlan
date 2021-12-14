@@ -3,6 +3,10 @@
         @if($planDetail->isEmpty())
             <p>まだプランが登録されていません</p>
         @else
+            <div class="planChartTitle">
+                <h3>{{ $plan['title'] }}</h3>
+                <p>{{ $plan['start'] }}～{{ $plan['end'] }}</p>
+            </div>
             <table class="table-auto">
                 <thead>
                     <tr>
