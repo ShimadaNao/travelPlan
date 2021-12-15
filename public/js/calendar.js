@@ -30,7 +30,11 @@ window.next = function () {
 function showProcess(date) {
   var year = date.getFullYear();
   var month = date.getMonth();
-  document.querySelector('#header').innerHTML = year + "年 " + (month + 1) + "月";
+  document.querySelector('#header').innerHTML = year + "年 " + (month + 1) + "月"; //id="calendar"にmonth属性として'2021-12'等その月を持たせる
+
+  var yearMonth = year + '-' + (month + 1);
+  document.querySelector('#calendar').setAttribute('month', yearMonth); //ここまで
+
   var calendar = createProcess(year, month);
   document.querySelector('#calendar').innerHTML = calendar;
 } // カレンダー作成 このカレンダーをhtml id=calendarのinnerHTMLに代入している
@@ -92,7 +96,8 @@ window.showTravelPlans = function () {
   }
 };
 
-var a = document.querySelector('#header');
-a.onclick = showTravelPlans;
+var titleArea = document.querySelector('#header'); //カレンダー上の2021年12月のところをクリックでshowTravelplansが動く
+
+titleArea.onclick = showTravelPlans;
 /******/ })()
 ;

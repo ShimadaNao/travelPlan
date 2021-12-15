@@ -26,7 +26,10 @@ function showProcess(date) {
     var year = date.getFullYear();
     var month = date.getMonth();
     document.querySelector('#header').innerHTML = year + "年 " + (month + 1) + "月";
-
+    //id="calendar"にmonth属性として'2021-12'等その月を持たせる
+    var yearMonth = year + '-' + (month+1);
+    document.querySelector('#calendar').setAttribute('month', yearMonth);
+    //ここまで
     var calendar = createProcess(year, month);
     document.querySelector('#calendar').innerHTML = calendar;
 }
@@ -75,3 +78,15 @@ function createProcess(year, month) {
     return calendar;
 }
 
+window.showTravelPlans = function(){
+    var showingMonth = document.querySelector('#header').innerText;
+    var thisMonthTdTags = document.querySelectorAll('td:not(.disabled)');//これでtdのdisabled以外が取得可
+    var dates = document.querySelectorAll('td:not(.disabled)')[0].innerText; //これで1つめのinnerText(1,2等の日付)を取得可能
+    //ここを改良してstartと同じカレンダーの日に印をつけていく
+    for(var i =0; i<myPlans.length; i++){
+        console.log(myPlans[i].title);
+        console.log(myPlans[i].start);
+    }
+}
+var titleArea = document.querySelector('#header');//カレンダー上の2021年12月のところをクリックでshowTravelplansが動く
+titleArea.onclick = showTravelPlans;
