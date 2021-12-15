@@ -5,5 +5,6 @@
     "/js/showSelectedPlan.js": "/js/showSelectedPlan.js",
     "/js/addPlanDetailByClick.js": "/js/addPlanDetailByClick.js",
     "/js/adminPwCheck.js": "/js/adminPwCheck.js",
+    "/js/calendar.js": "/js/calendar.js",
     "/css/app.css": "/css/app.css"
 }
