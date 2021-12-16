@@ -5,6 +5,7 @@ var __webpack_exports__ = {};
   \**********************************/
 // window.futurePlans使える
 console.log(window.myPlans);
+window.yearMonth = '';
 var week = ["日", "月", "火", "水", "木", "金", "土"];
 var today = new Date(); // 月末だとずれる可能性があるため、1日固定で取得
 
@@ -32,7 +33,7 @@ function showProcess(date) {
   var month = date.getMonth();
   document.querySelector('#header').innerHTML = year + "年 " + (month + 1) + "月"; //id="calendar"にmonth属性として'2021-12'等その月を持たせる
 
-  var yearMonth = year + '-' + (month + 1);
+  window.yearMonth = year + '-' + (month + 1);
   document.querySelector('#calendar').setAttribute('month', yearMonth); //ここまで
 
   var calendar = createProcess(year, month);
@@ -73,7 +74,8 @@ function createProcess(year, month) {
         if (year == today.getFullYear() && month == today.getMonth() && count == today.getDate()) {
           calendar += "<td class='today " + count + "'>" + count + "</td>";
         } else {
-          calendar += "<td class='" + count + "'>" + count + "</td>";
+          // calendar += "<td class='" + count + "'>" + count + "</td>";
+          calendar += "<td class='" + window.yearMonth + '-' + count + "'>" + count + "</td>";
         }
       }
     }
@@ -89,11 +91,22 @@ window.showTravelPlans = function () {
   var thisMonthTdTags = document.querySelectorAll('td:not(.disabled)'); //これでtdのdisabled以外が取得可
 
   var dates = document.querySelectorAll('td:not(.disabled)')[0].innerText; //これで1つめのinnerText(1,2等の日付)を取得可能
+  //ここを改良してstartと同じカレンダーの日に印をつけていく
+  //12/16 旅行日程のカレンダーに背景色付けた。これを背景色でなく、大阪旅行などの文字を表示させたい
 
-  for (var i = 0; i < myPlans.length; i++) {
-    console.log(myPlans[i].title);
-    console.log(myPlans[i].start);
-  }
+  myPlans.forEach(function (planElement, index, array) {
+    thisMonthTdTags.forEach(function (classDate, index, array) {
+      //       console.log(element.className);//クラス名取得可能
+      if (planElement.start == classDate.className) {
+        console.log(classDate);
+        classDate.style.backgroundColor = 'pink';
+      }
+    });
+  }); //ここまで12/16
+  // for(var i =0; i<myPlans.length; i++){
+  //     console.log(myPlans[i].title);
+  //     console.log(myPlans[i].start);
+  // }
 };
 
 var titleArea = document.querySelector('#header'); //カレンダー上の2021年12月のところをクリックでshowTravelplansが動く
