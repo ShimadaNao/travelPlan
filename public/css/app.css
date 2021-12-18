@@ -2079,7 +2079,7 @@ td.disabled {
     color: #ccc;
 }
 /*本日*/
-td.today {
+td#today {
     background-color: #D65E72;
     color: #fff;
 }
