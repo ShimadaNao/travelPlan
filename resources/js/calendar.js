@@ -28,7 +28,8 @@ function showProcess(date) {
     var month = date.getMonth();
     document.querySelector('#header').innerHTML = year + "年 " + (month + 1) + "月";
     //id="calendar"にmonth属性として'2021-12'等その月を持たせる
-    window.yearMonth = year + '-' + (month+1);
+    //月を2桁表示のためsliceメソッドを使用
+    window.yearMonth = year + '-' + ("00" + (month + 1)).slice(-2);
     document.querySelector('#calendar').setAttribute('month', yearMonth);
     //ここまで
     var calendar = createProcess(year, month);
@@ -68,10 +69,10 @@ function createProcess(year, month) {
                 if(year == today.getFullYear()
                   && month == (today.getMonth())
                   && count == today.getDate()){
-                    calendar += "<td class='today "+ count + "'>" + count + "</td>";
+                    //class名として日付を付与・日付は2桁表示(○○日)
+                    calendar += "<td id ='today' class='" + window.yearMonth + '-' + ("00" + count).slice(-2) + "'>" + count + "</td>";
                 } else {
-                    // calendar += "<td class='" + count + "'>" + count + "</td>";
-                    calendar += "<td class='" + window.yearMonth+'-'+count + "'>" + count + "</td>";
+                    calendar += "<td class='" + window.yearMonth + '-' + ("00" + count).slice(-2) + "'>" + count + "</td>";
                 }
             }
         }
@@ -86,13 +87,14 @@ window.showTravelPlans = function(){
     var dates = document.querySelectorAll('td:not(.disabled)')[0].innerText; //これで1つめのinnerText(1,2等の日付)を取得可能
     //ここを改良してstartと同じカレンダーの日に印をつけていく
 
-    //12/16 旅行日程のカレンダーに背景色付けた。これを背景色でなく、大阪旅行などの文字を表示させたい
-    myPlans.forEach(function (planElement, index, array) {
-        thisMonthTdTags.forEach(function(classDate, index, array){
+    //12/16 旅行日程のカレンダーに背景色付けた。これを背景色でなく、大阪旅行などの文字を表示させる
+    myPlans.forEach(function (planElement) {
+        thisMonthTdTags.forEach(function(classDate){
     //       console.log(element.className);//クラス名取得可能
               if(planElement.start == classDate.className){
                 console.log(classDate);
                 classDate.style.backgroundColor = 'pink';
+                classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
               }
         });
     });
