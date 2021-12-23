@@ -85,24 +85,27 @@ window.showTravelPlans = function(){
     var showingMonth = document.querySelector('#header').innerText;
     var thisMonthTdTags = document.querySelectorAll('td:not(.disabled)');//これでtdのdisabled以外が取得可
     var dates = document.querySelectorAll('td:not(.disabled)')[0].innerText; //これで1つめのinnerText(1,2等の日付)を取得可能
-    //ここを改良してstartと同じカレンダーの日に印をつけていく
+    //背景色を旅行プランごとに変えるためcolorsという配列を生成
+    colors=new Array(4);
+    colors[0]="#CCFFFF";
+    colors[1]="#CCFF99";
+    colors[2]="#FFFF66";
+    colors[3]="#FFCCFF";
 
-    //12/16 旅行日程のカレンダーに背景色付けた。これを背景色でなく、大阪旅行などの文字を表示させる
     myPlans.forEach(function (planElement) {
-        thisMonthTdTags.forEach(function(classDate){
-    //       console.log(element.className);//クラス名取得可能
-              if(planElement.start == classDate.className){
-                console.log(classDate);
-                classDate.style.backgroundColor = 'pink';
+        var index = Math.floor(4*Math.random());
+        if(document.getElementsByClassName(planElement.start).length != 0){
+          var planStart = new Date(planElement.start);
+          var planEnd = new Date(planElement.end);
+          thisMonthTdTags.forEach(function (classDate){
+            var dateObj = new Date(classDate.className);
+             if(planStart.getTime() <= dateObj.getTime() && dateObj.getTime() <= planEnd.getTime()){
+                classDate.style.backgroundColor = colors[index];
                 classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
-              }
-        });
-    });
-    //ここまで12/16
-    // for(var i =0; i<myPlans.length; i++){
-    //     console.log(myPlans[i].title);
-    //     console.log(myPlans[i].start);
-    // }
+            }
+          });
+        }
+      });
 }
 var titleArea = document.querySelector('#header');//カレンダー上の2021年12月のところをクリックでshowTravelplansが動く
 titleArea.onclick = showTravelPlans;
