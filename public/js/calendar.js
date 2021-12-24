@@ -101,19 +101,16 @@ window.showTravelPlans = function () {
   colors[3] = "#FFCCFF";
   myPlans.forEach(function (planElement) {
     var index = Math.floor(4 * Math.random());
+    var planStart = new Date(planElement.start);
+    var planEnd = new Date(planElement.end);
+    thisMonthTdTags.forEach(function (classDate) {
+      var dateObj = new Date(classDate.className);
 
-    if (document.getElementsByClassName(planElement.start).length != 0) {
-      var planStart = new Date(planElement.start);
-      var planEnd = new Date(planElement.end);
-      thisMonthTdTags.forEach(function (classDate) {
-        var dateObj = new Date(classDate.className);
-
-        if (planStart.getTime() <= dateObj.getTime() && dateObj.getTime() <= planEnd.getTime()) {
-          classDate.style.backgroundColor = colors[index];
-          classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
-        }
-      });
-    }
+      if (planStart.getTime() <= dateObj.getTime() && dateObj.getTime() <= planEnd.getTime()) {
+        classDate.style.backgroundColor = colors[index];
+        classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
+      }
+    });
   });
 };
 

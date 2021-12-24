@@ -94,18 +94,16 @@ window.showTravelPlans = function(){
 
     myPlans.forEach(function (planElement) {
         var index = Math.floor(4*Math.random());
-        if(document.getElementsByClassName(planElement.start).length != 0){
-          var planStart = new Date(planElement.start);
-          var planEnd = new Date(planElement.end);
-          thisMonthTdTags.forEach(function (classDate){
-            var dateObj = new Date(classDate.className);
-             if(planStart.getTime() <= dateObj.getTime() && dateObj.getTime() <= planEnd.getTime()){
-                classDate.style.backgroundColor = colors[index];
-                classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
+        var planStart = new Date(planElement.start);
+        var planEnd = new Date(planElement.end);
+        thisMonthTdTags.forEach(function (classDate){
+        var dateObj = new Date(classDate.className);
+            if(planStart.getTime() <= dateObj.getTime() && dateObj.getTime() <= planEnd.getTime()){
+            classDate.style.backgroundColor = colors[index];
+            classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
             }
-          });
-        }
-      });
+        });
+    });
 }
 var titleArea = document.querySelector('#header');//カレンダー上の2021年12月のところをクリックでshowTravelplansが動く
 titleArea.onclick = showTravelPlans;
