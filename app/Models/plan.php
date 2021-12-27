@@ -79,4 +79,14 @@ class Plan extends Model
                                     ->first();
         return $selectedPlan;
     }
+
+    public function getMyAllPlans()
+    {
+        $user_id = Auth::id();
+        //日付順に取得
+        $myAllPlans = $this->where('user_id', $user_id)
+                            ->orderBy('start', 'asc')->get();
+
+        return $myAllPlans;
+    }
 }

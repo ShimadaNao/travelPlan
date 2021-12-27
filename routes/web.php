@@ -28,7 +28,7 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('showMyPlan', [MapController::class, 'showMyPlan'])->name('showMyPlan');
     Route::get('plansCharts', [MapController::class, 'showPlanCharts'])->name('planCharts');
     Route::get('planChartDetails/{id}', [MapController::class, 'showPlanChartDetails'])->name('planChartDetails');
-
+    Route::get('calendar', [ApiController::class, 'showCalendar'])->name('calendar');
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');

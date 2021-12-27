@@ -11,8 +11,9 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    public function __construct(PlanDetail $planDetailModel)
-    {
+    public function __construct(Plan $planModel, PlanDetail $planDetailModel)
+    {   
+        $this->planModel = $planModel;
         $this->planDetailModel = $planDetailModel;
     }
     public function showSelectedPlan(Plan $planModel, $id)
@@ -92,5 +93,14 @@ class ApiController extends Controller
         $updatedData = $this->planDetailModel->where('id', $planDetail_id)->first();
 
         return [$updateMsg, $updatedData];
+    }
+
+    public function showCalendar()
+    {
+        $myPlans = $this->planModel->getMyAllPlans();
+
+        return view('user.calendar', [
+            'myPlans' => $myPlans,
+        ]);
     }
 }
