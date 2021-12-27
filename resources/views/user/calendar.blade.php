@@ -1,5 +1,5 @@
 <x-header>
-    <div class="wrapper">
+    <div class="wrapper" style="text-align: center;">
         <!-- xxxx年xx月を表示 -->
         <h1 id="header"></h1>
     
@@ -10,10 +10,11 @@
         </div>
     
         <!-- カレンダー -->
-        <div id="calendar"></div>
+        <div id="calendar"  style="text-align: center;"></div>
         <script>
             window.myPlans = @json($myPlans);
         </script>
+        <button id="button">スケジュールを表示</button>
         <script src="{{ mix('js/calendar.js') }}"></script>
     </div>
 </x-header>
