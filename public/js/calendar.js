@@ -3,8 +3,6 @@ var __webpack_exports__ = {};
 /*!**********************************!*\
   !*** ./resources/js/calendar.js ***!
   \**********************************/
-// window.futurePlans使える
-console.log(window.myPlans);
 window.yearMonth = '';
 var week = ["日", "月", "火", "水", "木", "金", "土"];
 var today = new Date(); // 月末だとずれる可能性があるため、1日固定で取得
@@ -13,6 +11,7 @@ var showDate = new Date(today.getFullYear(), today.getMonth(), 1); // 初期表�
 
 window.onload = function () {
   showProcess(today, calendar);
+  window.showTravelPlans();
 }; // 前の月表示
 
 
@@ -88,34 +87,37 @@ function createProcess(year, month) {
 }
 
 window.showTravelPlans = function () {
-  var showingMonth = document.querySelector('#header').innerText;
   var thisMonthTdTags = document.querySelectorAll('td:not(.disabled)'); //これでtdのdisabled以外が取得可
-
-  var dates = document.querySelectorAll('td:not(.disabled)')[0].innerText; //これで1つめのinnerText(1,2等の日付)を取得可能
   //背景色を旅行プランごとに変えるためcolorsという配列を生成
 
   colors = new Array(4);
-  colors[0] = "#CCFFFF";
-  colors[1] = "#CCFF99";
-  colors[2] = "#FFFF66";
-  colors[3] = "#FFCCFF";
+  colors[0] = "rgb(255, 255, 102)";
+  colors[1] = "rgb(204, 255, 153)";
+  colors[2] = "rgb(241, 202, 253)";
+  colors[3] = "rgb(204, 255, 255)";
   myPlans.forEach(function (planElement) {
-    var index = Math.floor(4 * Math.random());
+    var index = Math.floor(colors.length * Math.random());
     var planStart = new Date(planElement.start);
     var planEnd = new Date(planElement.end);
     thisMonthTdTags.forEach(function (classDate) {
       var dateObj = new Date(classDate.className);
 
       if (planStart.getTime() <= dateObj.getTime() && dateObj.getTime() <= planEnd.getTime()) {
-        classDate.style.backgroundColor = colors[index];
         classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
+        classDate.style.backgroundColor = colors[index];
+        classDate.setAttribute('bgColor', colors[index]);
       }
     });
+
+    if (document.querySelector("td[bgColor='" + colors[index] + "']")) {
+      //配列colorsから今使用した色を削除
+      colors.splice(index, 1);
+    }
   });
-};
+}; //12/25ここまで
 
-var titleArea = document.querySelector('#header'); //カレンダー上の2021年12月のところをクリックでshowTravelplansが動く
 
-titleArea.onclick = showTravelPlans;
+var btn = document.querySelector('#button');
+btn.onclick = window.showTravelPlans;
 /******/ })()
 ;
