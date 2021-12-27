@@ -97,20 +97,6 @@ class ApiController extends Controller
 
     public function showCalendar()
     {
-        // カレンダーApiでする場合
-        // $url = 'http://calendar-service.net/cal?start_year=2021&start_mon=12&end_year=2031&end_mon=12&year_style=normal&month_style=ja&wday_style=ja&format=xml';
-        // $str = @file_get_contents($url);
-        // $xml = simplexml_load_string($str);
-        // $december = $xml->response->month;
-        // dd($xml->response->month);
-        // foreach($xml->response->month as $day){
-        //     var_dump($day);
-        // }
-        // dd((string)$xml->response->month->attributes()->year);
-        // ここまでカレンダーApi
-        // $myPlans = $this->planModel->getPlans();
-        // $futurePlans = $myPlans[0];
-        // $pastPlans = $myPlans[1];
         $myPlans = $this->planModel->getMyAllPlans();
 
         return view('user.calendar', [
