@@ -2032,6 +2032,21 @@ div .paginate{
     font-size: 25px;
     color:hotpink;
 }
+.planChart-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.planChart-body{
+    display: flex;
+    justify-content: space-around;
+    margin: 5%;
+    width: 50%;
+}
+.planChart-body h3{
+    color: green;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
 .table-auto{
     margin: 40px 0;
     width: 50%;
