@@ -2024,6 +2024,7 @@ div .paginate{
 .selectMyPlan{
     display: flex;
     justify-content: center;
+    margin: 18px;
 }
 .planChartTitle{
     text-align: center;
@@ -2106,6 +2107,17 @@ td#today {
 }
 #next {
     float: right;
+}
+.menu-wrapper {
+    display: flex;
+    text-align: center;
+}
+.menu-body {
+    margin: auto;
+}
+.menu-body p {
+    margin: 20px;
+    color: dodgerblue;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
