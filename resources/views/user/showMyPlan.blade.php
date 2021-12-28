@@ -26,14 +26,16 @@
                     <option value="{{ $futurePlan['id'] }}">{{ $futurePlan['title'] }}</option>
                 @endif
             @endforeach
-            <option disabled>--過去の旅行プランです--</option>
-            @foreach ($pastPlans as $pastPlan)
-                @if (isset($nowRegisteredPlan))
-                    <option class="bg-gray-400" value="{{ $pastPlan['id'] }}" {{ $nowRegisteredPlan['id'] == $pastPlan['id'] ? 'selected' : ''}}>{{ $pastPlan['title'] }}</option>
-                @else
-                    <option class="bg-gray-400" value="{{ $pastPlan['id'] }}">{{ $pastPlan['title'] }}</option>
-                @endif
-            @endforeach
+            @if(!$pastPlans->isEmpty())
+                <option disabled>--過去の旅行プランです--</option>
+                @foreach ($pastPlans as $pastPlan)
+                    @if (isset($nowRegisteredPlan))
+                        <option class="bg-gray-400" value="{{ $pastPlan['id'] }}" {{ $nowRegisteredPlan['id'] == $pastPlan['id'] ? 'selected' : ''}}>{{ $pastPlan['title'] }}</option>
+                    @else
+                        <option class="bg-gray-400" value="{{ $pastPlan['id'] }}">{{ $pastPlan['title'] }}</option>
+                    @endif
+                @endforeach
+            @endif
         </select>
     </div>
     <div id="map">
