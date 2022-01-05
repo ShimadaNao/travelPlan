@@ -8,9 +8,7 @@
                 </div>
             @endif
             <ul class="list-disc m-5">
-                <li><a>旅行計画登録</a></li>
-                {{-- {{dd($userPlans)}} --}}
-                @if(isset($userPlans) && !$userPlans->isEmpty())
+                <li><a href="{{ route('registerPlanForm') }}">旅行計画登録</a></li>                @if(isset($userPlans) && !$userPlans->isEmpty())
                 <li><a href="{{ route('showMyPlan') }}">旅行予定を見る</a></li>
                 @endif
             </ul>
