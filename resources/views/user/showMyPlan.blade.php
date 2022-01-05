@@ -14,9 +14,16 @@
         <link rel="stylesheet" href="/css/Control.OSMGeocoder.css" />
         <script src="{{ mix('js/Control.OSMGeocoder.js') }}"></script>
     </x-slot>
-    @if(session('msg'))
-        {{session('msg')}}
-    @endif
+    <div class="showMyPlanFMsg">
+        <div class="msg">
+            @if(session('msg'))
+                {{session('msg')}}
+            @endif
+            @if(session('registeredMsg'))
+                <p style="color:hotpink;">{{ session('registeredMsg') }}</p>
+            @endif
+        </div>
+    </div>
     <div class="selectMyPlan" start="{{ $firstShowPlan['start'] }}" end="{{ $firstShowPlan['end'] }}">
         <select name="myPlans" class="m-3">
             @foreach ($futurePlans as $futurePlan)
