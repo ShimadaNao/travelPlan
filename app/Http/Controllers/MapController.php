@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\planRegisterRequest;
 use App\Models\Plan;
 use App\Models\PlanDetail;
+use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
@@ -99,6 +100,14 @@ class MapController extends Controller
             'plan' => $plan,
             'detailCountryData' => $detailCountryData,
             'planDetail' => $planDetail,
+        ]);
+    }
+
+    public function showRegisterPlanForm(Country $country)
+    {
+        $countries = $country->getAll();
+        return view('user.registerPlanForm', [
+            'countries' => $countries,
         ]);
     }
 }
