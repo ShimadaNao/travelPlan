@@ -1,27 +1,21 @@
 <x-header>
-    ユーザーとしてログインしました！
-    {{ Auth::user()->name}}
-    <a href="/logout">ログアウト</a>
-    <h1>メニュー</h1>
-    @if (Session::has('registeredMsg'))
-        <div class="text-red-500 ">
-        {{ session('registeredMsg') }}
+    <div class="menu-wrapper">
+        <div class="menu-body">
+            <p>{{ Auth::user()->name}}さんはユーザーとしてログインしました！</p>
+            @if (Session::has('registeredMsg'))
+                <div class="text-red-500 ">
+                {{ session('registeredMsg') }}
+                </div>
+            @endif
+            <ul class="list-disc m-5">
+                <li><a>旅行計画登録</a></li>
+                {{-- {{dd($userPlans)}} --}}
+                @if(isset($userPlans) && !$userPlans->isEmpty())
+                <li><a href="{{ route('showMyPlan') }}">旅行予定を見る</a></li>
+                @endif
+            </ul>
         </div>
-    @endif
-    <ul class="list-disc m-5">
-        <li><a>旅行計画登録</a></li>
-        {{-- {{dd($userPlans)}} --}}
-        @if(isset($userPlans) && !$userPlans->isEmpty())
-        <li><a href="{{ route('showMyPlan') }}">旅行予定を見る</a></li>
-        @endif
-    </ul>
-    @if (isset($userPlans) && !$userPlans->isEmpty())
-        <select name="userPlans">
-            @foreach ($userPlans as $userPlan)
-                <option value="{{ $userPlan['id'] }}">{{ $userPlan['title'] }}</option>
-            @endforeach
-        </select>
-    @endif
+    </div>
     <x-slot name="leafletCss">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
             integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="

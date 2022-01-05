@@ -114,8 +114,7 @@ window.showTravelPlans = function () {
       colors.splice(index, 1);
     }
   });
-}; //12/25ここまで
-
+};
 
 var btn = document.querySelector('#button');
 btn.onclick = window.showTravelPlans;

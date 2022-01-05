@@ -90,10 +90,14 @@ window.showTravelPlans = function () {
     colors[3] = "rgb(204, 255, 255)";
     myPlans.forEach(function (planElement) {
         var index = Math.floor(colors.length * Math.random());
+        // 旅行計画の開始日の日付型をplanStartに代入
         var planStart = new Date(planElement.start);
+        // 旅行計画の終了日の日付型をplanEndに代入
         var planEnd = new Date(planElement.end);
         thisMonthTdTags.forEach(function (classDate) {
+            // カレンダーそれぞれのマスの日付の日付型をdateObjに代入
             var dateObj = new Date(classDate.className);
+            // 旅行期間中だったらbgcや文字を追加
             if (planStart.getTime() <= dateObj.getTime() && dateObj.getTime() <= planEnd.getTime()) {
                 classDate.insertAdjacentHTML('beforeend', '<br>' + planElement.title);
                 classDate.style.backgroundColor = colors[index];

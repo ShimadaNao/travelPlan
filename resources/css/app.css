@@ -85,12 +85,28 @@ div .paginate{
 .selectMyPlan{
     display: flex;
     justify-content: center;
+    margin: 18px;
 }
 .planChartTitle{
     text-align: center;
     margin: 30px 0;
     font-size: 25px;
     color:hotpink;
+}
+.planChart-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.planChart-body{
+    display: flex;
+    justify-content: space-around;
+    margin: 5%;
+    width: 50%;
+}
+.planChart-body h3{
+    color: green;
+    font-size: 25px;
+    margin-bottom: 15px;
 }
 .table-auto{
     margin: 40px 0;
@@ -170,4 +186,15 @@ td#today {
 }
 #next {
     float: right;
+}
+.menu-wrapper {
+    display: flex;
+    text-align: center;
+}
+.menu-body {
+    margin: auto;
+}
+.menu-body p {
+    margin: 20px;
+    color: dodgerblue;
 }
