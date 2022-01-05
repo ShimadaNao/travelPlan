@@ -2137,6 +2137,7 @@ td#today {
     padding-top: 20px;
     color: hotpink;
 }
+/* registerPlanForm.blade */
 .travelForm {
     display: flex;
     flex-direction: column;
