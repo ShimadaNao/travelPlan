@@ -1477,10 +1477,6 @@ select {
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
 }
-.rounded-b {
-	border-bottom-right-radius: 0.25rem;
-	border-bottom-left-radius: 0.25rem;
-}
 .border {
 	border-width: 1px;
 }
@@ -1498,9 +1494,6 @@ select {
 }
 .border-b {
 	border-bottom-width: 1px;
-}
-.border-t-0 {
-	border-top-width: 0px;
 }
 .border-r {
 	border-right-width: 1px;
@@ -1524,13 +1517,13 @@ select {
 	--tw-border-opacity: 1;
 	border-color: rgba(243, 244, 246, var(--tw-border-opacity));
 }
-.border-red-400 {
-	--tw-border-opacity: 1;
-	border-color: rgba(248, 113, 113, var(--tw-border-opacity));
-}
 .border-gray-400 {
 	--tw-border-opacity: 1;
 	border-color: rgba(156, 163, 175, var(--tw-border-opacity));
+}
+.border-red-400 {
+	--tw-border-opacity: 1;
+	border-color: rgba(248, 113, 113, var(--tw-border-opacity));
 }
 .bg-white {
 	--tw-bg-opacity: 1;
@@ -2133,6 +2126,26 @@ td#today {
 .menu-body p {
     margin: 20px;
     color: dodgerblue;
+}
+/* showMyPlan.blade */
+.showMyPlanFMsg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.showMyPlanFMsg .msg {
+    padding-top: 20px;
+    color: hotpink;
+}
+.travelForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.travelForm input[type="submit"] {
+    margin: 0 50%;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;

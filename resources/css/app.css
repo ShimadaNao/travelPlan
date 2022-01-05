@@ -198,3 +198,24 @@ td#today {
     margin: 20px;
     color: dodgerblue;
 }
+/* showMyPlan.blade */
+.showMyPlanFMsg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.showMyPlanFMsg .msg {
+    padding-top: 20px;
+    color: hotpink;
+}
+/* registerPlanForm.blade */
+.travelForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.travelForm input[type="submit"] {
+    margin: 0 50%;
+}
