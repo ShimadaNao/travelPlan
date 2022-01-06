@@ -89,4 +89,16 @@ class Plan extends Model
 
         return $myAllPlans;
     }
+
+    public function deleteTravelPlan($id)
+    {
+        $result = $this->where('id', $id)->delete();
+        if($result>0){
+            $deleteMsg = '旅行日程を削除しました。';
+        } else {
+            $deleteMsg = '旅行日程を削除できませんでした。';
+        }
+        
+        return $deleteMsg;
+    }
 }

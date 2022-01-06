@@ -1,7 +1,7 @@
 <x-header>
+    <p class="planDeleteMsg">{{ session('result') }}<p>
     <div class="planChart-wrapper">
         <div class="planChart-body">
-        {{-- style="display: flex; justify-content: space-around; margin: 0 20%;"> --}}
             <div style="flex-flow: column; text-align: center;">
             <h3>これからの旅行</h3>
                 <div>

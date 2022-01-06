@@ -79,6 +79,7 @@ class MapController extends Controller
         $plans = $this->planModel->getPlans();
         $futurePlans = $plans[0];
         $pastPlans = $plans[1];
+
         return view('user.planChart', [
             'futurePlans' => $futurePlans,
             'pastPlans' => $pastPlans,
@@ -109,5 +110,12 @@ class MapController extends Controller
         return view('user.registerPlanForm', [
             'countries' => $countries,
         ]);
+    }
+
+    public function deletePlan($id)
+    {
+        $result = $this->planModel->deleteTravelPlan($id);
+
+        return redirect()->route('planCharts')->with(['result' => $result]);
     }
 }

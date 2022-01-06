@@ -30,6 +30,7 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('planChartDetails/{id}', [MapController::class, 'showPlanChartDetails'])->name('planChartDetails');
     Route::get('calendar', [ApiController::class, 'showCalendar'])->name('calendar');
     Route::get('registerPlan', [MapController::class, 'showRegisterPlanForm'])->name('registerPlanForm');
+    Route::get('deletePlan/{id}', [MapController::class, 'deletePlan'])->name('deletePlan');
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');
