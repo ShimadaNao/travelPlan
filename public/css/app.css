@@ -1525,6 +1525,10 @@ select {
 	--tw-border-opacity: 1;
 	border-color: rgba(248, 113, 113, var(--tw-border-opacity));
 }
+.border-blue-500 {
+	--tw-border-opacity: 1;
+	border-color: rgba(59, 130, 246, var(--tw-border-opacity));
+}
 .bg-white {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
@@ -1580,6 +1584,9 @@ select {
 .bg-blue-500 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+}
+.bg-transparent {
+	background-color: transparent;
 }
 .bg-gray-400 {
 	--tw-bg-opacity: 1;
@@ -1844,6 +1851,10 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(185, 28, 28, var(--tw-text-opacity));
 }
+.text-blue-700 {
+	--tw-text-opacity: 1;
+	color: rgba(29, 78, 216, var(--tw-text-opacity));
+}
 .underline {
 	text-decoration: underline;
 }
@@ -2028,10 +2039,6 @@ div .paginate{
     font-size: 25px;
     color:hotpink;
 }
-button:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color;
-  }
 .planChart-wrapper{
     display: flex;
     justify-content: center;
@@ -2173,6 +2180,9 @@ td#today {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
 }
+.hover\:border-transparent:hover {
+	border-color: transparent;
+}
 .hover\:bg-indigo-600:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(79, 70, 229, var(--tw-bg-opacity));
@@ -2201,6 +2211,10 @@ td#today {
 	--tw-bg-opacity: 1;
 	background-color: rgba(165, 180, 252, var(--tw-bg-opacity));
 }
+.hover\:bg-blue-500:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+}
 .hover\:text-gray-500:hover {
 	--tw-text-opacity: 1;
 	color: rgba(107, 114, 128, var(--tw-text-opacity));
@@ -2220,6 +2234,10 @@ td#today {
 .hover\:text-gray-900:hover {
 	--tw-text-opacity: 1;
 	color: rgba(17, 24, 39, var(--tw-text-opacity));
+}
+.hover\:text-white:hover {
+	--tw-text-opacity: 1;
+	color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 .focus\:z-10:focus {
 	z-index: 10;
