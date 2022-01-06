@@ -2022,9 +2022,16 @@ div .paginate{
 .planChartTitle{
     text-align: center;
     margin: 30px 0;
+
+}
+.planChartTitle p {
     font-size: 25px;
     color:hotpink;
 }
+button:focus {
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
 .planChart-wrapper{
     display: flex;
     justify-content: center;
@@ -2032,7 +2039,7 @@ div .paginate{
 .planChart-body{
     display: flex;
     justify-content: space-around;
-    margin: 5%;
+    margin: 3%;
     width: 50%;
 }
 .planChart-body h3{
@@ -2156,6 +2163,11 @@ td#today {
     font-size: 1.5rem;
     line-height: 2rem;
     color: 	#FFAAFF;
+}
+/* planChart.blade.php */
+.planDeleteMsg {
+    text-align: center;
+    margin-top: 50px;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;

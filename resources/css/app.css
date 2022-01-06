@@ -90,6 +90,9 @@ div .paginate{
 .planChartTitle{
     text-align: center;
     margin: 30px 0;
+
+}
+.planChartTitle p {
     font-size: 25px;
     color:hotpink;
 }
@@ -100,7 +103,7 @@ div .paginate{
 .planChart-body{
     display: flex;
     justify-content: space-around;
-    margin: 5%;
+    margin: 3%;
     width: 50%;
 }
 .planChart-body h3{
@@ -227,4 +230,9 @@ td#today {
     font-size: 1.5rem;
     line-height: 2rem;
     color: 	#FFAAFF;
+}
+/* planChart.blade.php */
+.planDeleteMsg {
+    text-align: center;
+    margin-top: 50px;
 }
