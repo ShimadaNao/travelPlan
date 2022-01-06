@@ -8,7 +8,7 @@
                 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                     削除
                 </button>
-            <a href="">編集</a>
+            <a href="" id="edit">編集</a>
         </div>
         @if($planDetail->isEmpty())
             <p>まだプランが登録されていません</p>
@@ -38,4 +38,5 @@
             </div>
         @endif
     </div>
+    <script src="{{ mix('js/planEdit.js') }}"></script>
 </x-header>
