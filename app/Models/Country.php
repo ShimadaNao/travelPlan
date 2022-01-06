@@ -12,4 +12,9 @@ class Country extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function getAll()
+    {
+        return $this->all();
+    }
 }
