@@ -1,6 +1,6 @@
 <x-header>
     <div class="travelForm">
-        <h3>旅行予定登録フォームです</h3>
+        <p>旅行予定登録フォームです</p>
         <form method="post" action="{{ route('registerTravelTitle') }}">
             @csrf
             @if($errors->has('title'))
@@ -8,7 +8,7 @@
                     <p style="color:orangered">{{ $error }}<p>
                 @endforeach
             @endif
-            旅行名：<input typw="text" name="title"><br>
+            旅行名：<input type="text" name="title"><br>
 
             @if($errors->has('country'))
             @foreach($errors->get('country') as $error)
@@ -27,7 +27,7 @@
                 <p style="color:orangered">{{ $error }}<p>
             @endforeach
             @endif
-            旅行開始日<input type="date" name="start"><br>
+            旅行開始日：<input type="date" name="start"><br>
 
             @if($errors->has('end'))
             @foreach($errors->get('end') as $error)
