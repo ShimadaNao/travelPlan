@@ -1,12 +1,18 @@
 <x-header>
     <div class="detailTable">
+        <div class="planChartTitle">
+            <p>{{ $plan['title'] }}</p>
+            <p>{{ $plan['start'] }}～{{ $plan['end'] }}</p>
+                <button type="button" onclick="location.href='{{ route('deletePlan', $plan['id']) }}'"
+                class="bg-transparent hover:bg-blue-500 text-blue-700 
+                font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                    削除
+                </button>
+            <a href="">編集</a>
+        </div>
         @if($planDetail->isEmpty())
             <p>まだプランが登録されていません</p>
         @else
-            <div class="planChartTitle">
-                <h3>{{ $plan['title'] }}</h3>
-                <p>{{ $plan['start'] }}～{{ $plan['end'] }}</p>
-            </div>
             <table class="table-auto">
                 <thead>
                     <tr>
