@@ -103,4 +103,15 @@ class ApiController extends Controller
             'myPlans' => $myPlans,
         ]);
     }
+
+    public function updatePlan(Request $request)
+    {
+        $plan_id = $request->plan_id;
+        $updateContents = [
+            'title' => $request->title,
+            'start' => $request->start,
+            'end' => $request->end,
+        ];
+        $this->planModel->updatePlan($plan_id, $updateContents);
+    }
 }
