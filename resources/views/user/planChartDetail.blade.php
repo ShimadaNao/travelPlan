@@ -1,14 +1,20 @@
 <x-header>
     <div class="detailTable">
         <div class="planChartTitle">
-            <p>{{ $plan['title'] }}</p>
-            <p>{{ $plan['start'] }}～{{ $plan['end'] }}</p>
-                <button type="button" onclick="location.href='{{ route('deletePlan', $plan['id']) }}'"
-                class="bg-transparent hover:bg-blue-500 text-blue-700 
-                font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                    削除
-                </button>
-            <a href="" id="edit">編集</a>
+            <div class="planInfo">
+                <p id="planTitle">{{ $plan['title'] }}</p>
+                <p id="planDate">{{ $plan['startJ'] }}～{{ $plan['endJ'] }}</p>
+            </div>
+            <button type="button" onclick="location.href='{{ route('deletePlan', $plan['id']) }}'"
+            class="bg-transparent hover:bg-blue-500 text-blue-700 
+            font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                削除
+            </button>
+            <button type="button" id="editBtn" onclick="location.href=''"
+            class="bg-transparent hover:bg-blue-500 text-blue-700 
+            font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                編集
+            </button>
         </div>
         @if($planDetail->isEmpty())
             <p>まだプランが登録されていません</p>
@@ -38,5 +44,11 @@
             </div>
         @endif
     </div>
+    <script>
+        window.planTitle = @json($plan['title']);
+        window.planStart = @json($plan['start']);
+        window.planEnd = @json($plan['end']);
+        window.planId = @json($plan['id']);
+    </script>
     <script src="{{ mix('js/planEdit.js') }}"></script>
 </x-header>
