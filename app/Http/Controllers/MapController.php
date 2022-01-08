@@ -91,11 +91,10 @@ class MapController extends Controller
         $plan = $this->planModel->getSelectedPlan($id);
         $planDetail = $this->planDetailModel->getPlanDetail($id);
         $detailCountryData = $plan['country'];
-
         $array_start= explode('-', $plan['start']);
         $array_end = explode('-', $plan['end']);
-        $plan['start'] = $array_start[0].'年'.$array_start[1].'月'.$array_start[2].'日';
-        $plan['end'] = $array_end[0].'年'.$array_end[1].'月'.$array_end[2].'日';
+        $plan['startJ'] = $array_start[0].'年'.$array_start[1].'月'.$array_start[2].'日'; //2022年03月01日
+        $plan['endJ'] = $array_end[0].'年'.$array_end[1].'月'.$array_end[2].'日';
 
         return view('user.planChartDetail', [
             'plan' => $plan,
