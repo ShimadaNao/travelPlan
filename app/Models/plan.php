@@ -104,6 +104,6 @@ class Plan extends Model
 
     public function updatePlan($plan_id, $updateContents)
     {
-        $this->where('id', $plan_id)->update($updateContents);
+        return $this->where('id', $plan_id)->update($updateContents);
     }
 }
