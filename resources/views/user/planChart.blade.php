@@ -1,5 +1,6 @@
 <x-header>
     <p class="planDeleteMsg">{{ session('result') }}<p>
+        <p style="text-align:center; color:crimson;">これからの旅行のみ編集・削除ができます！</p>
     <div class="planChart-wrapper">
         <div class="planChart-body">
             <div style="flex-flow: column; text-align: center;">
