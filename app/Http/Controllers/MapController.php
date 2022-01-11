@@ -95,11 +95,13 @@ class MapController extends Controller
         $array_end = explode('-', $plan['end']);
         $plan['startJ'] = $array_start[0].'年'.$array_start[1].'月'.$array_start[2].'日'; //2022年03月01日
         $plan['endJ'] = $array_end[0].'年'.$array_end[1].'月'.$array_end[2].'日';
+        $today = now()->format('Y-m-d');
 
         return view('user.planChartDetail', [
             'plan' => $plan,
             'detailCountryData' => $detailCountryData,
             'planDetail' => $planDetail,
+            'today' => $today,
         ]);
     }
 
