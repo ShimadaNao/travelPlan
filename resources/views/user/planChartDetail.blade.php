@@ -15,8 +15,9 @@
             class="bg-transparent hover:bg-blue-500 text-blue-700 
             font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 編集
-            </button>
+            </button><br>
             @endif
+            <a href="{{ route('showSelectedPlanMap', $plan['id']) }}">マップで見る</a>
         </div>
         @if($planDetail->isEmpty())
             <p>まだプランが登録されていません</p>

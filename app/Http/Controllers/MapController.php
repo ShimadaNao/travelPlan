@@ -38,10 +38,10 @@ class MapController extends Controller
         $registeredId = $travelTitleRegister['id'];
         session()->flash('registeredMsg', '旅行計画を登録しました！');
 
-        return redirect()->route('showNowRegisteredPlan', ['id' => $registeredId]);
+        return redirect()->route('showSelectedPlanMap', ['id' => $registeredId]);
     }
 
-    public function showNowRegisteredPlan($id)
+    public function showSelectedPlanMap($id)
     {
         // $myPlans = $this->planModel->getPlans();
         $plans = $this->planModel->getPlans();
