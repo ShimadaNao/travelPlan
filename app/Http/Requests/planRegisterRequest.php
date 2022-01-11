@@ -23,11 +23,23 @@ class planRegisterRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title' => 'required',
-            'country' => 'required',
+            // 'country' => 'required',
             'start' => 'required',
             'end' => 'required',
         ];
+
+        if ($this->has('country')) {
+            $rules['country'] = 'required';
+        }
+
+        return $rules;
+        // return [
+        //     'title' => 'required',
+        //     'country' => 'required',
+        //     'start' => 'required',
+        //     'end' => 'required',
+        // ];
     }
 }

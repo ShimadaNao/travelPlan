@@ -7,6 +7,7 @@ use App\Models\Plan;
 use App\Models\PlanDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\planRegisterRequest;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -102,5 +103,23 @@ class ApiController extends Controller
         return view('user.calendar', [
             'myPlans' => $myPlans,
         ]);
+    }
+
+    public function updatePlan(planRegisterRequest $request)
+    {
+        $plan_id = $request->plan_id;
+        $updateContents = [
+            'title' => $request['title'],
+            'start' => $request['start'],
+            'end' => $request['end'],
+        ];
+        $updatedData = $this->planModel->updatePlan($plan_id, $updateContents);
+        if($updatedData>= 1){
+            $msg = '更新しました';
+        } else {
+            $msg = '更新できませんでした';
+        }
+
+        return $msg;
     }
 }

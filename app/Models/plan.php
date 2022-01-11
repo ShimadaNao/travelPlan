@@ -101,4 +101,9 @@ class Plan extends Model
         
         return $deleteMsg;
     }
+
+    public function updatePlan($plan_id, $updateContents)
+    {
+        return $this->where('id', $plan_id)->update($updateContents);
+    }
 }
