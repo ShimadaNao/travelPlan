@@ -5,6 +5,7 @@
                 <p id="planTitle">{{ $plan['title'] }}</p>
                 <p id="planDate">{{ $plan['startJ'] }}～{{ $plan['endJ'] }}</p>
             </div>
+            @if (strtotime($today) <= strtotime($plan['end']))
             <button type="button" onclick="location.href='{{ route('deletePlan', $plan['id']) }}'"
             class="bg-transparent hover:bg-blue-500 text-blue-700 
             font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
@@ -15,6 +16,7 @@
             font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 編集
             </button>
+            @endif
         </div>
         @if($planDetail->isEmpty())
             <p>まだプランが登録されていません</p>
