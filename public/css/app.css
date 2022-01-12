@@ -2176,6 +2176,20 @@ td#today {
     text-align: center;
     margin-top: 50px;
 }
+/* header nav */
+.headerNav {
+    display: block;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.headerNav:hover {
+    background-color: rgb(165 180 252);
+    border-radius: 0.25rem;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
