@@ -37,7 +37,7 @@
                         {{ $errors->first('title')}}
                     </div>
                 @endif
-                旅行名：<input type="text" name="title">
+                旅行名：<input type="text" name="title"><br>
                 @if ($errors->has('country'))
                     <div class="text-red-600">
                         {{ $errors->first('title')}}
@@ -48,19 +48,19 @@
                     @foreach ($countries as $country)
                         <option value="{{ $country['id'] }}">{{ $country['nameJP'] }}</option>
                     @endforeach
-                </select>
+                </select><br>
                 @if ($errors->has('start'))
                     <div class="text-red-600">
                         {{ $errors->first('start')}}
                     </div>
                 @endif
-                旅行開始日：<input type="date" name="start">
+                旅行開始日：<input type="date" name="start"><br>
                 @if ($errors->has('end'))
                     <div class="text-red-600">
                         {{ $errors->first('end')}}
                     </div>
                 @endif 
-                旅行終了日：<input type="date" name="end">
+                旅行終了日：<input type="date" name="end"><br>
                 <input type="submit" value="登録する">
             </form>
         </div>
