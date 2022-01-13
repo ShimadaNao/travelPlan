@@ -1143,10 +1143,6 @@ select {
 	margin-left: auto;
 	margin-right: auto;
 }
-.my-4 {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-}
 .ml-3 {
 	margin-left: 0.75rem;
 }
@@ -1676,10 +1672,6 @@ select {
 	padding-top: 2.5rem;
 	padding-bottom: 2.5rem;
 }
-.px-8 {
-	padding-left: 2rem;
-	padding-right: 2rem;
-}
 .pt-6 {
 	padding-top: 1.5rem;
 }
@@ -2006,7 +1998,8 @@ select {
     justify-content: center;
     align-items: center;
 }
-tbody td{
+/* 追加 */
+.planChartDetail tbody td{
     border:1px solid;
     --tw-border-opacity: 1;
     border-color: rgba(30, 64, 175, var(--tw-border-opacity));
@@ -2033,7 +2026,6 @@ div .paginate{
 .planChartTitle{
     text-align: center;
     margin: 30px 0;
-
 }
 .planChartTitle p {
     font-size: 25px;
@@ -2089,12 +2081,19 @@ div .paginate{
     padding-bottom: 10px;
     text-align: center;
 }
+/* カレンダー追加 */
+#calendar tbody td{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
 /*日曜日*/
-td:first-child {
+#calendar td:first-child {
     color: red;
 }
 /*土曜日*/
-td:last-child {
+#calendar td:last-child:not(.disabled){
     color: blue;
 }
 /*前後月の日付*/
@@ -2190,6 +2189,30 @@ td#today {
     background-color: rgb(165 180 252);
     border-radius: 0.25rem;
 }
+/* 旅行計画登録フォーム registerPlanForm.blade */
+.registerPlanForm {
+    border-style: solid;
+    /* px-4 */
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* py-2 */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.travelForm .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.planDetailChart td th{
+    border-style: solid;
+    /* px-4 */
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* py-2 */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
@@ -2220,10 +2243,6 @@ td#today {
 .hover\:bg-gray-50:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
-}
-.hover\:bg-indigo-300:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(165, 180, 252, var(--tw-bg-opacity));
 }
 .hover\:bg-blue-500:hover {
 	--tw-bg-opacity: 1;
