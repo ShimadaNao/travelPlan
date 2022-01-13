@@ -35,21 +35,21 @@
                 <nav>
                 <ul class="flex justify-center">
                     @auth('users')
-                    <li><a href="{{ route('userDashboard') }}" class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">マップ</a></li>
-                    <li><a href="{{ route('registerPlanForm') }}" class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">旅行計画登録フォーム</a></li>
-                    <li><a href="{{ route('planCharts') }}" class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">計画予定表</a></li>
-                    <li><a href="{{ route('calendar') }}" class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">カレンダー</a></li>
-                    <li><a href="/logout" class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ログアウト</a></li>
+                    <li><a href="{{ route('userDashboard') }}" class="headerNav">マップ</a></li>
+                    <li><a href="{{ route('registerPlanForm') }}" class="headerNav">旅行計画登録フォーム</a></li>
+                    <li><a href="{{ route('planCharts') }}" class="headerNav">計画予定表</a></li>
+                    <li><a href="{{ route('calendar') }}" class="headerNav">カレンダー</a></li>
+                    <li><a href="/logout" class="headerNav">ログアウト</a></li>
                     @endauth
                     @guest
-                    <li><a href="{{ route('multi_login') }}"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ログイン</a></li>
-                    <li><a href="{{ route('register') }}"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">新規登録</a></li>
+                    <li><a href="{{ route('multi_login') }}"  class="headerNav">ログイン</a></li>
+                    <li><a href="{{ route('register') }}"  class="headerNav">新規登録</a></li>
                     @endguest
                     @auth('admins')
-                    <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">マップ</a></li>
-                    <li><a href="#"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ショップ</a></li>
-                    <li><a href="/logout"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">ログアウト</a></li>
-                    <li><a href="{{route('registerAdmin')}}"  class="block px-8 py-2 my-4 hover:bg-indigo-300 rounded">管理者登録</a></li>
+                    <li><a href="#"  class="headerNav">マップ</a></li>
+                    <li><a href="#"  class="headerNav">ショップ</a></li>
+                    <li><a href="/logout"  class="headerNav">ログアウト</a></li>
+                    <li><a href="{{route('registerAdmin')}}"  class="headerNav">管理者登録</a></li>
                     @endauth
                 </ul>
                 </nav>
