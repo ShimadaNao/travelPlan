@@ -2,6 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.fetchForm {
+    display: flex;
+    flex-direction: column;
+}
 .title {
     font-size: 30px;
 }

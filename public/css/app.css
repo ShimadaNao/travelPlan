@@ -1938,6 +1938,10 @@ select {
 .ease-in {
 	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
+.fetchForm {
+    display: flex;
+    flex-direction: column;
+}
 .title {
     font-size: 30px;
 }
