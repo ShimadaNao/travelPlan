@@ -98,7 +98,7 @@ postFetch = function postFetch(e) {
     var formContent = fetchForm; //ここから追加
 
     var registeredInfo = data[1];
-    var content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<input type="text" name="planDetailName" value="' + registeredInfo['name'] + '" disabled>' + '<br>';
+    var content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '目的地：' + '<input type="text" name="planDetailName" value="' + registeredInfo['name'] + '" disabled>';
 
     if (registeredInfo.dayToVisit) {
       var date = registeredInfo.dayToVisit;
