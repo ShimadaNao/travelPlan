@@ -17,7 +17,7 @@ window.csrf_token = document.querySelector('meta[name="csrf-token"]').content;
 window.editTitle = function () {
   var title = document.querySelector('#planTitle');
   var date = document.querySelector('#planDate');
-  var editForm = "<p style='font-size: 30px; color: violet;'>編集画面中です</p>" + "<form class='updateForm'><dl><dt>タイトル：</dt><dd><input type='text' name='title' value='" + planTitle + "'></dd></dl><dl><dt>旅行開始日：</dt><dd><input type='date' name='start' value='" + planStart + "'></dd></dl><dl><dt>旅行終了日：</dt><dd><input type='date' name='end' value='" + planEnd + "'></dd></dl><input type='hidden' name='plan_id' value='" + planId + "'><input type='hidden' name='_token' value='" + csrf_token + "'><br /><input type='button' value='送信' onclick='window.updatePlan()'></form>";
+  var editForm = "<p style='font-size: 30px; color: violet;'>編集画面中です</p>" + "<form class='updateForm'><dl><dt>タイトル：</dt><dd><input type='text' name='title' value='" + planTitle + "'></dd><dt>旅行開始日：</dt><dd><input type='date' name='start' value='" + planStart + "'></dd><dt>旅行終了日：</dt><dd><input type='date' name='end' value='" + planEnd + "'></dd></dl><input type='hidden' name='plan_id' value='" + planId + "'><input type='hidden' name='_token' value='" + csrf_token + "'><br /><input type='button' value='送信' onclick='window.updatePlan()'></form>";
   window.planChartTitle.innerHTML = editForm;
 };
 
