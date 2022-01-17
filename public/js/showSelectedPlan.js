@@ -892,7 +892,7 @@ function showPopups(planDetails, planInfo) {
     selectedPlan = myPlans.value; //選択中のoptionタグのvalueが入る
 
     selectedPlanText = document.querySelector('option[value="' + selectedPlan + '"]').text;
-    content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<p>' + selectedPlanText + '</p>' + '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
+    content = '<form class="fetchForm">' + '<input type="hidden" name="_token" value="' + csrf_token + '">' + '<p>' + selectedPlanText + '</p>' + '目的地：<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>';
 
     if (planDetails[i].dayToVisit) {
       date = planDetails[i].dayToVisit; // date = date[0] + '-' + date[1] + '-' + date[2];

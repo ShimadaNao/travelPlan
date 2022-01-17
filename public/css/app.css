@@ -1938,6 +1938,10 @@ select {
 .ease-in {
 	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
+.fetchForm {
+    display: flex;
+    flex-direction: column;
+}
 .title {
     font-size: 30px;
 }
@@ -2033,7 +2037,7 @@ div .paginate{
 }
 .planChartTitle{
     text-align: center;
-    margin: 30px 0;
+    margin: 30px 0 0 0;
 }
 .planChartTitle p {
     font-size: 25px;
@@ -2220,6 +2224,19 @@ td#today {
     /* py-2 */
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+}
+/* 旅行名編集フォーム */
+form dl dt{
+	width:200px;
+	padding: 10px 0;
+	float:left;
+	clear:both;
+}
+form dl dd{
+  padding:10px 0;
+}
+form dl dd input{
+	width:100%;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;

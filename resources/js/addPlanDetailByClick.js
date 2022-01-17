@@ -91,7 +91,7 @@ postFetch = function(e){
         var registeredInfo = data[1];
         var content = '<form class="fetchForm">' +
         '<input type="hidden" name="_token" value="' + csrf_token + '">' +
-        '<input type="text" name="planDetailName" value="' + registeredInfo['name'] + '" disabled>' + '<br>';
+        '目的地：' + '<input type="text" name="planDetailName" value="' + registeredInfo['name'] + '" disabled>';
         if(registeredInfo.dayToVisit) {
         var date = registeredInfo.dayToVisit;
         content += '<br>' + '訪問日：' + '<input type="date" name="date" value="' + date + '" disabled>';

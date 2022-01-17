@@ -28,7 +28,7 @@ var csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
             var content = '<form class="fetchForm">' +
             '<input type="hidden" name="_token" value="' + csrf_token + '">' +
             '<p>' + selectedPlanText + '</p>' +
-            '<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>' + '<br>';
+            '目的地：<input type="text" name="planDetailName" value="' + planDetails[i].name + '" disabled>';
                     if(planDetails[i].dayToVisit) {
                         var date = planDetails[i].dayToVisit;
                         // date = date[0] + '-' + date[1] + '-' + date[2];
