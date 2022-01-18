@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Plan extends Model
 {
@@ -105,5 +106,16 @@ class Plan extends Model
     public function updatePlan($plan_id, $updateContents)
     {
         return $this->where('id', $plan_id)->update($updateContents);
+    }
+
+    public function getPopularCountryRanking()
+    {
+        $ranking = $this->select(DB::raw('count(country_id) AS country_count, country_id'))
+                            ->groupBy('country_id')
+                            ->orderBy('country_count', 'DESC')
+                            ->with('country')
+                            ->take(20)
+                            ->get();
+        return $ranking;
     }
 }
