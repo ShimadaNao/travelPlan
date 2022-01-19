@@ -119,4 +119,16 @@ class MapController extends Controller
 
         return redirect()->route('planCharts')->with(['result' => $result]);
     }
+
+    public function showPopularCountryRanking()
+    {
+        // SELECT COUNT(country_id), country_id FROM plans GROUP BY country_id ORDER BY COUNT(country_id) DESC;
+        // $ranking = $this->planModel->select(DB::raw('count(country_id) as country_count, country_id'))
+        // ->groupBy('country_id')->orderBy('country_count', 'DESC')->with('country')->take(5)->get();
+        $ranking = $this->planModel->getPopularCountryRanking();
+        return view('user.ranking', [
+            'ranking' => $ranking,
+        ]);
+    }
+
 }

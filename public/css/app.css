@@ -2238,6 +2238,26 @@ form dl dd{
 form dl dd input{
 	width:100%;
 }
+/* admin旅行先人気ランキングページ(admin/ranking.blade.php) */
+.ranking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    margin-top: 30px;
+}
+.ranking p {
+    padding: 20px;
+    color: #00BFFF;
+    font-size: 30px;
+}
+.ranking li::marker{
+    color:red;
+}
+label[class="country"] {
+    width:250px;
+    float: left;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
@@ -2665,3 +2685,4 @@ form dl dd input{
 		padding-right: 2rem;
 	}
 }
+
