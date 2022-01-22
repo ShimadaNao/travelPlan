@@ -2171,16 +2171,31 @@ td#today {
     margin-top: 50px;
     text-align: center;
 }
-.travelForm input[type="submit"] {
-    margin: 0 50%;
+td.registerPlanForm {
+    width: 250px;
+}
+td.registerPlanForm input {
+    width: 100%;
 }
 .travelForm select[name="country"] {
-    width: 50%;
+    max-width: 250px;
 }
 .travelForm p {
     font-size: 1.5rem;
     line-height: 2rem;
+    margin-bottom: 25px;
     color: 	#FFAAFF;
+}
+.travelForm input[type="submit"] {
+    margin-top: 10px;
+    color: #ff6680;
+    background-color: #bffff4;
+    border-radius: 30%;
+    width: 50px;
+}
+.registerPlanBtn {
+    display: flex;
+    justify-content: center;
 }
 /* planChart.blade.php */
 .planDeleteMsg {

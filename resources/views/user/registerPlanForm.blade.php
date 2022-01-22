@@ -49,10 +49,10 @@
                     <th class="registerPlanForm">旅行終了日：</th>
                     <td class="registerPlanForm"><input type="date" name="end"></td>
                 </tr>
-                <tr>
-                    <td class="registerPlanForm btn"><input type="submit" value="送信"></td>
-                </tr>
             </table>
+            <div class="registerPlanBtn">
+                <input type="submit" value="送信">
+            </div>
         </form>
     </div>
 </x-header>
