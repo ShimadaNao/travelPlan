@@ -116,6 +116,11 @@ class Plan extends Model
                             ->with('country')
                             ->take(20)
                             ->get();
-        return $ranking;
+        $denominator = 0;
+        foreach($ranking as $plan) {
+            $denominator += $plan['country_count'];
+        }
+
+        return [$ranking, $denominator];
     }
 }
