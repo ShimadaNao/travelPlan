@@ -2260,6 +2260,7 @@ form dl dd input{
     align-items: center;
     flex-flow: column;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 .ranking p {
     padding: 20px;
@@ -2271,6 +2272,17 @@ form dl dd input{
 }
 label[class="country"] {
     width:250px;
+    float: left;
+}
+.ranking li {
+    margin-bottom: 25px;
+    clear: left;
+}
+.ranking span {
+    float: left;
+    margin-right: 12px;
+}
+.ranking .percentage {
     float: left;
 }
 .hover\:border-gray-300:hover {
@@ -2700,4 +2712,3 @@ label[class="country"] {
 		padding-right: 2rem;
 	}
 }
-
