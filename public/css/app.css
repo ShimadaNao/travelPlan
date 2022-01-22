@@ -2183,6 +2183,7 @@ td.registerPlanForm input {
 .travelForm p {
     font-size: 1.5rem;
     line-height: 2rem;
+    margin-bottom: 25px;
     color: 	#FFAAFF;
 }
 .travelForm input[type="submit"] {
