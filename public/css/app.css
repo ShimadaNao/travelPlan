@@ -2213,6 +2213,10 @@ td.registerPlanForm input {
     margin-bottom: 1rem;
 }
 .headerNav:hover {
+    background-color: rgb(179, 191, 250);
+    border-radius: 0.25rem;
+}
+.headerNav.selec {
     background-color: rgb(165 180 252);
     border-radius: 0.25rem;
 }
