@@ -37,6 +37,7 @@ window.updatePlan = function(){
         //きちんと更新できていたらページを再読み込みして編集画面じゃなくする
         if(data == '更新しました'){
             window.location.reload();
+            alert('更新しました！');
         } else if(!window.planChartTitle.querySelector('div')){
             //更新失敗したらエラーを表示
             msgPlace = window.planChartTitle.querySelector('p');
