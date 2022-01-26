@@ -13,20 +13,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 window.editBtn = document.querySelector('#editBtn');
 window.planChartTitle = document.querySelector('.planChartTitle');
 window.csrf_token = document.querySelector('meta[name="csrf-token"]').content;
+window.excludables = [];
+window.str = '';
 
 window.editTitle = function () {
   var title = document.querySelector('#planTitle');
   var date = document.querySelector('#planDate');
-  var editForm = "<p style='font-size: 30px; color: violet;'>編集画面中です</p>" + "<form class='updateForm'><dl><dt>タイトル：</dt><dd><input type='text' name='title' value='" + planTitle + "'></dd><dt>旅行開始日：</dt><dd><input type='date' name='start' value='" + planStart + "'></dd><dt>旅行終了日：</dt><dd><input type='date' name='end' value='" + planEnd + "'></dd></dl><input type='hidden' name='plan_id' value='" + planId + "'><input type='hidden' name='_token' value='" + csrf_token + "'><br /><input type='button' value='送信' onclick='window.updatePlan()'></form>";
+  var editForm = "<p style='font-size: 30px; color: violet;'>編集画面中です</p>" + "<form class='updateForm'><dl><dt>タイトル：</dt><dd><input type='text' name='title' value='" + planTitle + "'></dd><dt>旅行開始日：</dt><dd><input type='date' name='start' value='" + planStart + "'></dd><dt>旅行終了日：</dt><dd><input type='date' name='end' value='" + planEnd + "'></dd></dl><input type='hidden' name='plan_id' value='" + planId + "'><input type='hidden' name='_token' value='" + csrf_token + "'><br /><input type='button' value='送信' onclick='window.confirmExcludables()'></form>";
   window.planChartTitle.innerHTML = editForm;
 };
 
-window.editBtn.onclick = window.editTitle;
+window.editBtn.onclick = window.editTitle; //追加 ここでfetchでしてLaravel側で処理を書く
 
-window.updatePlan = function () {
-  var postFetchForm = document.querySelector('.updateForm');
-  var url = '/users/updatePlan';
-  var formData = new FormData(postFetchForm);
+window.confirmExcludables = function () {
+  var fetchForm = document.querySelector('.updateForm');
+  var url = '/users/confirmExcludableDetail';
+  var formData = new FormData(fetchForm);
 
   var _iterator = _createForOfIteratorHelper(formData.entries()),
       _step;
@@ -40,6 +42,52 @@ window.updatePlan = function () {
     _iterator.e(err);
   } finally {
     _iterator.f();
+  }
+
+  fetch(url, {
+    method: "POST",
+    body: formData
+  }).then(function (response) {
+    console.log('ok!');
+    return response.json();
+  }).then(function (data) {
+    if (data.length > 0) {
+      for (var i = 0; i < data.length; i++) {
+        window.excludables.push('・' + data[i]['name']);
+      }
+
+      str = excludables.reduce(function (a, b) {
+        // return '・' + a + `\n` + '・' + b + `\n`;
+        return a + "\n" + b;
+      });
+      alert(str); //alertにokボタン・キャンセルボタンを付けて、okだったら旅行名を更新できるようにする。          
+    }
+
+    console.log(window.excludables);
+    window.excludables = [];
+  })["catch"](function (error) {
+    console.log(error);
+  });
+}; //ここまで追加
+
+
+window.updatePlan = function () {
+  var postFetchForm = document.querySelector('.updateForm');
+  var url = '/users/updatePlan';
+  var formData = new FormData(postFetchForm);
+
+  var _iterator2 = _createForOfIteratorHelper(formData.entries()),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var value = _step2.value;
+      console.log(value);
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
   }
 
   fetch(url, {
