@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -122,5 +123,21 @@ class Plan extends Model
         }
 
         return [$ranking, $denominator];
+    }
+
+    public function getExcludablePlanDetails($id, $updateData)
+    {
+        $planInfo = $this->where('id', $id)->with('planDetail')->first();
+        $planDetails = $planInfo['planDetail'];
+        $newStartDate = new DateTime($updateData['start']);
+        $newEndDate = new DateTime($updateData['end']);
+        $excludables = array();
+        foreach ($planDetails as $detail) {
+            $visitDate = new DateTime($detail['dayToVisit']);
+            if ($visitDate < $newStartDate || $visitDate > $newEndDate) {
+                $excludables[] = $detail;
+            }
+        }
+        return $excludables;
     }
 }
