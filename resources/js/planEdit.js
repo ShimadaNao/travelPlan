@@ -2,7 +2,8 @@
 window.editBtn = document.querySelector('#editBtn');
 window.planChartTitle = document.querySelector('.planChartTitle');
 window.csrf_token = document.querySelector('meta[name="csrf-token"]').content;
-window.excludables = [];
+window.excludables = {};
+window.excludableTitles = [];
 window.str = '';
 
 window.editTitle = function() {
@@ -36,9 +37,12 @@ window.confirmExcludables = function(){
     }).then((data) => {
         if (data.length > 0) {
             for(var i=0; i<data.length; i++){
-                window.excludables.push('・' + data[i]['name']);
+                //変更
+                window.excludables[i] = {'id':data[i]['id'], 'name': data[i]['name']};
+                window.excludableTitles.push('・' + data[i]['name']);
+                // window.excludables.push('・' + data[i]['name']);
             }
-            str = excludables.reduce(function(a,b){
+            str = excludableTitles.reduce(function(a,b){
                 // return '・' + a + `\n` + '・' + b + `\n`;
                 return a + "\n" + b;
             });
@@ -46,6 +50,9 @@ window.confirmExcludables = function(){
             //confirmがokだったら旅行名を更新できるようにする
             if(result){
                 //excludablesの予定をplanDetailテーブルから削除処理
+                for(var i=0; i<window.excludables.length; i++){
+                    window.fetchDeletePlanDetail(excludables[i]['id']);
+                }
                 window.updatePlan();
             }     
         } else {
@@ -58,6 +65,27 @@ window.confirmExcludables = function(){
     });
 }
 //ここまで追加
+
+//ここから削除対象planDetail削除のfetchPost処理
+async function fetchGet(url = '') {
+    const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        referrerPolicy: 'no-referrer',
+    })
+    return response.json();
+}
+
+// window.fetchDeletePlanDetail() = function(id){
+//     fetchGet("/users/deletePlanDetail/" + id)
+// }
+
+//ここまで
 
 window.updatePlan = function(){
     const postFetchForm = document.querySelector('.updateForm');
