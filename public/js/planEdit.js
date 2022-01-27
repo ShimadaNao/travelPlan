@@ -60,7 +60,14 @@ window.confirmExcludables = function () {
         // return '・' + a + `\n` + '・' + b + `\n`;
         return a + "\n" + b;
       });
-      alert(str); //alertにokボタン・キャンセルボタンを付けて、okだったら旅行名を更新できるようにする。          
+      var result = confirm(str + '\n上記予定は旅行日程から外れるため削除されます。'); //confirmがokだったら旅行名を更新できるようにする
+
+      if (result) {
+        //excludablesの予定をplanDetailテーブルから削除処理
+        window.updatePlan();
+      }
+    } else {
+      window.updatePlan();
     }
 
     console.log(window.excludables);
