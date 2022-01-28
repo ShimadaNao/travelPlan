@@ -35,7 +35,9 @@
                 <nav>
                 <ul class="flex justify-center">
                     @auth('users')
-                    {{ $header }}
+                        @if(isset($header))
+                            {{ $header }}
+                        @endif
                     @endauth
                     @guest
                     <li><a href="{{ route('multi_login') }}"  class="headerNav">ログイン</a></li>
