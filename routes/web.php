@@ -31,9 +31,8 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('calendar', [ApiController::class, 'showCalendar'])->name('calendar');
     Route::get('registerPlan', [MapController::class, 'showRegisterPlanForm'])->name('registerPlanForm');
     Route::get('deletePlan/{id}', [MapController::class, 'deletePlan'])->name('deletePlan');
-    Route::post('updatePlan', [ApiController::class, 'updatePlan'])->name('updatePlan');
+    
     Route::get('ranking', [MapController::class, 'showPopularCountryRanking'])->name('countryRanking');
-    Route::post('confirmExcludableDetail', [ApiController::class, 'confirmExcludablePlanDetails']);
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');
@@ -41,10 +40,15 @@ Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::post('completeRegister', [MultiAuthController::class, 'completeAdminRegister'])->name('completeAdminRegister');
     Route::post('reAuth', [AdminController::class, 'reAuth'])->name('reAuth');
 });
-Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan'])->middleware('auth:users');
-Route::post('/registerPlanDetail', [ApiController::class, 'registerPlanDetail'])->middleware('auth:users');
-Route::get('/deletePlanDetail/{id}', [ApiController::class, 'deletePlanDetail'])->middleware(('auth:users'));
-Route::post('/updatePlanDetail', [ApiController::class, 'updatePlanDetail'])->middleware(('auth:users'));
+Route::middleware('auth:users')->group(function() {
+    Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan']);
+    Route::post('/registerPlanDetail', [ApiController::class, 'registerPlanDetail']);
+    Route::get('/deletePlanDetail/{id}', [ApiController::class, 'deletePlanDetail']);
+    Route::post('/updatePlanDetail', [ApiController::class, 'updatePlanDetail']);
+    Route::post('/confirmExcludableDetail', [ApiController::class, 'confirmExcludablePlanDetails']);
+    Route::post('/updatePlan', [ApiController::class, 'updatePlan'])->name('updatePlan');
+});
+
 Route::prefix('admins')->middleware('auth:admins')->group(function () {
     Route::get('dashboard', [MultiAuthController::class, 'showAdminDashboard'])->name('adminDashboard');
 });
