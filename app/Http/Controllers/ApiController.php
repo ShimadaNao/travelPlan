@@ -122,4 +122,18 @@ class ApiController extends Controller
 
         return $msg;
     }
+
+    //追加
+    public function confirmExcludablePlanDetails(Request $request)
+    {
+        $plan_id = $request->plan_id;
+        $updateData = [
+            'plan_id' => $plan_id,
+            'title' => $request->title,
+            'start' => $request->start,
+            'end' => $request->end,
+        ];
+        $excludablePlanDetails = $this->planModel->getExcludablePlanDetails($plan_id, $updateData);
+        return $excludablePlanDetails;
+    }
 }
