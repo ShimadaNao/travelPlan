@@ -870,8 +870,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 window.editBtn = document.querySelector('#editBtn');
 window.planChartTitle = document.querySelector('.planChartTitle');
 window.csrf_token = document.querySelector('meta[name="csrf-token"]').content;
-window.excludables = {};
-window.excludableTitles = [];
+window.excludables = [];
+window.excludableNames = [];
 window.str = '';
 
 window.editTitle = function () {
@@ -881,11 +881,11 @@ window.editTitle = function () {
   window.planChartTitle.innerHTML = editForm;
 };
 
-window.editBtn.onclick = window.editTitle; //追加 ここでfetchでしてLaravel側で処理を書く
+window.editBtn.onclick = window.editTitle;
 
 window.confirmExcludables = function () {
   var fetchForm = document.querySelector('.updateForm');
-  var url = '/users/confirmExcludableDetail';
+  var url = '/confirmExcludableDetail';
   var formData = new FormData(fetchForm);
 
   var _iterator = _createForOfIteratorHelper(formData.entries()),
@@ -916,10 +916,10 @@ window.confirmExcludables = function () {
           'id': data[i]['id'],
           'name': data[i]['name']
         };
-        window.excludableTitles.push('・' + data[i]['name']); // window.excludables.push('・' + data[i]['name']);
+        window.excludableNames.push('・' + data[i]['name']); // window.excludables.push('・' + data[i]['name']);
       }
 
-      str = excludableTitles.reduce(function (a, b) {
+      str = excludableNames.reduce(function (a, b) {
         // return '・' + a + `\n` + '・' + b + `\n`;
         return a + "\n" + b;
       });
@@ -942,17 +942,11 @@ window.confirmExcludables = function () {
   })["catch"](function (error) {
     console.log(error);
   });
-}; //ここまで追加
-//ここから削除対象planDetail削除のfetchPost処理
-
+};
 
 function fetchGet() {
   return _fetchGet.apply(this, arguments);
-} // window.fetchDeletePlanDetail() = function(id){
-//     fetchGet("/users/deletePlanDetail/" + id)
-// }
-//ここまで
-
+}
 
 function _fetchGet() {
   _fetchGet = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -990,9 +984,24 @@ function _fetchGet() {
   return _fetchGet.apply(this, arguments);
 }
 
+window.fetchDeletePlanDetail = function (id) {
+  fetchGet("/deletePlanDetail/" + id).then(function (response) {
+    if (!response.ok) {
+      throw new Error('Network response was not OK');
+    }
+
+    return response;
+  }).then(function (data) {
+    console.log(data);
+    console.log('削除しました！');
+  })["catch"](function (error) {
+    console.log(error);
+  });
+};
+
 window.updatePlan = function () {
   var postFetchForm = document.querySelector('.updateForm');
-  var url = '/users/updatePlan';
+  var url = '/updatePlan';
   var formData = new FormData(postFetchForm);
 
   var _iterator2 = _createForOfIteratorHelper(formData.entries()),

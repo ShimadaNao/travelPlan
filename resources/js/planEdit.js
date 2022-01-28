@@ -2,8 +2,8 @@
 window.editBtn = document.querySelector('#editBtn');
 window.planChartTitle = document.querySelector('.planChartTitle');
 window.csrf_token = document.querySelector('meta[name="csrf-token"]').content;
-window.excludables = {};
-window.excludableTitles = [];
+window.excludables = [];
+window.excludableNames = [];
 window.str = '';
 
 window.editTitle = function() {
@@ -20,10 +20,9 @@ window.editTitle = function() {
 }
 window.editBtn.onclick = window.editTitle;
 
-//追加 ここでfetchでしてLaravel側で処理を書く
 window.confirmExcludables = function(){
     const fetchForm = document.querySelector('.updateForm');
-    const url = '/users/confirmExcludableDetail';
+    const url = '/confirmExcludableDetail';
     let formData = new FormData(fetchForm);
     for (let value of formData.entries()) {
         console.log(value);
@@ -39,10 +38,10 @@ window.confirmExcludables = function(){
             for(var i=0; i<data.length; i++){
                 //変更
                 window.excludables[i] = {'id':data[i]['id'], 'name': data[i]['name']};
-                window.excludableTitles.push('・' + data[i]['name']);
+                window.excludableNames.push('・' + data[i]['name']);
                 // window.excludables.push('・' + data[i]['name']);
             }
-            str = excludableTitles.reduce(function(a,b){
+            str = excludableNames.reduce(function(a,b){
                 // return '・' + a + `\n` + '・' + b + `\n`;
                 return a + "\n" + b;
             });
@@ -64,9 +63,7 @@ window.confirmExcludables = function(){
         console.log(error);
     });
 }
-//ここまで追加
 
-//ここから削除対象planDetail削除のfetchPost処理
 async function fetchGet(url = '') {
     const response = await fetch(url, {
         method: 'GET',
@@ -81,15 +78,26 @@ async function fetchGet(url = '') {
     return response.json();
 }
 
-// window.fetchDeletePlanDetail() = function(id){
-//     fetchGet("/users/deletePlanDetail/" + id)
-// }
-
-//ここまで
+window.fetchDeletePlanDetail = function(id){
+    fetchGet("/deletePlanDetail/" + id)
+    .then((response) => {
+        if(!response.ok){
+            throw new Error('Network response was not OK');
+        }
+        return response;
+    })
+    .then((data) => {
+        console.log(data);
+        console.log('削除しました！');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
 
 window.updatePlan = function(){
     const postFetchForm = document.querySelector('.updateForm');
-    const url = '/users/updatePlan';
+    const url = '/updatePlan';
     let formData = new FormData(postFetchForm);
     for(let value of formData.entries()) {
         console.log(value);
