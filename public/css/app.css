@@ -1147,10 +1147,6 @@ select {
 	margin-top: 1rem;
 	margin-bottom: 1rem;
 }
-.my-8 {
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-}
 .ml-3 {
 	margin-left: 0.75rem;
 }
@@ -1589,14 +1585,6 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(199, 210, 254, var(--tw-bg-opacity));
 }
-.bg-pink-200 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(251, 207, 232, var(--tw-bg-opacity));
-}
-.bg-yellow-300 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(252, 211, 77, var(--tw-bg-opacity));
-}
 .bg-blue-500 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
@@ -1767,10 +1755,6 @@ select {
 .text-xl {
 	font-size: 1.25rem;
 	line-height: 1.75rem;
-}
-.text-4xl {
-	font-size: 2.25rem;
-	line-height: 2.5rem;
 }
 .font-medium {
 	font-weight: 500;
@@ -2317,6 +2301,12 @@ label[class="country"] {
 .ranking .percentage {
     float: left;
 }
+/* header.bladeのハンバーガメニュー */
+.hamburgerOpen {
+    background-color: #FFFFBB;
+    opacity: 0.8;
+    border-radius: 20px;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
@@ -2709,17 +2699,8 @@ label[class="country"] {
 		grid-column: span 1 / span 1;
 	}
 
-	.md\:my-4 {
-		margin-top: 1rem;
-		margin-bottom: 1rem;
-	}
-
 	.md\:mt-0 {
 		margin-top: 0px;
-	}
-
-	.md\:flex {
-		display: flex;
 	}
 
 	.md\:grid {
@@ -2732,10 +2713,6 @@ label[class="country"] {
 
 	.md\:grid-cols-2 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-
-	.md\:justify-around {
-		justify-content: space-around;
 	}
 
 	.md\:gap-6 {

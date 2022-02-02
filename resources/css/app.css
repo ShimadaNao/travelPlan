@@ -358,3 +358,9 @@ label[class="country"] {
 .ranking .percentage {
     float: left;
 }
+/* header.bladeのハンバーガメニュー */
+.hamburgerOpen {
+    background-color: #FFFFBB;
+    opacity: 0.8;
+    border-radius: 20px;
+}
