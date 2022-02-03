@@ -1846,6 +1846,10 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(16, 185, 129, var(--tw-text-opacity));
 }
+.text-\[\#FF6347\] {
+	--tw-text-opacity: 1;
+	color: rgba(255, 99, 71, var(--tw-text-opacity));
+}
 .text-gray-200 {
 	--tw-text-opacity: 1;
 	color: rgba(229, 231, 235, var(--tw-text-opacity));
@@ -1861,10 +1865,6 @@ select {
 .text-blue-700 {
 	--tw-text-opacity: 1;
 	color: rgba(29, 78, 216, var(--tw-text-opacity));
-}
-.text-\[\#FF6347\] {
-	--tw-text-opacity: 1;
-	color: rgba(255, 99, 71, var(--tw-text-opacity));
 }
 .underline {
 	text-decoration: underline;
@@ -2314,6 +2314,9 @@ label[class="country"] {
     opacity: 0.8;
     border-radius: 20px;
 }
+.hamburgerOpen a:hover {
+    background-color: #FFE4B5;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
@@ -2344,10 +2347,6 @@ label[class="country"] {
 .hover\:bg-gray-50:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
-}
-.hover\:bg-pink-400:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(244, 114, 182, var(--tw-bg-opacity));
 }
 .hover\:bg-blue-500:hover {
 	--tw-bg-opacity: 1;

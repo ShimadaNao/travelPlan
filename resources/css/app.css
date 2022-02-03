@@ -364,3 +364,6 @@ label[class="country"] {
     opacity: 0.8;
     border-radius: 20px;
 }
+.hamburgerOpen a:hover {
+    background-color: #FFE4B5;
+}
