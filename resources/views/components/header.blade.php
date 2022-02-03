@@ -18,11 +18,6 @@
     <div class="bg-indigo-200">
         <header class="flex flex-col items-center container mx-auto text-grey">
             <h1 class="flex justify-center">
-                @if(Auth::user())
-                    {{Auth::user()->name}}
-                @else
-                <p>未ログインです</p>
-                @endif
                 @auth('users')
                     <a href="{{ route('userDashboard') }}" class="title">{{ config('app.name', 'Laravel') }}</a>
                 @endauth

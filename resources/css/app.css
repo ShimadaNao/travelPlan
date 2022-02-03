@@ -367,3 +367,9 @@ label[class="country"] {
 .hamburgerOpen a:hover {
     background-color: #FFE4B5;
 }
+/* header.bladeのアプリケーション名表示部分 */
+header a[class="title"] {
+    color: #1E90FF;
+    font-size: 45px;
+    font-weight: bold;
+}
