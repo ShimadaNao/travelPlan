@@ -84,20 +84,6 @@
         data: {
             isOpen: false,
         },
-        methods: {
-            beforeEnter: function (el) {
-                console.log('beforeEnger');
-            },
-            enter: function (el) {
-                console.log('beforeEnger');
-            },
-            beforeLeave: function (el) {
-                console.log('beforeEnger');
-            },
-            leave: function (el) {
-                console.log('fin');
-            },
-        }
     });
     </script>
 </body>
