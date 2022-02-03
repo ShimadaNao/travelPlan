@@ -41,7 +41,7 @@
                                 {{ $header }}
                             @endif
                             <div id ="app">
-                                <header class="container mx-auto text-teal-400 w-full">
+                                <header class="container mx-auto text-teal-400 w-full relative">
                                     <div class="flex justify-between items-center w-full">
                                         <div>
                                             <button @click="isOpen = !isOpen" class="focus:outline-none relative">
@@ -52,15 +52,13 @@
                                             </button>
                                         </div>
                                     </div>
-                                    {{-- <div> --}}
-                                        <div :class="isOpen ? 'block hamburgerOpen' : 'hidden'" class="bg-rose-200 absolute">
-                                            <ul class="items-center">
-                                                <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 hover:bg-pink-400 rounded md:font-medium">マイページ</a></li>
-                                                <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 hover:bg-pink-400 rounded md:font-medium">投稿</a></li>
-                                                <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 hover:bg-pink-400 rounded md:font-medium">お知らせ</a></li>
-                                            </ul>
-                                        </div>
-                                    {{-- </div> --}}
+                                    <div :class="isOpen ? 'block hamburgerOpen' : 'hidden'" class="bg-rose-200 absolute w-[130px]">
+                                        <ul class="items-center text-center text-[#FF6347]">
+                                            <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 hover:bg-pink-400 rounded md:font-medium">マイページ</a></li>
+                                            <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 hover:bg-pink-400 rounded md:font-medium">投稿</a></li>
+                                            <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 hover:bg-pink-400 rounded md:font-medium">お知らせ</a></li>
+                                        </ul>
+                                    </div>
                                 </header>
                             </div>
                         @endauth
