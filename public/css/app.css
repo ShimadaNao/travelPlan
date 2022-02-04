@@ -2313,6 +2313,8 @@ label[class="country"] {
     background-color: #FFFFBB;
     opacity: 0.8;
     border-radius: 20px;
+    position: absolute;
+    z-index: 1000;
 }
 .hamburgerOpen a:hover {
     background-color: #FFE4B5;
