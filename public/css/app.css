@@ -2313,9 +2313,23 @@ label[class="country"] {
     background-color: #FFFFBB;
     opacity: 0.8;
     border-radius: 20px;
+    position: absolute;
+    z-index: 1000;
 }
 .hamburgerOpen a:hover {
     background-color: #FFE4B5;
+}
+/* header.bladeのアプリケーション名表示部分 */
+header a[class="title"] {
+    color: #1E90FF;
+    font-size: 45px;
+    font-weight: bold;
+}
+/* header.bladeのナビバー部分 */
+.navbar {
+    color: #FF69B4;
+    font-weight: bold;
+    font-size: 16px;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
