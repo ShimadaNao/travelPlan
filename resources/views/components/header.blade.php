@@ -30,7 +30,7 @@
             </h1>
             <div class="test" style="width:1380px;">
                 <nav>
-                    <ul class="flex justify-center items-center">
+                    <ul class="navbar flex justify-center items-center">
                         @auth('users')
                             @if(isset($header))
                                 {{ $header }}

@@ -2323,6 +2323,12 @@ header a[class="title"] {
     font-size: 45px;
     font-weight: bold;
 }
+/* header.bladeのナビバー部分 */
+.navbar {
+    color: #FF69B4;
+    font-weight: bold;
+    font-size: 16px;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
