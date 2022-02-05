@@ -39,6 +39,7 @@ Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::post('confirmRegister',[MultiAuthController::class, 'confirmAdminRegister'])->name('confirmAdminRegister');
     Route::post('completeRegister', [MultiAuthController::class, 'completeAdminRegister'])->name('completeAdminRegister');
     Route::post('reAuth', [AdminController::class, 'reAuth'])->name('reAuth');
+    Route::view('planSearch', 'admin.planSearch')->name('planSearchPage');
 });
 Route::middleware('auth:users')->group(function() {
     Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan']);
