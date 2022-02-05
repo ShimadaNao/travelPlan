@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\planSearchRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,5 +24,14 @@ class AdminController extends Controller
         }
 
         return $reAuthResult;
+    }
+
+    public function showPlanSearchResult(planSearchRequest $request)
+    {
+        $data = [
+            'plan_id' => $request->plan_id,
+            'keyword' => $request->keyword,
+        ];
+        dd($data);
     }
 }
