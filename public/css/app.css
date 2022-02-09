@@ -2341,6 +2341,31 @@ header a[class="title"] {
     font-weight: bold;
     font-size: 16px;
 }
+/* 旅行検索結果画面 */
+.planSearchResultTitle {
+    text-align: center;
+    font-size: 30px;
+    margin: 30px;
+    color: brown;
+}
+.searchResultWrapper {
+    justify-content: center;
+    display: flex;
+    /* flex-flow: column; */
+    flex-direction: column;
+    align-items: center;
+}
+.searchResultWrapper p {
+    font-size: 20px;
+    color: #CC6666;
+}
+.searchResultWrapper p span {
+    color: black;
+    font-size: 17px;
+}
+.searchResultItem {
+    margin: 5px;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
