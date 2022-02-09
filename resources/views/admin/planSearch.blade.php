@@ -5,7 +5,7 @@
             <p>旅行Idを入力してください</p>
             @if($errors->has('plan_id'))
                 @foreach ($errors->get('plan_id') as $message)
-                    {{ $message }}
+                    {{ $message }}<br>
                 @endforeach
             @endif
             <input type="text" name="plan_id" placeholder="旅行ID"><br>
