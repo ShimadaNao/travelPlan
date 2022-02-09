@@ -42,4 +42,13 @@ class AdminController extends Controller
             'keywordResults' => $results['keywordResults'],
         ]);
     }
+    
+    public function showPlanSearchResultDetail($id)
+    {
+        $planDetail = $this->planModel->getSelectedPlan($id);
+
+        return view('admin.planSearchResultDetail', [
+            'planDetail' => $planDetail,
+        ]);
+    }
 }
