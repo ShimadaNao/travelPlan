@@ -25,7 +25,7 @@ class planSearchRequest extends FormRequest
     {
         // どちらかのみでもokのためrequired_withoutを使用
         return [
-            'plan_id' => 'required_without:keyword | required | integer',
+            'plan_id' => 'required_without:keyword',
             'keyword' => '',
         ];
     }
