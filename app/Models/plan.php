@@ -27,6 +27,11 @@ class Plan extends Model
         return $this->hasMany(PlanDetail::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function registerPlan($request)
     {
         $travelTitle = [
@@ -77,6 +82,7 @@ class Plan extends Model
         $selectedPlan = $this->where('id', $id)
                         ->with('country')
                         ->with('planDetail')
+                        ->with('user')
                         ->first();
         return $selectedPlan;
     }
@@ -149,15 +155,10 @@ class Plan extends Model
         if ($keyword != null) {
             $keywordResults = $this->where('title', 'like', '%'.$keyword.'%')->get();
         }
-        // $results = [
-        //     'plan_idResult' => $this->where('id', $plan_id)->first(),
-        //     'keywordResult' => $this->where('title', 'like', '%'.$keyword.'%')->get(),
-        // ];
+        
         return [
             'plan_idResult' => $plan_idResult,
             'keywordResults' => $keywordResults
         ];
-        // dd($keywordResult);
-
     }
 }
