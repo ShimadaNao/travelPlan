@@ -15,7 +15,7 @@
             </div>
             @endfor
         @endif
-        @if($plan_idResult == null && $keywordResults == null)
+        @if($plan_idResult == null && !(count($keywordResults)))
             <p>該当する計画はありませんでした</p>
         @endif
     </div>
