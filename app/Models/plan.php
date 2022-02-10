@@ -151,7 +151,7 @@ class Plan extends Model
         $plan_id = $request->plan_id;
         $keyword = $request->keyword;
         $plan_idResult = $this->where('id', $plan_id)->first();
-        $keywordResults = null;//エラー回避のためundefinedの
+        $keywordResults = [];//エラー回避のためundefinedの
         if ($keyword != null) {
             $keywordResults = $this->where('title', 'like', '%'.$keyword.'%')->get();
         }
