@@ -164,6 +164,13 @@ return [
             'required' => 'パスワードを入力してください',
             'min' => 'パスワードは5文字以上で入力してください',
         ],
+        'plan_id' => [
+            'required_without' => 'plan_idまたはキーワードを入力してください。',
+            'integer' => '数字で入力してください。',
+        ],
+        'keyword' => [
+            'required_without' => 'キーワードを入力してください。',
+        ],
     ],
 
     /*

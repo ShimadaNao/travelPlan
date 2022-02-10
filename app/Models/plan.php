@@ -27,6 +27,11 @@ class Plan extends Model
         return $this->hasMany(PlanDetail::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function registerPlan($request)
     {
         $travelTitle = [
@@ -74,11 +79,11 @@ class Plan extends Model
     public function getSelectedPlan($id)
     {
         $user_id = Auth::id();
-        $selectedPlan = $this->where('user_id', $user_id)
-                                    ->where('id', $id)
-                                    ->with('country')
-                                    ->with('planDetail')
-                                    ->first();
+        $selectedPlan = $this->where('id', $id)
+                        ->with('country')
+                        ->with('planDetail')
+                        ->with('user')
+                        ->first();
         return $selectedPlan;
     }
 
@@ -139,5 +144,21 @@ class Plan extends Model
             }
         }
         return $excludables;
+    }
+
+    public function getSearchResults($request)
+    {
+        $plan_id = $request->plan_id;
+        $keyword = $request->keyword;
+        $plan_idResult = $this->where('id', $plan_id)->first();
+        $keywordResults = [];//エラー回避のためundefinedの
+        if ($keyword != null) {
+            $keywordResults = $this->where('title', 'like', '%'.$keyword.'%')->get();
+        }
+        
+        return [
+            'plan_idResult' => $plan_idResult,
+            'keywordResults' => $keywordResults
+        ];
     }
 }

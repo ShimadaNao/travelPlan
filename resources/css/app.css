@@ -381,3 +381,44 @@ header a[class="title"] {
     font-weight: bold;
     font-size: 16px;
 }
+/* 旅行検索結果画面 */
+.planSearchResultTitle {
+    text-align: center;
+    font-size: 30px;
+    margin: 30px;
+    color: brown;
+}
+.searchResultWrapper {
+    justify-content: center;
+    display: flex;
+    /* flex-flow: column; */
+    flex-direction: column;
+    align-items: center;
+}
+.searchResultWrapper p {
+    font-size: 20px;
+    color: #CC6666;
+}
+.searchResultWrapper p span {
+    color: black;
+    font-size: 17px;
+}
+.searchResultItem {
+    margin: 5px;
+}
+/* 旅行検索結果詳細画面(admin.planSearchResultDetail) */
+.resultDetailTable {
+    display: table;
+}
+.detailTableRow {
+    display: table-row;
+}
+.detailTableItem {
+    display: table-cell;
+    margin-bottom: 10px;
+    padding: 0 10px 10px 0;
+}
+.detailTableBtn {
+    background-color:burlywood;
+    border-radius: 5px;
+}

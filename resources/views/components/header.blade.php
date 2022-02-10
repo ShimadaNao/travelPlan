@@ -63,7 +63,7 @@
                         @endguest
                         @auth('admins')
                         <li><a href="#"  class="headerNav">マップ</a></li>
-                        <li><a href="#"  class="headerNav">ショップ</a></li>
+                        <li><a href="{{ route('planSearchPage') }}"  class="headerNav">旅行検索</a></li>
                         <li><a href="/logout"  class="headerNav">ログアウト</a></li>
                         <li><a href="{{route('registerAdmin')}}"  class="headerNav">管理者登録</a></li>
                         @endauth
