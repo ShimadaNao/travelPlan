@@ -17,12 +17,14 @@
 <body>
     <div class="bg-indigo-200">
         <header class="flex flex-col items-center container mx-auto text-grey">
-            <h1 class="flex justify-center">
+            <h1 class="appTitle">
                 @auth('users')
                     <a href="{{ route('userDashboard') }}" class="title">{{ config('app.name', 'Laravel') }}</a>
+                    <div>ユーザーとしてログイン中</div>
                 @endauth
                 @auth('admins')
                     <a href="{{ route('adminDashboard') }}" class="title">{{ config('app.name', 'Laravel') }}</a>
+                    <div>管理者としてログイン中</div>
                 @endauth
                 @guest
                     <a href="/" class="title">{{ config('app.name', 'Laravel') }}</a>
