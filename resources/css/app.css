@@ -358,6 +358,13 @@ label[class="country"] {
 .ranking .percentage {
     float: left;
 }
+/* header.blade.php */
+.appTitle {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    text-align: center;
+}
 /* header.bladeのハンバーガメニュー */
 .hamburgerOpen {
     background-color: #FFFFBB;
