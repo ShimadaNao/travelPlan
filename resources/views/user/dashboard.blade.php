@@ -69,6 +69,17 @@
                     </div>
                 @endif 
                 旅行終了日：<input type="date" name="end"><br>
+                <p>公開・非公開を選んでください</p>
+                <div class="openness">
+                    <div>
+                        <input type="radio" name="public" value="yes">
+                        <label for="yes">公開</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="public" value="no">
+                        <label for="no">非公開</label>
+                    </div>
+                </div>
                 <input type="submit" value="登録する">
             </form>
         </div>
