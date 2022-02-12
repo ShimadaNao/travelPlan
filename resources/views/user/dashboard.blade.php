@@ -45,7 +45,7 @@
                         {{ $errors->first('title')}}
                     </div>
                 @endif
-                旅行名：<input type="text" name="title"><br>
+                旅行名：<input type="text" name="title" value="{{ old('title') }}"><br>
                 @if ($errors->has('country'))
                     <div class="text-red-600">
                         {{ $errors->first('title')}}
@@ -62,13 +62,18 @@
                         {{ $errors->first('start')}}
                     </div>
                 @endif
-                旅行開始日：<input type="date" name="start"><br>
+                旅行開始日：<input type="date" name="start" value="{{ old('start') }}"><br>
                 @if ($errors->has('end'))
                     <div class="text-red-600">
                         {{ $errors->first('end')}}
                     </div>
                 @endif 
-                旅行終了日：<input type="date" name="end"><br>
+                旅行終了日：<input type="date" name="end" value="{{ old('end') }}"><br>
+                @if ($errors->has('public'))
+                    <div class="text-red-600">
+                        {{ $errors->first('public')}}
+                    </div>
+                @endif 
                 <p>公開・非公開を選んでください</p>
                 <div class="openness">
                     <div>
