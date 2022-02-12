@@ -31,8 +31,8 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('calendar', [ApiController::class, 'showCalendar'])->name('calendar');
     Route::get('registerPlan', [MapController::class, 'showRegisterPlanForm'])->name('registerPlanForm');
     Route::get('deletePlan/{id}', [MapController::class, 'deletePlan'])->name('deletePlan');
-    
     Route::get('ranking', [MapController::class, 'showPopularCountryRanking'])->name('countryRanking');
+    Route::get('sharedPlans', [MapController::class, 'showSharedPlans'])->name('sharedPlans');
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');
