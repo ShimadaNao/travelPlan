@@ -28,6 +28,7 @@ class planRegisterRequest extends FormRequest
             // 'country' => 'required',
             'start' => 'required',
             'end' => 'required',
+            'public' => 'required',
         ];
 
         if ($this->has('country')) {

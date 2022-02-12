@@ -40,6 +40,7 @@ class Plan extends Model
             'country_id' => $request->country,
             'start' => $request->start,
             'end' => $request->end,
+            'public' => $request->public,
         ];
         $travelTitleRegister = $this::firstOrCreate($travelTitle);
 

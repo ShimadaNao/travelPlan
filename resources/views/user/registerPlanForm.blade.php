@@ -21,9 +21,8 @@
                         @endforeach
                     @endif
                     <th class="registerPlanForm">旅行名：</th>
-                    <td class="registerPlanForm"><input type="text" name="title"></td>
+                    <td class="registerPlanForm"><input type="text" name="title" value="{{ old('title') }}"></td>
                 </tr>
-
                 <tr>
                     @if($errors->has('country'))
                         @foreach($errors->get('country') as $error)
@@ -39,7 +38,6 @@
                     </select>
                     </td>
                 </tr>
-
                 <tr>
                     @if($errors->has('start'))
                         @foreach($errors->get('start') as $error)
@@ -47,9 +45,8 @@
                         @endforeach
                     @endif
                     <th class="registerPlanForm">旅行開始日：</th>
-                    <td class="registerPlanForm"><input type="date" name="start"></td>
+                    <td class="registerPlanForm"><input type="date" name="start" value="{{ old('start') }}"></td>
                 </tr>
-
                 <tr>
                     @if($errors->has('end'))
                         @foreach($errors->get('end') as $error)
@@ -57,7 +54,23 @@
                         @endforeach
                     @endif
                     <th class="registerPlanForm">旅行終了日：</th>
-                    <td class="registerPlanForm"><input type="date" name="end"></td>
+                    <td class="registerPlanForm"><input type="date" name="end" value="{{ old('end') }}"></td>
+                </tr>
+                <tr>
+                    @if($errors->has('public'))
+                        @foreach($errors->get('public') as $error)
+                            <p style="color:orangered; font-size:20px">{{ $error }}<p>
+                        @endforeach
+                    @endif
+                    <th class="registerPlanForm">公開設定：</th>
+                    <td class="registerPlanForm public">
+                        <div>
+                            <input type="radio" name="public" value="yes">公開
+                        </div>
+                        <div>
+                            <input type="radio" name="public" value="no">非公開
+                        </div>
+                    </td>
                 </tr>
             </table>
             <div class="registerPlanBtn">

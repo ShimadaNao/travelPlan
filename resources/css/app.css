@@ -9,6 +9,7 @@
 .title {
     font-size: 30px;
 }
+/* user.dashboard.blade.php */
 .planTitleWrapper {
     z-index: 999;
     position: absolute;
@@ -31,11 +32,17 @@
     display: flex;
     background-color: white;
 }
-.planTitle input, .planTitle select {
+.planTitle input:not([type="radio"]), .planTitle select {
     width:80%;
 }
 #map {
     height:70%;
+}
+.openness {
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+    margin: 1%;
 }
 .adminRegisterCompleted{
     display: flex;
@@ -238,11 +245,15 @@ td#today {
     margin-top: 50px;
     text-align: center;
 }
-td.registerPlanForm {
-    width: 250px;
-}
-td.registerPlanForm input {
+td.registerPlanForm input:not([name="public"]) {
     width: 100%;
+}
+.registerPlanForm.public {
+    display: flex;
+    justify-content: space-between;
+}
+.registerPlanForm.public input {
+    margin-right: 5px;
 }
 .travelForm select[name="country"] {
     max-width: 250px;
