@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Plan extends Model
 {
@@ -161,5 +162,17 @@ class Plan extends Model
             'plan_idResult' => $plan_idResult,
             'keywordResults' => $keywordResults
         ];
+    }
+
+    public function getSharedPlans()
+    {
+        $sharedPlans = $this->where('public', 'yes')->with('user')->with('country')->paginate(2);
+        foreach($sharedPlans as $plan){
+            $array_start = explode('-', $plan['start']);
+            $plan['start'] = $array_start[0].'年'.$array_start[1].'月'.$array_start[2].'日'; //2022年03月01日
+            $array_end = explode('-', $plan['end']);
+            $plan['end'] = $array_end[0].'年'.$array_end[1].'月'.$array_end[2].'日';
+        }
+        return $sharedPlans;
     }
 }
