@@ -135,4 +135,13 @@ class MapController extends Controller
         ]);
     }
 
+    public function showSharedPlans()
+    {
+        $sharedPlans = $this->planModel->getSharedPlans();
+
+        return view('user.sharedPlans', [
+            'sharedPlans' => $sharedPlans,
+        ]);
+    }
+
 }
