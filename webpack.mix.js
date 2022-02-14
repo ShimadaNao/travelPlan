@@ -19,6 +19,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/adminPwCheck.js', 'public/js')
     .js('resources/js/calendar.js', 'public/js')
     .js('resources/js/planEdit.js', 'public/js')
+    .js('resources/js/header.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),

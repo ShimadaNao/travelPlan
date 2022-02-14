@@ -7,5 +7,6 @@
     "/js/adminPwCheck.js": "/js/adminPwCheck.js",
     "/js/calendar.js": "/js/calendar.js",
     "/js/planEdit.js": "/js/planEdit.js",
+    "/js/header.js": "/js/header.js",
     "/css/app.css": "/css/app.css"
 }
