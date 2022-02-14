@@ -41,7 +41,7 @@
                                 <header class="container mx-auto text-teal-400 w-full relative">
                                     <div class="flex justify-between items-center w-full">
                                         <div>
-                                            <button @click="isOpen = !isOpen" class="focus:outline-none relative">
+                                            <button @click="isOpen = !isOpen" class="navItems:outline-none relative">
                                                 <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
                                                     <path v-show="!isOpen" d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z" fill="#FFDDFF" />
                                                     <path v-show="isOpen" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" fill="#FFDDFF"/>
@@ -83,5 +83,6 @@
         },
     });
     </script>
+    <script src="{{ mix('js/header.js') }}"></script>
 </body>
 </html>
