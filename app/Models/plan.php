@@ -163,7 +163,7 @@ class Plan extends Model
             'keywordResults' => $keywordResults
         ];
     }
-
+    // 公開計画をただtableとして全部表示するver
     public function getSharedPlans()
     {
         $sharedPlans = $this->where('public', 'yes')->with('user')->with('country')->paginate(2);
@@ -174,5 +174,21 @@ class Plan extends Model
             $plan['end'] = $array_end[0].'年'.$array_end[1].'月'.$array_end[2].'日';
         }
         return $sharedPlans;
+    }
+    // 公開計画を一覧画面で国別に選べるver
+    public function fixGetSharedPlans()
+    {
+        $sharedPlans = $this->where('public', 'yes')->with('user')->with('country')->get();
+        $countryNames = [];
+        foreach($sharedPlans as $plan){
+            $countryNames[] = $plan['country']['nameJP'];
+        }
+        $uniqueCountryNames = array_unique($countryNames);
+        // dd($uniqueCountryNames);
+
+        return [
+            'sharedPlans' => $sharedPlans,
+            'uniqueCountryNames' => $uniqueCountryNames,
+        ];
     }
 }
