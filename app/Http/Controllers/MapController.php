@@ -137,10 +137,11 @@ class MapController extends Controller
 
     public function showSharedPlans()
     {
-        $sharedPlans = $this->planModel->getSharedPlans();
+        $sharedPlans = $this->planModel->fixGetSharedPlans();
 
-        return view('user.sharedPlans', [
+        return view('user.fixSharedPlans', [
             'sharedPlans' => $sharedPlans,
+            'sharedCountries' => $sharedPlans['uniqueCountryNames']
         ]);
     }
 
