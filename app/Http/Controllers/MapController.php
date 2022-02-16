@@ -141,7 +141,7 @@ class MapController extends Controller
 
         return view('user.fixSharedPlans', [
             'sharedPlans' => $sharedPlans,
-            'sharedCountries' => $sharedPlans['uniqueCountryNames']
+            'sharedCountries' => $sharedPlans['countryNames']
         ]);
     }
 
