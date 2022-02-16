@@ -8,26 +8,8 @@
         <li><a href="/logout" class="headerNav">ログアウト</a></li>
     </x-slot>
     <div style="display: flex; justify-content: space-around; flex-wrap:wrap; text-align:center;">
-        @foreach($sharedCountries as $countryNames)
-            <a href="#" style="width:30%; margin: 1% 0">{{ $countryNames }}</a>
-        {{-- <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">agrewgaoeighiogds</p>
-        <p style="width:30%">helllo</p>
-        <p style="width:30%">helllo</p>
-        <p style="width:30%">helllo</p>
-        <p style="width:30%">helllo</p>
-        <p style="width:30%">helllo</p>
-        <p style="width:30%">helllo</p>
-        <p style="width:30%">helllo</p> --}}
+        @foreach($sharedCountries as $country)
+            <a href="#" style="width:30%; margin: 2% 0 1% 0">{{ $country }}</a>
         @endforeach
     </div>
 </x-header>
