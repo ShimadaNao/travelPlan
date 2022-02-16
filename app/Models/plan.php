@@ -179,16 +179,22 @@ class Plan extends Model
     public function fixGetSharedPlans()
     {
         $sharedPlans = $this->where('public', 'yes')->with('user')->with('country')->get();
-        $countryNames = [];
+        $countryNames = []; //公開旅行の国名変数
+        // foreach($sharedPlans as $plan){
+        //     $countryNames[] = $plan['country']['nameJP'];
+        // }
+        // $uniqueCountryNames = array_unique($countryNames);
+
+        // in_array関数で$countryNamesになかったら追加していく
         foreach($sharedPlans as $plan){
-            $countryNames[] = $plan['country']['nameJP'];
+            if(!(in_array($plan['country']['nameJP'], $countryNames))){
+                $countryNames[] = $plan['country']['nameJP'];
+            }
         }
-        $uniqueCountryNames = array_unique($countryNames);
-        // dd($uniqueCountryNames);
 
         return [
             'sharedPlans' => $sharedPlans,
-            'uniqueCountryNames' => $uniqueCountryNames,
+            'countryNames' => $countryNames,
         ];
     }
 }
