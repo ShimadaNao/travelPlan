@@ -7,24 +7,9 @@
         <li><a href="{{ route('countryRanking') }}"  class="headerNav">人気国</a></li>
         <li><a href="/logout" class="headerNav">ログアウト</a></li>
     </x-slot>
-    <div class="sharedPlansList">
-        <p>公開旅行計画一覧画面です</p>
-        <table>
-            <tr>
-                <th class="border px-4 py-2">旅行地</th>
-                <th class="border px-4 py-2">ユーザー名</th>
-                <th class="border px-4 py-2">日程</th>
-            </tr>
-            @foreach($sharedPlans as $plan)
-            <tr>
-                <td class="border px-4 py-2">{{ $plan['country']['nameJP'] }}</td>
-                <td class="border px-4 py-2">{{ $plan['user']['name'] }}</td>
-                <td class="border px-4 py-2">{{ $plan['start'] }}～{{ $plan['end'] }}</td>
-            </tr>
-            @endforeach
-        </table>
-        <div class="paginate flex">
-            {{ $sharedPlans->links() }}
-        </div>
+    <div style="display: flex; justify-content: space-around; flex-wrap:wrap; text-align:center;">
+        @foreach($sharedCountries as $key =>$country)
+            <a href="{{ route('itsSharedPlan', $key) }}" style="width:30%; margin: 2% 0 1% 0">{{ $country }}</a>
+        @endforeach
     </div>
 </x-header>
