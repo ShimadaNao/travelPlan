@@ -20,7 +20,7 @@
             <tr>
                 {{-- $sharedPlans[$i]['id']でその旅行計画が取得できる --}}
                 {{-- <td class="border px-4 py-2">{{ $plan['country']['nameJP'] }}</td> --}}
-                <td class="border px-4 py-2">{{ $sharedPlans[$i]['title'] }}</td>
+                <td class="border px-4 py-2 btn" onclick="show({{$i}})">{{ $sharedPlans[$i]['title'] }}</td>
                 <td class="border px-4 py-2">{{ $sharedPlans[$i]['user']['name'] }}</td>
                 <td class="border px-4 py-2">{{ $sharedPlans[$i]['start'] }}～{{ $sharedPlans[$i]['end'] }}</td>
             </tr>
@@ -30,4 +30,15 @@
             {{ $sharedPlans->links() }}
         </div> --}}
     </div>
+
+    <script>
+        // window.sharedPlans = @json($sharedPlans);
+
+        // const sharedPlans = @json($sharedPlans);
+        // console.log(sharedPlans);
+        // function show(i){
+        //     console.log(i);
+        // }
+    </script>
+        <script src="{{ mix('js/sharedPlan.js') }}"></script>
 </x-header>
