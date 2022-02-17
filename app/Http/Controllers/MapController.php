@@ -135,14 +135,28 @@ class MapController extends Controller
         ]);
     }
 
-    public function showSharedPlans()
+    public function showSharedPlans(Request $request)
     {
-        $sharedPlans = $this->planModel->fixGetSharedPlans();
-
-        return view('user.fixSharedPlans', [
-            'sharedPlans' => $sharedPlans,
+        $sharedPlans = $this->planModel->getSharedPlans();
+        // $a= $request->session()->put('sessionShared', $sharedPlans);
+        // dd($a);
+        return view('user.sharedPlans', [
+            // 'sharedPlans' => $sharedPlans,
             'sharedCountries' => $sharedPlans['countryNames']
         ]);
     }
 
+    //国別の公開旅行計画表示メソッド
+    public function showItsSharedPlans($id)
+    {
+        // $result = session()->get('sessionShared');
+        $thisSharedPlans = $this->planModel->getItsSharedPlans($id);
+        // dd($thisSharedPlans->first()['country']['nameJP']);
+
+        return view('user.countrysSharedPlan', [
+            'sharedPlans' => $thisSharedPlans,
+            'id' => $id,
+            'countryName' => $thisSharedPlans->first()['country']['nameJP'],
+        ]);
+    }
 }
