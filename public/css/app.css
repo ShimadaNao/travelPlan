@@ -2063,9 +2063,6 @@ select {
     flex-flow: column;
     margin-top: 20px;
 }
-/* div .paginate{
-    margin-top: 20px;
-} */
 .selectMyPlan{
     display: flex;
     justify-content: center;
@@ -2095,7 +2092,6 @@ select {
     margin-bottom: 15px;
 }
 .table-auto{
-    /* margin: 40px 0; */
     width: 50%;
 }
 /* カレンダー */
