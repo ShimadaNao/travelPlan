@@ -9,6 +9,8 @@
     </x-slot>
     <div class="sharedPlansList">
         <p>{{ $countryName }}の公開旅行計画一覧画面です</p>
+        <div class="position" style="width: 50%; height: 50%; display:none;">
+        </div>
         <table>
             <tr>
                 {{-- <th class="border px-4 py-2">旅行地</th> --}}
@@ -39,6 +41,7 @@
         // function show(i){
         //     console.log(i);
         // }
+        window.planDetail = @json($sharedPlans);
     </script>
         <script src="{{ mix('js/sharedPlan.js') }}"></script>
 </x-header>
