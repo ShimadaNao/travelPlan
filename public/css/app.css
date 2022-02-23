@@ -2410,6 +2410,17 @@ header a[class="title"] {
 .paginate {
     margin: 3%;
 }
+.position_show {
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    background-color: #FFDAB9;
+}
+.publicPlanDetailTable {
+    font-size: 20px;
+    color: grey;
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));

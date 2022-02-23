@@ -450,3 +450,15 @@ header a[class="title"] {
 .paginate {
     margin: 3%;
 }
+/* countrysSharedPlan.blade */
+.position_show {
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    background-color: #FFDAB9;
+}
+.publicPlanDetailTable {
+    font-size: 20px;
+    color: grey;
+}
