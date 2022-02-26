@@ -9,7 +9,7 @@
     </x-slot>
     <div class="sharedPlansList">
         <p>{{ $countryName }}の公開旅行計画一覧画面です</p>
-        <div class="position" style="width: 50%; height: 50%; display:none;">
+        <div class="position" style="display:none;">
         </div>
         <table>
             <tr>
@@ -28,20 +28,28 @@
             </tr>
             @endfor
         </table>
+        {{-- <div>
+            <button @click="isOpen = !isOpen" class="navItems:outline-none relative">
+                <svg @click="isOpen = !isOpen" class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                    <path v-show="isOpen" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" fill="black"/>
+                </svg>                       
+            </button>
+        </div> --}}
         {{-- <div class="paginate flex">
             {{ $sharedPlans->links() }}
         </div> --}}
     </div>
 
     <script>
-        // window.sharedPlans = @json($sharedPlans);
-
-        // const sharedPlans = @json($sharedPlans);
-        // console.log(sharedPlans);
-        // function show(i){
-        //     console.log(i);
-        // }
         window.planDetail = @json($sharedPlans);
     </script>
         <script src="{{ mix('js/sharedPlan.js') }}"></script>
+        {{-- <script>
+            const cross = new Vue({
+                el: ".cross",
+                data: {
+                    isOpen: false,
+                },
+            });
+        </script> --}}
 </x-header>
