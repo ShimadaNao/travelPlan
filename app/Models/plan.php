@@ -183,6 +183,25 @@ class Plan extends Model
             ->with('country')
             ->with('planDetail')
             ->get();
+
+        // リレーション先のplanDetailでorderByかsortByできるか考える
+        // foreach($sharedPlans as $plan){
+        //     foreach($plan['planDetail'] as $detail){
+        //         // dd($detail['dayToVisit']);
+        //         $sortedDetail = $detail['dayToVisit']->sortBy();
+        //         dd($sortedDetail);
+        //     }
+        // }
+        // $a= $sharedPlans[3]['planDetail']->sortBy('dayToVisit');
+        // dd($a);
+
+        // $sharedPlans = Plan::select('*')
+        // ->from('plans')
+        // ->join('planDetails', 'plans.id', '=', 'planDetails.plan_id')
+        // ->where('public', 'yes')
+        // ->orderBy('planDetails.dayToVisit', 'asc')->get();
+        // dd($sharedPlans);
+
         session()->forget('sessionShared');
         session()->put('sessionShared', $sharedPlans);
         // dd(session()->get('sessionShared'));
