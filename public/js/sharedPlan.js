@@ -15,7 +15,9 @@ window.show = function (i) {
   if (planDetail[i]['plan_detail'].length > 0) {
     position_contents += '<table class="publicPlanDetailTable"><caption class="caption">' + planDetail[i]['title'] + '</caption><tr><th class="w-1/2 px-4 py-2">場所</th><th class="w-1/2 px-4 py-2">日程</th><th class="w-1/2 px-4 py-2">時間</th></tr>';
     planDetail[i]['plan_detail'].forEach(function (ele) {
-      position_contents += '<tr><td class="border px-4 py-2 .border-white">' + ele.name + '</td><td class="border px-4 py-2 .border-white">' + ele.dayToVisit + '</td><td class="border px-4 py-2 .border-white">' + ele.timeToVisit + '</td></tr>';
+      var splitDate = ele.dayToVisit.split('-');
+      var trimmedDate = splitDate[0] + '年' + splitDate[1] + '月' + splitDate[2] + '日';
+      position_contents += '<tr><td class="border px-4 py-2 .border-white">' + ele.name + '</td><td class="border px-4 py-2 .border-white">' + trimmedDate + '</td><td class="border px-4 py-2 .border-white">' + ele.timeToVisit.substr(0, 5) + '</td></tr>';
     });
     position_contents += '</table>';
     position.innerHTML = position_contents;
