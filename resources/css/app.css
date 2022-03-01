@@ -98,9 +98,6 @@
     flex-flow: column;
     margin-top: 20px;
 }
-div .paginate{
-    margin-top: 20px;
-}
 .selectMyPlan{
     display: flex;
     justify-content: center;
@@ -108,7 +105,7 @@ div .paginate{
 }
 .planChartTitle{
     text-align: center;
-    margin: 30px 0 0 0;
+    margin: 3% 0;
 }
 .planChartTitle p {
     font-size: 25px;
@@ -130,7 +127,6 @@ div .paginate{
     margin-bottom: 15px;
 }
 .table-auto{
-    margin: 40px 0;
     width: 50%;
 }
 
@@ -439,4 +435,77 @@ header a[class="title"] {
 .detailTableBtn {
     background-color:burlywood;
     border-radius: 5px;
+}
+/* 公開旅行計画一覧(user.sharedPlans) */
+.sharedPlansList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sharedPlansList > p{
+    font-size: 25px;
+    margin: 3%;
+    color: #6666FF;
+}
+.paginate {
+    margin: 3%;
+}
+/* countrysSharedPlan.blade */
+.position_show {
+    justify-content: center;
+    width: 50%;
+    height: 60%;
+    display: flex;
+    background-color: #FFDAB9;
+    position: absolute;
+    top: 30%;
+    overflow: auto;
+}
+.publicPlanDetailTable {
+    font-size: 20px;
+    color: grey;
+}
+.showCross {
+    /* display: none; */
+    display:block;
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
+.showCross {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
+.none {
+    display: none;
+}
+.position_show .caption {
+    margin-top: 3%;
+    color: #6495ed;
+    font-weight: 600;
+    font-size: 20px
+}
+.position_show table td{
+    border-color: #fff;
+}
+.publicNoDetail {
+    width: 50%;
+    height: 60%;
+    display: flex;
+    background-color: #FFDAB9;
+    position: absolute;
+    top: 30%;
+    overflow: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.publicNoDetail .caption {
+    position: absolute;
+    top: 0;
+    padding-top: 3%;
+    font-weight: 600;
+    font-size: 25px;
+    color: #6495ed;
 }

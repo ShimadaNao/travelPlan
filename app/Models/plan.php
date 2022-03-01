@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Plan extends Model
 {
@@ -161,5 +162,63 @@ class Plan extends Model
             'plan_idResult' => $plan_idResult,
             'keywordResults' => $keywordResults
         ];
+    }
+    // 公開計画をただtableとして全部表示するver 一旦コメントアウト
+    // public function getSharedPlans()
+    // {
+    //     $sharedPlans = $this->where('public', 'yes')->with('user')->with('country')->paginate(2);
+    //     foreach($sharedPlans as $plan){
+    //         $array_start = explode('-', $plan['start']);
+    //         $plan['start'] = $array_start[0].'年'.$array_start[1].'月'.$array_start[2].'日'; //2022年03月01日
+    //         $array_end = explode('-', $plan['end']);
+    //         $plan['end'] = $array_end[0].'年'.$array_end[1].'月'.$array_end[2].'日';
+    //     }
+    //     return $sharedPlans;
+    // }
+    // 公開計画を一覧画面で国別に選べるver
+    public function getSharedPlans()
+    {
+        $sharedPlans = $this->where('public', 'yes')
+            ->with('user')
+            ->with('country')
+            ->with(['planDetail' => function($query) {
+                $query->orderBy('dayToVisit', 'asc');
+                $query->orderBy('timeToVisit', 'asc');
+            }])
+            ->get();
+        session()->forget('sessionShared');
+        session()->put('sessionShared', $sharedPlans);
+        // dd(session()->get('sessionShared'));
+        $countryNames = []; //公開旅行の国名変数
+        // foreach($sharedPlans as $plan){
+        //     $countryNames[] = $plan['country']['nameJP'];
+        // }
+        // $uniqueCountryNames = array_unique($countryNames);
+
+        // in_array関数で$countryNamesになかったら追加していく
+        foreach($sharedPlans as $plan){
+            if(!(in_array($plan['country']['nameJP'], $countryNames))){
+                $countryNames[$plan->country_id] = $plan['country']['nameJP'];
+            }
+        }
+
+        return [
+            'sharedPlans' => $sharedPlans,
+            'countryNames' => $countryNames,
+        ];
+    }
+
+    public function getItsSharedPlans($id)
+    {
+        $result = session()->get('sessionShared');
+        // dd($result);
+        $thisPlans = [];//クリックされた国の公開旅行計画を入れる変数
+        //$thisPlans = $result['sharedPlans']->where('country_id', $id);
+        $thisPlans = $result->filter(function($plan) use($id) {
+            return  $plan->country_id === (int)$id;
+        })->values();
+        // dd($thisPlans);
+        // dd($thisPlans->paginate(1));
+        return $thisPlans;
     }
 }
