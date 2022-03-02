@@ -509,3 +509,33 @@ header a[class="title"] {
     font-size: 25px;
     color: #6495ed;
 }
+/* お問い合わせページ(user.inquiry.blade) */
+.inquiryTable {
+    display: table;
+}
+.inquiryForm {
+    display: table-row;
+    position: relative;
+}
+.inquiryForm label, .inquiryForm input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
+.inquiryForm label {
+    padding-right: 10px;
+}
+.inquiryWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+}
+.inquiryWrapper p {
+    font-size: 20px;
+    color:#FF69B4;
+    margin: 1%;    
+}
+.inquiryTable input[type="submit"] {
+    position: absolute;
+    left: 50%;
+}
