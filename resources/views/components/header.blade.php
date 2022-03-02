@@ -53,7 +53,7 @@
                                         <ul class="items-center text-center text-[#FF6347]">
                                             <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 rounded md:font-medium">マイページ</a></li>
                                             <li class="border-b border-white md:border-none"><a href="{{ route('sharedPlans') }}" class="block px-8 py-2 my-4 rounded md:font-medium">投稿</a></li>
-                                            <li class="border-b border-white md:border-none"><a href="#" class="block px-8 py-2 my-4 rounded md:font-medium">お知らせ</a></li>
+                                            <li class="border-b border-white md:border-none"><a href="{{ route('showInquiryForm') }}" class="block px-8 py-2 my-4 rounded md:font-medium">お問い合わせ</a></li>
                                         </ul>
                                     </div>
                                 </header>
