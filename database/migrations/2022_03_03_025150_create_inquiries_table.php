@@ -17,10 +17,9 @@ class CreateInquiriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('genre_id');
+            $table->integer('answer_id')->nullable();
             $table->string('title');
             $table->string('content');
-            $table->integer('answerer_id')->nullable();
-            $table->string('answer')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
