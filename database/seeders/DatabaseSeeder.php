@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             PlanTableSeeder::class,
             PlanDetailTableSeeder::class,
             InquiryGenreTableSeeder::class,
+            InquiryTabelSeeder::class,
         ]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
