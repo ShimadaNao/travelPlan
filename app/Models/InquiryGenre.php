@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class InquiryGenre extends Model
 {
     use HasFactory;
+
+    protected $table = 'inquiryGenres';
 }
