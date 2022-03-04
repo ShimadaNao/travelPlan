@@ -174,6 +174,9 @@ return [
         'keyword' => [
             'required_without' => 'キーワードを入力してください。',
         ],
+        'content' => [
+            'required' => 'お問い合わせ内容を入力してください。',
+        ]
     ],
 
     /*
