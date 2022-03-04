@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\inquiryRequest;
 use App\Http\Requests\planRegisterRequest;
 use App\Models\Plan;
 use App\Models\PlanDetail;
 use App\Models\Country;
 use App\Models\InquiryGenre;
+use App\Services\InquiryService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
@@ -14,11 +16,12 @@ use Illuminate\Support\Facades\DB;
 
 class MapController extends Controller
 {
-    public function __construct(Plan $plan, PlanDetail $planDetail, InquiryGenre $inquiryGenre)
+    public function __construct(Plan $plan, PlanDetail $planDetail, InquiryGenre $inquiryGenre, InquiryService $inquiryService)
     {
         $this->planModel = $plan;
         $this->planDetailModel = $planDetail;
         $this->inquiryGenreModel = $inquiryGenre;
+        $this->inquiryService = $inquiryService;
     }
 
     public function showTopPage()
@@ -167,6 +170,15 @@ class MapController extends Controller
         $genres = $this->inquiryGenreModel->getGenres();
         return view('user.inquiry', [
             'inquiryGenres' => $genres,
+        ]);
+    }
+
+    public function confirmInquiry(inquiryRequest $request)
+    {
+        $data = $this->inquiryService->getInquiryForm($request);
+        
+        return view('user.confirmInquiry', [
+            'inquiryContents' => $data,
         ]);
     }
 }
