@@ -21,10 +21,20 @@
             </div>
             <div class="inquiryForm">
                 <label for="title">タイトル</label>
+                @if( $errors->has('title') )
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <span class="block sm:inline">{{ $errors->first('title') }}</span>
+                </div>
+                @endif
                 <input type="text" name="title" value="{{ old('title') }}">
             </div>
             <div class="inquiryForm">
                 <label for="content">お問い合わせ内容</label>
+                @if($errors->has('content'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <span class="block sm:inline">{{ $errors->first('content') }}</span>
+                    </div>
+                @endif
                 <textarea name="content">{{ old('content') }}</textarea>
             </div>
             <input type="submit" value="送信">
