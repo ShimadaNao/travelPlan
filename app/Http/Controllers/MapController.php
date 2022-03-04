@@ -6,6 +6,7 @@ use App\Http\Requests\planRegisterRequest;
 use App\Models\Plan;
 use App\Models\PlanDetail;
 use App\Models\Country;
+use App\Models\InquiryGenre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
@@ -13,10 +14,11 @@ use Illuminate\Support\Facades\DB;
 
 class MapController extends Controller
 {
-    public function __construct(Plan $plan, PlanDetail $planDetail)
+    public function __construct(Plan $plan, PlanDetail $planDetail, InquiryGenre $inquiryGenre)
     {
         $this->planModel = $plan;
         $this->planDetailModel = $planDetail;
+        $this->inquiryGenreModel = $inquiryGenre;
     }
 
     public function showTopPage()
@@ -157,6 +159,14 @@ class MapController extends Controller
             'sharedPlans' => $thisSharedPlans,
             'id' => $id,
             'countryName' => $thisSharedPlans->first()['country']['nameJP'],
+        ]);
+    }
+
+    public function showInquiryForm()
+    {
+        $genres = $this->inquiryGenreModel->getGenres();
+        return view('user.inquiry', [
+            'inquiryGenres' => $genres,
         ]);
     }
 }
