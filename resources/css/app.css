@@ -517,12 +517,12 @@ header a[class="title"] {
     display: table-row;
     position: relative;
 }
-.inquiryForm label, .inquiryForm input {
+.inquiryForm label, .inquiryForm input, .inquiryForm select {
     display: table-cell;
     margin-bottom: 10px;
 }
 .inquiryForm label {
-    padding-right: 10px;
+    padding-right: 30px;
 }
 .inquiryWrapper {
     display: flex;
@@ -538,4 +538,7 @@ header a[class="title"] {
 .inquiryTable input[type="submit"] {
     position: absolute;
     left: 50%;
+}
+.inquiryTable textarea {
+    width: 100%;
 }
