@@ -10,4 +10,9 @@ class InquiryGenre extends Model
     use HasFactory;
 
     protected $table = 'inquiryGenres';
+
+    public function getGenres()
+    {
+        return $this->all();
+    }
 }
