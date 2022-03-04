@@ -9,13 +9,21 @@
     </x-slot>
     <div class="inquiryWrapper">
         <p>お問い合わせフォームです</p>
-        <form method="POST" action="" class="inquiryTable">
+        <form method="POST" action="{{ route('confirmInquiry') }}" class="inquiryTable">
+            <div class="inquiryForm">
+                <label for="genre">問い合わせジャンル</label>
+                <select name="genre">
+                    @foreach($inquiryGenres as $genre)
+                        <option value="{{ $genre['id'] }}">{{ $genre['about'] }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="inquiryForm">
                 <label for="title">タイトル</label>
                 <input type="text" name="title" value="{{ old('title') }}">
             </div>
             <div class="inquiryForm">
-                <label foe="content">コンテンツ</label>
+                <label for="content">お問い合わせ内容</label>
                 <textarea name="content">{{ old('content') }}</textarea>
             </div>
             <input type="submit" value="送信">
