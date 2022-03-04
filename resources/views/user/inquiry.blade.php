@@ -10,6 +10,7 @@
     <div class="inquiryWrapper">
         <p>お問い合わせフォームです</p>
         <form method="POST" action="{{ route('confirmInquiry') }}" class="inquiryTable">
+            @csrf
             <div class="inquiryForm">
                 <label for="genre">問い合わせジャンル</label>
                 <select name="genre">
