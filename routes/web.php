@@ -36,6 +36,7 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::get('sharedPlansCountry/{id}', [MapController::class, 'showItsSharedPlans'])->name('itsSharedPlan');
     Route::get('inquiry', [MapController::class, 'showInquiryForm'])->name('showInquiryForm');
     Route::post('confirmInquiry', [MapController::class, 'confirmInquiry'])->name('confirmInquiry');
+    Route::post('completeInquiry', [MapController::class, 'completeInquiry'])->name('completeInquiry');
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');
