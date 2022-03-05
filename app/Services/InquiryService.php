@@ -10,7 +10,7 @@ class InquiryService
     {
         $data = [
             'user_id' => Auth::id(),
-            'genre_id' => $request->genre,
+            'genre_id' => $request->genre_id,
             'title' => $request->title,
             'content' => $request->content,
         ];

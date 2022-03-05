@@ -13,7 +13,7 @@
             @csrf
             <div class="inquiryForm">
                 <label for="genre">問い合わせジャンル</label>
-                <select name="genre">
+                <select name="genre_id">
                     @foreach($inquiryGenres as $genre)
                         <option value="{{ $genre['id'] }}">{{ $genre['about'] }}</option>
                     @endforeach
