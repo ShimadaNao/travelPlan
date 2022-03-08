@@ -2,21 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\inquiryRequest;
 use App\Http\Requests\planRegisterRequest;
 use App\Models\Plan;
 use App\Models\PlanDetail;
 use App\Models\Country;
+use App\Models\Inquiry;
+use App\Models\InquiryGenre;
+use App\Services\InquiryService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class MapController extends Controller
 {
-    public function __construct(Plan $plan, PlanDetail $planDetail)
+    public function __construct(Plan $plan, PlanDetail $planDetail, InquiryGenre $inquiryGenre, InquiryService $inquiryService, Inquiry $inquiry)
     {
         $this->planModel = $plan;
         $this->planDetailModel = $planDetail;
+        $this->inquiryGenreModel = $inquiryGenre;
+        $this->inquiryService = $inquiryService;
+        $this->inquiryModel = $inquiry;
     }
 
     public function showTopPage()
@@ -157,6 +165,32 @@ class MapController extends Controller
             'sharedPlans' => $thisSharedPlans,
             'id' => $id,
             'countryName' => $thisSharedPlans->first()['country']['nameJP'],
+        ]);
+    }
+
+    public function showInquiryForm()
+    {
+        $genres = $this->inquiryGenreModel->getGenres();
+        return view('user.inquiry', [
+            'inquiryGenres' => $genres,
+        ]);
+    }
+
+    public function confirmInquiry(inquiryRequest $request)
+    {
+        $data = $this->inquiryService->getInquiryForm($request);
+        
+        return view('user.confirmInquiry', [
+            'inquiryContents' => $data,
+        ]);
+    }
+
+    public function completeInquiry(Request $request)
+    {
+        $message = $this->inquiryService->completeInquiry($request);
+        // マイページ作成後にマイページにreturn するように変更する
+        return view('user.dashboard', [
+            'message' => $message,
         ]);
     }
 }

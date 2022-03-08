@@ -20,11 +20,16 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->truncate();
         DB::table('plans')->truncate();
         DB::table('planDetails')->truncate();
+        DB::table('inquiryGenres')->truncate();
+        DB::table('inquiryAnswers')->truncate();
         $this->call([
             UserTableSeeder::class,
             AdminTableSeeder::class,
             PlanTableSeeder::class,
             PlanDetailTableSeeder::class,
+            InquiryGenreTableSeeder::class,
+            InquiryTabelSeeder::class,
+            InquiryAnswerTableSeeder::class,
         ]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
