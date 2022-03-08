@@ -7,6 +7,11 @@ use App\Models\Inquiry;
 
 class InquiryService
 {
+    public function __construct(Inquiry $inquiry)
+    {
+        $this->inquiryModel = $inquiry;
+    }
+
     public function getInquiryForm($request)
     {
         $data = [
@@ -31,6 +36,23 @@ class InquiryService
         }else {
             return $message = 'お問い合わせを受け付けられませんでした。再度お試し下さい。';
         }
+    }
+
+    public function sortInquiries()
+    {
+        $allInquiries = $this->inquiryModel->getInquiries();
+        foreach($allInquiries as $inquiry) {
+            if($inquiry['answer_id'] == null) {
+                $waiting[] = $inquiry;
+            } else {
+                $done[] = $inquiry;
+            }
+        }
+        
+        return [
+            'waiting' => $waiting,
+            'done' => $done,
+        ];
     }
 }
 
