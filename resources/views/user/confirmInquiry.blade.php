@@ -10,6 +10,7 @@
     <div class="inquiryWrapper">
         <p>お問い合わせ確認画面です</p>
         <form method="post" action="{{ route('completeInquiry') }}">
+            @csrf
             <ul  class="list-disc">
                 <li>タイトル{{ $inquiryContents['title'] }}</li>
                 <li>お問い合わせ内容{{ $inquiryContents['content'] }}</li>
