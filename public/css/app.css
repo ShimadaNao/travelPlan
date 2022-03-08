@@ -2496,9 +2496,14 @@ header a[class="title"] {
 .inquiryTable input[type="submit"] {
     position: absolute;
     left: 50%;
+    margin: 15px;
 }
 .inquiryTable textarea {
     width: 100%;
+}
+.inquryCompleteBtn {
+    text-align: center;
+    margin: 15px;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
