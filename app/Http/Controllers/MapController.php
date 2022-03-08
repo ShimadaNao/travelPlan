@@ -187,8 +187,7 @@ class MapController extends Controller
 
     public function completeInquiry(Request $request)
     {
-        $message = $this->inquiryModel->completeInquiry($request);
-
+        $message = $this->inquiryService->completeInquiry($request);
         // マイページ作成後にマイページにreturn するように変更する
         return view('user.dashboard', [
             'message' => $message,

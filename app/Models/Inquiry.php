@@ -33,19 +33,4 @@ class Inquiry extends Model
     // {
     //     $this->inquiryService = $inquiryService;
     // }
-
-    public function completeInquiry($request)
-    {
-        // この辺の処理はサービスに移してよさそう
-        $this->inquiryService = app()->make(InquiryService::class);
-        $data = $this->inquiryService->getInquiryForm($request);
-        // dd($data);
-        $result = Inquiry::firstOrCreate($data);
-        if($result->wasRecentlyCreated)
-        {
-            return $message = 'お問い合わせを受け付けました';
-        }else {
-            return $message = 'お問い合わせを受け付けられませんでした。再度お試し下さい。';
-        }
-    }
 }

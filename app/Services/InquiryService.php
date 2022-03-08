@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\Inquiry;
 
 class InquiryService
 {
@@ -16,6 +17,20 @@ class InquiryService
         ];
 
         return $data;
+    }
+
+    public function completeInquiry($request)
+    {
+        // $this->inquiryService = app()->make(InquiryService::class);
+        $data = $this->getInquiryForm($request);
+        // dd($data);
+        $result = Inquiry::firstOrCreate($data);
+        if($result->wasRecentlyCreated)
+        {
+            return $message = 'お問い合わせを受け付けました';
+        }else {
+            return $message = 'お問い合わせを受け付けられませんでした。再度お試し下さい。';
+        }
     }
 }
 
