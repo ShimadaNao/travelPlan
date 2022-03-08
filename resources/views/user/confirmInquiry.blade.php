@@ -12,10 +12,10 @@
         <form method="post" action="{{ route('completeInquiry') }}">
             @csrf
             <ul  class="list-disc">
-                <li>タイトル{{ $inquiryContents['title'] }}</li>
-                <li>お問い合わせ内容{{ $inquiryContents['content'] }}</li>
+                <li>タイトル：{{ $inquiryContents['title'] }}</li>
+                <li>お問い合わせ内容：{{ $inquiryContents['content'] }}</li>
             </ul>
-            <div style="text-align: center;">
+            <div class="inquryCompleteBtn">
                 <input type="submit" value="送信">
             </div>
             <input type="hidden" name="user_id" value="{{ $inquiryContents['user_id'] }}">
