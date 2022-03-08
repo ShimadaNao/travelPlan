@@ -46,6 +46,7 @@ Route::prefix('admins')->middleware('auth:admins')->group(function() {
     Route::view('planSearch', 'admin.planSearch')->name('planSearchPage');
     Route::get('planSearchResult', [AdminController::class, 'showPlanSearchResult'])->name('planSearchResult');
     Route::get('planSearchResultDetail/{id}', [AdminController::class, 'showPlanSearchResultDetail'])->name('planSearchResultDetail');
+    Route::get('showInquiry', [AdminController::class, 'showInquiries'])->name('showInquiries');
 });
 Route::middleware('auth:users')->group(function() {
     Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan']);
