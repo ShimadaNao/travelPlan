@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\inquiryRequest;
 use App\Http\Requests\planSearchRequest;
+use App\Services\InquiryService;
 use App\Models\Admin;
+use App\Models\Inquiry;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +52,16 @@ class AdminController extends Controller
 
         return view('admin.planSearchResultDetail', [
             'planDetail' => $planDetail,
+        ]);
+    }
+
+    public function showInquiries(inquiry $inquiry, InquiryService $inquiryService)
+    {
+        $inquiries = $inquiryService->sortInquiries();
+
+        return view('admin.showInquiry', [
+            'waiting' => $inquiries['waiting'],
+            'done' => $inquiries['done'],
         ]);
     }
 }
