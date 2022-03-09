@@ -26,13 +26,6 @@ class Inquiry extends Model
 
     public function inquiryAnswer()
     {
-        return $this->hasOne(inquiryAnswer::class);
-    }
-
-    public function getInquiries()
-    {
-        $allInquiries = $this::all();
-
-        return $allInquiries;
+        return $this->hasOne(InquiryAnswer::class);
     }
 }
