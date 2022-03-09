@@ -60,8 +60,8 @@ class AdminController extends Controller
         $inquiries = $inquiryService->sortInquiries();
 
         return view('admin.showInquiry', [
-            'waiting' => $inquiries['waiting'],
-            'done' => $inquiries['done'],
+            'waitings' => $inquiries['waitings'],
+            'dones' => $inquiries['dones'],
         ]);
     }
 }
