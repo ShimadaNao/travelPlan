@@ -7,10 +7,10 @@ use App\Models\Inquiry;
 
 class InquiryService
 {
-    public function __construct(Inquiry $inquiry)
-    {
-        $this->inquiryModel = $inquiry;
-    }
+    // public function __construct(Inquiry $inquiry)
+    // {
+    //     $this->inquiryModel = $inquiry;
+    // }
 
     public function getInquiryForm($request)
     {
@@ -26,9 +26,7 @@ class InquiryService
 
     public function completeInquiry($request)
     {
-        // $this->inquiryService = app()->make(InquiryService::class);
         $data = $this->getInquiryForm($request);
-        // dd($data);
         $result = Inquiry::firstOrCreate($data);
         if($result->wasRecentlyCreated)
         {
@@ -38,20 +36,20 @@ class InquiryService
         }
     }
 
-    public function sortInquiries()
+    public static function sortInquiries()
     {
-        $allInquiries = $this->inquiryModel->getInquiries();
+        $allInquiries = Inquiry::with(['user', 'inquiryAnswer'])->get();
         foreach($allInquiries as $inquiry) {
             if($inquiry['answer_id'] == null) {
-                $waiting[] = $inquiry;
+                $waitings[] = $inquiry;
             } else {
-                $done[] = $inquiry;
+                $dones[] = $inquiry;
             }
         }
         
         return [
-            'waiting' => $waiting,
-            'done' => $done,
+            'waitings' => $waitings,
+            'dones' => $dones,
         ];
     }
 }
