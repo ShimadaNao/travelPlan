@@ -64,4 +64,13 @@ class AdminController extends Controller
             'dones' => $inquiries['dones'],
         ]);
     }
+
+    public function showInquiryDetail($id, Inquiry $inquiry)
+    {
+        $inquiry = $inquiry->getInquiryDetail($id);
+
+        return view('admin.inquiryDetail', [
+            'inquiry' => $inquiry,
+        ]);
+    }
 }
