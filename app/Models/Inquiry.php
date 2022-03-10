@@ -28,4 +28,11 @@ class Inquiry extends Model
     {
         return $this->hasOne(InquiryAnswer::class);
     }
+
+    public function getInquiryDetail($id)
+    {
+        $inquiry = $this->where('id', $id)->with('user')->first();
+
+        return $inquiry;
+    }
 }
