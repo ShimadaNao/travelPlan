@@ -14,6 +14,7 @@ class InquiryTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('inquiries')->truncate();
         DB::table('inquiries')->insert([
             'id' => 1,
@@ -31,5 +32,6 @@ class InquiryTableSeeder extends Seeder
             'title' => '会員登録について',
             'content' => '会員登録には料金がかかりますか？',
         ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

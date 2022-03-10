@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         DB::table('plans')->truncate();
         DB::table('planDetails')->truncate();
         DB::table('inquiryGenres')->truncate();
+        DB::table('inquiry')->truncate();
         DB::table('inquiryAnswers')->truncate();
         $this->call([
             UserTableSeeder::class,
