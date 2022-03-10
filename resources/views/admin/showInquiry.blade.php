@@ -7,12 +7,12 @@
 <div class="inquiryArea" style="padding: 20px;">
     @foreach($waitings as $waiting)
     <ul>
-    <a href="#">
         <li class="list-disc">
+            <a href="{{ route('inquiryDetail', $waiting['id']) }}">
             ID：{{ $waiting['id'] }}
-            タイトル：{{ $waiting['title'] }}<br>
+            タイトル：{{ $waiting['title'] }}
+            </a><br>
         </li>
-    </a>
     @endforeach
 </div>
 {{-- {{dd($waiting);}} --}}
