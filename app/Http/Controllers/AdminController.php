@@ -79,6 +79,7 @@ class AdminController extends Controller
     {
         $inquiry_id = $request->inquiry_id;
         $createdAnswer_id = $inquiryAnswer->createAnswer($request);
+        $inquiry->insertAnswerId($inquiry_id,$createdAnswer_id);
 
         return redirect()->route('showInquiries')->with('msg', '回答を記録しました');
     }
