@@ -7,6 +7,7 @@ use App\Http\Requests\planSearchRequest;
 use App\Services\InquiryService;
 use App\Models\Admin;
 use App\Models\Inquiry;
+use App\Models\InquiryAnswer;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,12 +66,20 @@ class AdminController extends Controller
         ]);
     }
 
-    public function showInquiryDetail($id, Inquiry $inquiry)
+    public function showInquiryDetail($id, Inquiry $inquiry, InquiryAnswer $inquiryAnswer)
     {
         $inquiry = $inquiry->getInquiryDetail($id);
 
         return view('admin.inquiryDetail', [
             'inquiry' => $inquiry,
         ]);
+    }
+
+    public function completeInquiry(Request $request, Inquiry $inquiry, InquiryAnswer $inquiryAnswer)
+    {
+        $inquiry_id = $request->inquiry_id;
+        $createdAnswer_id = $inquiryAnswer->createAnswer($request);
+
+        return redirect()->route('showInquiries')->with('msg', '回答を記録しました');
     }
 }
