@@ -9,5 +9,6 @@
     "/js/planEdit.js": "/js/planEdit.js",
     "/js/header.js": "/js/header.js",
     "/js/sharedPlan.js": "/js/sharedPlan.js",
+    "/js/inquiryStatus.js": "/js/inquiryStatus.js",
     "/css/app.css": "/css/app.css"
 }
