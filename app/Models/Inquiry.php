@@ -35,4 +35,11 @@ class Inquiry extends Model
 
         return $inquiry;
     }
+
+    public function insertAnswerId($inquiry_id,$createdAnswer_id)
+    {
+        $inquiry = $this->where('id', $inquiry_id)->first();
+        $inquiry->answer_id = $createdAnswer_id;
+        $inquiry->save();
+    }
 }
