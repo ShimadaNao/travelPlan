@@ -13,10 +13,12 @@
             </div>
         </div>
         <div class="inquriyAnswer"  style="text-align: center;">
-            <form method="post" action="">
+            <form method="post" action="{{ route('completeInquiry')}}">
+                @csrf
                 <div>お問い合わせ回答</div>
                     <textarea name="answer"></textarea>
                 <div>
+                    <input type="hidden" name="inquiry_id" value="{{ $inquiry['id'] }}">
                     <input type="submit" value="送信する">
                 </div>
             </form>
