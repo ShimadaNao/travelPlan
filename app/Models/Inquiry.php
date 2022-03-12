@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Services\InquiryService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Services\InquiryService;
+use Illuminate\Support\Facades\Auth;
+
 
 class Inquiry extends Model
 {
@@ -41,5 +43,14 @@ class Inquiry extends Model
         $inquiry = $this->where('id', $inquiry_id)->first();
         $inquiry->answer_id = $createdAnswer_id;
         $inquiry->save();
+    }
+
+    public function getMyInquiries()
+    {
+        $myInquiries = $this->where('user_id', Auth::id())
+                            ->with('inquiryAnswer')
+                            ->get();
+
+        return $myInquiries;
     }
 }
