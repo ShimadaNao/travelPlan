@@ -26,11 +26,20 @@ class Inquiry extends Model
 
     public function inquiryAnswer()
     {
-        return $this->hasOne(inquiryAnswer::class);
+        return $this->hasOne(InquiryAnswer::class);
     }
 
-    // public function __construct(InquiryService $inquiryService)
-    // {
-    //     $this->inquiryService = $inquiryService;
-    // }
+    public function getInquiryDetail($id)
+    {
+        $inquiry = $this->where('id', $id)->with('user')->first();
+
+        return $inquiry;
+    }
+
+    public function insertAnswerId($inquiry_id,$createdAnswer_id)
+    {
+        $inquiry = $this->where('id', $inquiry_id)->first();
+        $inquiry->answer_id = $createdAnswer_id;
+        $inquiry->save();
+    }
 }

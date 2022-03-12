@@ -38,16 +38,19 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::post('confirmInquiry', [MapController::class, 'confirmInquiry'])->name('confirmInquiry');
     Route::post('completeInquiry', [MapController::class, 'completeInquiry'])->name('completeInquiry');
 });
-Route::prefix('admins')->middleware('auth:admins')->group(function() {
+Route::prefix('admins')->middleware('auth:admins')->group(function () {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');
-    Route::post('confirmRegister',[MultiAuthController::class, 'confirmAdminRegister'])->name('confirmAdminRegister');
+    Route::post('confirmRegister', [MultiAuthController::class, 'confirmAdminRegister'])->name('confirmAdminRegister');
     Route::post('completeRegister', [MultiAuthController::class, 'completeAdminRegister'])->name('completeAdminRegister');
     Route::post('reAuth', [AdminController::class, 'reAuth'])->name('reAuth');
     Route::view('planSearch', 'admin.planSearch')->name('planSearchPage');
     Route::get('planSearchResult', [AdminController::class, 'showPlanSearchResult'])->name('planSearchResult');
     Route::get('planSearchResultDetail/{id}', [AdminController::class, 'showPlanSearchResultDetail'])->name('planSearchResultDetail');
+    Route::get('showInquiry', [AdminController::class, 'showInquiries'])->name('showInquiries');
+    Route::get('inquiryDetail/{id}', [AdminController::class, 'showInquiryDetail'])->name('inquiryDetail');
+    Route::post('completeInquiry', [AdminController::class, 'completeInquiry'])->name('completeInquiry');
 });
-Route::middleware('auth:users')->group(function() {
+Route::middleware('auth:users')->group(function () {
     Route::get('/show_MyPlan/{id}', [ApiController::class, 'showSelectedPlan']);
     Route::post('/registerPlanDetail', [ApiController::class, 'registerPlanDetail']);
     Route::get('/deletePlanDetail/{id}', [ApiController::class, 'deletePlanDetail']);

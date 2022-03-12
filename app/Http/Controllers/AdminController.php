@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\inquiryRequest;
 use App\Http\Requests\planSearchRequest;
+use App\Services\InquiryService;
 use App\Models\Admin;
+use App\Models\Inquiry;
+use App\Models\InquiryAnswer;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,5 +54,33 @@ class AdminController extends Controller
         return view('admin.planSearchResultDetail', [
             'planDetail' => $planDetail,
         ]);
+    }
+
+    public function showInquiries(inquiry $inquiry, InquiryService $inquiryService)
+    {
+        $inquiries = $inquiryService->sortInquiries();
+
+        return view('admin.showInquiry', [
+            'waitings' => $inquiries['waitings'],
+            'dones' => $inquiries['dones'],
+        ]);
+    }
+
+    public function showInquiryDetail($id, Inquiry $inquiry, InquiryAnswer $inquiryAnswer)
+    {
+        $inquiry = $inquiry->getInquiryDetail($id);
+
+        return view('admin.inquiryDetail', [
+            'inquiry' => $inquiry,
+        ]);
+    }
+
+    public function completeInquiry(Request $request, Inquiry $inquiry, InquiryAnswer $inquiryAnswer)
+    {
+        $inquiry_id = $request->inquiry_id;
+        $createdAnswer_id = $inquiryAnswer->createAnswer($request);
+        $inquiry->insertAnswerId($inquiry_id,$createdAnswer_id);
+
+        return redirect()->route('showInquiries')->with('msg', '回答を記録しました');
     }
 }

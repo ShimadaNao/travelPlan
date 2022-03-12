@@ -7,6 +7,11 @@ use App\Models\Inquiry;
 
 class InquiryService
 {
+    // public function __construct(Inquiry $inquiry)
+    // {
+    //     $this->inquiryModel = $inquiry;
+    // }
+
     public function getInquiryForm($request)
     {
         $data = [
@@ -21,9 +26,7 @@ class InquiryService
 
     public function completeInquiry($request)
     {
-        // $this->inquiryService = app()->make(InquiryService::class);
         $data = $this->getInquiryForm($request);
-        // dd($data);
         $result = Inquiry::firstOrCreate($data);
         if($result->wasRecentlyCreated)
         {
@@ -31,6 +34,25 @@ class InquiryService
         }else {
             return $message = 'お問い合わせを受け付けられませんでした。再度お試し下さい。';
         }
+    }
+
+    public static function sortInquiries()
+    {
+        $allInquiries = Inquiry::with(['user', 'inquiryAnswer'])->get();
+        $waitings = [];
+        $dones = [];
+        foreach($allInquiries as $inquiry) {
+            if($inquiry['answer_id'] == null) {
+                $waitings[] = $inquiry;
+            } else {
+                $dones[] = $inquiry;
+            }
+        }
+
+        return [
+            'waitings' => $waitings,
+            'dones' => $dones,
+        ];
     }
 }
 
