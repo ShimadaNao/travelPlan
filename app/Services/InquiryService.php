@@ -39,6 +39,8 @@ class InquiryService
     public static function sortInquiries()
     {
         $allInquiries = Inquiry::with(['user', 'inquiryAnswer'])->get();
+        $waitings = [];
+        $dones = [];
         foreach($allInquiries as $inquiry) {
             if($inquiry['answer_id'] == null) {
                 $waitings[] = $inquiry;
@@ -46,7 +48,7 @@ class InquiryService
                 $dones[] = $inquiry;
             }
         }
-        
+
         return [
             'waitings' => $waitings,
             'dones' => $dones,
