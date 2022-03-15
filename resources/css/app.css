@@ -547,3 +547,27 @@ header a[class="title"] {
     text-align: center;
     margin: 15px;
 }
+/* myInquiries.blade */
+/* travelFormからtext-alignを消したもの */
+.upsideCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.upsideCenter p:not(.content) {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 25px;
+    color: 	#FFAAFF;
+}
+.inquiryModal {
+    margin-bottom: 2%;
+}
+li.myInquiry {
+    padding: 0 2em;
+    border: 0;
+    width: 500px;
+    border-radius: 5px;
+}
