@@ -22,6 +22,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/header.js', 'public/js')
     .js('resources/js/sharedPlan.js', 'public/js')
     .js('resources/js/inquiryStatus.js', 'public/js')
+    .js('resources/js/myInquiryDetail.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),

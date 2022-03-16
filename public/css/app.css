@@ -1133,11 +1133,11 @@ select {
 .col-span-6 {
 	grid-column: span 6 / span 6;
 }
-.m-5 {
-	margin: 1.25rem;
-}
 .m-3 {
 	margin: 0.75rem;
+}
+.m-5 {
+	margin: 1.25rem;
 }
 .mx-auto {
 	margin-left: auto;
@@ -1224,12 +1224,6 @@ select {
 }
 .mb-5 {
 	margin-bottom: 1.25rem;
-}
-.mr-auto {
-	margin-right: auto;
-}
-.ml-auto {
-	margin-left: auto;
 }
 .block {
 	display: block;
@@ -1520,17 +1514,17 @@ select {
 	--tw-border-opacity: 1;
 	border-color: rgba(243, 244, 246, var(--tw-border-opacity));
 }
-.border-white {
+.border-red-400 {
 	--tw-border-opacity: 1;
-	border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+	border-color: rgba(248, 113, 113, var(--tw-border-opacity));
 }
 .border-gray-400 {
 	--tw-border-opacity: 1;
 	border-color: rgba(156, 163, 175, var(--tw-border-opacity));
 }
-.border-red-400 {
+.border-white {
 	--tw-border-opacity: 1;
-	border-color: rgba(248, 113, 113, var(--tw-border-opacity));
+	border-color: rgba(255, 255, 255, var(--tw-border-opacity));
 }
 .border-blue-500 {
 	--tw-border-opacity: 1;
@@ -1584,20 +1578,20 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
 }
-.bg-indigo-200 {
+.bg-gray-400 {
 	--tw-bg-opacity: 1;
-	background-color: rgba(199, 210, 254, var(--tw-bg-opacity));
+	background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
 }
 .bg-blue-500 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
+.bg-indigo-200 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(199, 210, 254, var(--tw-bg-opacity));
+}
 .bg-transparent {
 	background-color: transparent;
-}
-.bg-gray-400 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;
@@ -1852,9 +1846,9 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(16, 185, 129, var(--tw-text-opacity));
 }
-.text-\[\#FF6347\] {
+.text-red-700 {
 	--tw-text-opacity: 1;
-	color: rgba(255, 99, 71, var(--tw-text-opacity));
+	color: rgba(185, 28, 28, var(--tw-text-opacity));
 }
 .text-pink-400 {
 	--tw-text-opacity: 1;
@@ -1868,9 +1862,9 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(209, 213, 219, var(--tw-text-opacity));
 }
-.text-red-700 {
+.text-\[\#FF6347\] {
 	--tw-text-opacity: 1;
-	color: rgba(185, 28, 28, var(--tw-text-opacity));
+	color: rgba(255, 99, 71, var(--tw-text-opacity));
 }
 .text-blue-700 {
 	--tw-text-opacity: 1;
@@ -2504,6 +2498,30 @@ header a[class="title"] {
 .inquryCompleteBtn {
     text-align: center;
     margin: 15px;
+}
+/* myInquiries.blade */
+/* travelFormからtext-alignを消したもの */
+.upsideCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.upsideCenter p:not(.content) {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 25px;
+    color: 	#FFAAFF;
+}
+.inquiryModal {
+    margin-bottom: 2%;
+}
+li.myInquiry {
+    padding: 0 2em;
+    border: 0;
+    width: 500px;
+    border-radius: 5px;
 }
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;

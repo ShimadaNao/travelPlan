@@ -193,4 +193,13 @@ class MapController extends Controller
             'message' => $message,
         ]);
     }
+
+    public function showMyInquiries()
+    {
+        $myInquiries = $this->inquiryModel->getMyInquiries();
+
+        return view('user.myInquiries', [
+            'myInquiries' => $myInquiries,
+        ]);
+    }
 }
