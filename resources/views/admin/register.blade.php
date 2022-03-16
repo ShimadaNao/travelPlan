@@ -3,33 +3,42 @@
     <div class="adminRegisterForm">
     <form method="post" action="{{route('confirmAdminRegister')}}">
         <input type="hidden" name="_token">
-        @if($errors->has('name'))
-            @foreach($errors->get('name') as $message)
-            <div class="text-red-600">
-                <li>{{ $message }}</li>
-            </div>
-            @endforeach
-        @endif
-        管理者名:<input type="text" name="name"><br>
-        @if($errors->has('email'))
-            @foreach($errors->get('email') as $message)
-            <div class="text-red-600">
-                <li>{{ $message }}</li>
-            </div>
-            @endforeach
-        @endif
-        email:<input type="email" name="email"><br>
-        @if($errors->has('password'))
-            @foreach($errors->get('password') as $message)
-            <div class="text-red-600">
-                <li>{{ $message }}</li>
-            </div>
-            @endforeach
-        @endif
-        パスワード:<input type="password" name="password"><br>
-        <div class="flex justify-center">
-        <input type="submit" value="確認する">
-        </div>
+        <ul>
+            @if($errors->has('name'))
+                @foreach($errors->get('name') as $message)
+                <div class="text-red-600">
+                    <li>{{ $message }}</li>
+                </div>
+                @endforeach
+            @endif
+            <li>
+                <label for="name" style="display: inline-block; width: 90px;">管理者名:</label>
+                <input type="text" id="name" name="name"><br>
+            </li>
+            @if($errors->has('email'))
+                @foreach($errors->get('email') as $message)
+                <div class="text-red-600">
+                    <li>{{ $message }}</li>
+                </div>
+                @endforeach
+            @endif
+            <li>
+                <label for="email" style="display: inline-block; width: 90px;">email:</label>
+                <input type="email" id="email" name="email"><br>
+            </li>
+            @if($errors->has('password'))
+                @foreach($errors->get('password') as $message)
+                <div class="text-red-600">
+                    <li>{{ $message }}</li>
+                </div>
+                @endforeach
+            @endif
+            <li>
+                <label for="password" style="display: inline-block; width: 90px;">パスワード:</label>
+                <input type="password" id="password" name="password"><br>
+            </li>
+            <input type="submit" value="確認する">
+        </ul>
     </form>
     </div>
     <div class="pwCheck">
