@@ -12,7 +12,7 @@
                 @endforeach
             @endif
             <li>
-                <label for="name" style="display: inline-block; width: 90px;">管理者名:</label>
+                <label for="name">管理者名:</label>
                 <input type="text" id="name" name="name"><br>
             </li>
             @if($errors->has('email'))
@@ -23,7 +23,7 @@
                 @endforeach
             @endif
             <li>
-                <label for="email" style="display: inline-block; width: 90px;">email:</label>
+                <label for="email">email:</label>
                 <input type="email" id="email" name="email"><br>
             </li>
             @if($errors->has('password'))
@@ -34,7 +34,7 @@
                 @endforeach
             @endif
             <li>
-                <label for="password" style="display: inline-block; width: 90px;">パスワード:</label>
+                <label for="password">パスワード:</label>
                 <input type="password" id="password" name="password"><br>
             </li>
             <input type="submit" value="確認する">
