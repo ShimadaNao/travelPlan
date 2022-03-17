@@ -1,9 +1,19 @@
 <x-header>
-    <p class="flex justify-center">管理者登録確認画面です</p>
-    <div class="flex justify-center">
-    お名前：{{ $data['name'] }}<br>
-    email：{{ $data['email'] }}<br>
-    パスワード：{{ $data['password'] }}<br>
+    <p class="flex justify-center adminRegisterP">管理者登録確認画面です</p>
+    <div class="justifyCenter my-12">
+    <ul>
+        <li>
+            <label for="name" class="inputLabel">お名前：</label>
+            {{ $data['name'] }}
+        </li>
+        <li>
+            <label for="email" class="inputLabel">email：</label>
+            {{ $data['email'] }}
+        </li>
+        <li><label for="password" class="inputLabel">パスワード：</label>
+        {{ $data['password'] }}
+    </li>
+    </ul>
     </div>
     <form method="post" action="{{route('completeAdminRegister')}}">
         @csrf

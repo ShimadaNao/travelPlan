@@ -60,10 +60,20 @@
     font-size: 1.5rem;
 }
 .adminRegisterForm{
-    display:flex;
-    justify-content: center;
-    top: 300px;
-    margin: 100px;
+    text-align: center;
+    margin: 50px;
+}
+.adminRegisterForm li {
+    padding-bottom: 10px;
+}
+.adminRegisterForm label {
+    display: inline-block;
+    width: 90px;
+    text-align: left;
+    margin-right: 20px;
+}
+.adminRegisterForm input[type="submit"] {
+    margin: 10px;
 }
 .pwCheck{
     width: 40%;
@@ -80,6 +90,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+/* admin/confirmRegister.blade */
+.inputLabel {
+    display: inline-block;
+    width: 90px;
+    text-align: left;
+    margin-right: 20px;
+}
+.justifyCenter {
+    display: flex;
+    justify-content: center;
+}
+/* admin/confirmComplete.blade */
+.adminRegisteredArea {
+    margin: 1.25rem 0;
+    font-size: 20px;
 }
 /* 追加 */
 .planChartDetail tbody td{
