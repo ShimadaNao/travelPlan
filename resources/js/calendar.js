@@ -8,17 +8,24 @@ var showDate = new Date(today.getFullYear(), today.getMonth(), 1);
 window.onload = function () {
     showProcess(today, calendar);
     window.showTravelPlans();
+    calendar.setAttribute('class', 'clicked');
 };
 // 前の月表示
 window.prev = function(){
     showDate.setMonth(showDate.getMonth() - 1);
     showProcess(showDate);
+    if(calendar.classList.contains('clicked')){
+        calendar.classList.remove('clicked');
+    }
 }
 
 // 次の月表示
 window.next = function(){
     showDate.setMonth(showDate.getMonth() + 1);
     showProcess(showDate);
+    if(calendar.classList.contains('clicked')){
+        calendar.classList.remove('clicked');
+    }
 }
 
 // カレンダー表示
@@ -111,4 +118,13 @@ window.showTravelPlans = function () {
     });
 };
 var btn = document.querySelector('#button');
-btn.onclick = window.showTravelPlans;
+var calendar = document.getElementById('calendar');
+//clickedで旅行計画がカレンダーに表示済みか判断して複数回表示されるのを防ぐ
+window.btnClick = function(){
+    if(!(calendar.classList.contains('clicked'))){
+        calendar.setAttribute('class', 'clicked');
+        window.showTravelPlans();
+    }
+}
+btn.onclick = window.btnClick;
+
