@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center text-center p-4">
         <p class="text-pink-400 p-8 text-2xl">旅行検索画面です</p>
         <form method="get" action="{{ route('planSearchResult') }}">
-            <p>旅行Idを入力してください</p>
+            <p>旅行IDを入力してください</p>
             @if($errors->has('plan_id'))
                 @foreach ($errors->get('plan_id') as $message)
                     {{ $message }}<br>
