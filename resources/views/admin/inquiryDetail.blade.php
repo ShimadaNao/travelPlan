@@ -25,7 +25,8 @@
                 </form>
             @else
                 <div>回答</div>
-                <div>{{ $inquiry['inquiryAnswer']['content'] }}</div>
+                <div class="mb-5">{{ $inquiry['inquiryAnswer']['content'] }}</div>
+                <a href="{{ route('showInquiries') }}" class="px-2 py-1 bg-blue-400 text-white font-semibold rounded hover:bg-blue-500">戻る</a>
             @endif
         </div>
     </div>
