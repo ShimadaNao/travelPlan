@@ -12,7 +12,6 @@
     @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
 <body>
     <div class="bg-indigo-200">
@@ -37,7 +36,7 @@
                             @if(isset($header))
                                 {{ $header }}
                             @endif
-                            <div id ="app">
+                            {{-- <div id ="menu">
                                 <header class="container mx-auto text-teal-400 w-full relative">
                                     <div class="flex justify-between items-center w-full">
                                         <div>
@@ -57,7 +56,7 @@
                                         </ul>
                                     </div>
                                 </header>
-                            </div>
+                            </div> --}}
                         @endauth
                         @guest
                             <li><a href="{{ route('multi_login') }}"  class="headerNav">ログイン</a></li>
@@ -75,14 +74,15 @@
         </header>
     </div>
     {{ $slot }}
-    <script>
+    {{-- <script>
     const app = new Vue({
-        el: "#app",
+        el: "#menu",
         data: {
             isOpen: false,
         },
     });
-    </script>
+    </script> --}}
     <script src="{{ mix('js/header.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
 </body>
 </html>
