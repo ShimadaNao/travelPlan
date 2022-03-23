@@ -12433,10 +12433,6 @@ select {
 	margin-left: auto;
 	margin-right: auto;
 }
-.my-4 {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-}
 .my-12 {
 	margin-top: 3rem;
 	margin-bottom: 3rem;
@@ -12617,9 +12613,6 @@ select {
 }
 .w-20 {
 	width: 5rem;
-}
-.w-\[130px\] {
-	width: 130px;
 }
 .min-w-0 {
 	min-width: 0px;
@@ -12817,10 +12810,6 @@ select {
 	--tw-border-opacity: 1;
 	border-color: rgba(243, 244, 246, var(--tw-border-opacity));
 }
-.border-white {
-	--tw-border-opacity: 1;
-	border-color: rgba(255, 255, 255, var(--tw-border-opacity));
-}
 .border-gray-400 {
 	--tw-border-opacity: 1;
 	border-color: rgba(156, 163, 175, var(--tw-border-opacity));
@@ -12990,10 +12979,6 @@ select {
 	padding-top: 2.5rem;
 	padding-bottom: 2.5rem;
 }
-.px-8 {
-	padding-left: 2rem;
-	padding-right: 2rem;
-}
 .pt-6 {
 	padding-top: 1.5rem;
 }
@@ -13152,10 +13137,6 @@ select {
 .text-green-500 {
 	--tw-text-opacity: 1;
 	color: rgba(16, 185, 129, var(--tw-text-opacity));
-}
-.text-\[\#FF6347\] {
-	--tw-text-opacity: 1;
-	color: rgba(255, 99, 71, var(--tw-text-opacity));
 }
 .text-pink-400 {
 	--tw-text-opacity: 1;
@@ -13666,6 +13647,7 @@ label[class="country"] {
     border-radius: 20px;
     position: absolute;
     z-index: 1000;
+    width: 130px;
 }
 .hamburgerOpen a:hover {
     background-color: #FFE4B5;
@@ -14274,14 +14256,6 @@ li.myInquiry {
 
 	.md\:border-l {
 		border-left-width: 1px;
-	}
-
-	.md\:border-none {
-		border-style: none;
-	}
-
-	.md\:font-medium {
-		font-weight: 500;
 	}
 }
 @media (min-width: 1024px) {

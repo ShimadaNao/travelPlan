@@ -405,6 +405,7 @@ label[class="country"] {
     border-radius: 20px;
     position: absolute;
     z-index: 1000;
+    width: 130px;
 }
 .hamburgerOpen a:hover {
     background-color: #FFE4B5;
