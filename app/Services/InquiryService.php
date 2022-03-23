@@ -24,7 +24,7 @@ class InquiryService
         return $data;
     }
 
-    public function completeInquiry($request)
+    public function saveInquiry($request)
     {
         $data = $this->getInquiryForm($request);
         $result = Inquiry::firstOrCreate($data);
