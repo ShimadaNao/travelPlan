@@ -9,7 +9,7 @@
     </x-slot>
     <div class="inquiryWrapper">
         <p>お問い合わせ確認画面です</p>
-        <form method="post" action="{{ route('completeInquiry') }}">
+        <form method="post" action="{{ route('saveInquiry') }}">
             @csrf
             <ul  class="list-disc">
                 <li>タイトル：{{ $inquiryContents['title'] }}</li>

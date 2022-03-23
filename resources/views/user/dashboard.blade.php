@@ -12,7 +12,12 @@
             <p>{{ Auth::user()->name}}さんはユーザーとしてログインしました！</p>
             @if (Session::has('registeredMsg'))
                 <div class="text-red-500 ">
-                {{ session('registeredMsg') }}
+                    {{ session('registeredMsg') }}
+                </div>
+            @endif
+            @if (isset($message))
+                <div class="text-red-500 ">
+                    {{ $message }}
                 </div>
             @endif
             <ul class="list-disc m-5">
