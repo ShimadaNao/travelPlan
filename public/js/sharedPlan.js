@@ -10,7 +10,7 @@ window.cross = document.getElementsByClassName('cross')[0];
 
 window.show = function (i) {
   position.style.display = "flex";
-  position_contents = '<svg class="cross h-6 w-6 fill-current" viewBox="0 0 24 24"><path v-show="isOpen" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" fill="black"/></svg>';
+  position_contents = '<svg class="cross h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" fill="black"/></svg>';
 
   if (planDetail[i]['plan_detail'].length > 0) {
     position_contents += '<table class="publicPlanDetailTable"><caption class="caption">' + planDetail[i]['title'] + '</caption><tr><th class="w-1/2 px-4 py-2">場所</th><th class="w-1/2 px-4 py-2">日程</th><th class="w-1/2 px-4 py-2">時間</th></tr>';
