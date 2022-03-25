@@ -13751,7 +13751,9 @@ header a[class="title"] {
     margin-top: 3%;
     color: #6495ed;
     font-weight: 600;
-    font-size: 20px
+    font-size: 20px;
+    text-align: center;
+    caption-side: top;
 }
 .position_show table td{
     border-color: #fff;
