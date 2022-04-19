@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MultiAuthController;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ use App\Http\Controllers\MultiAuthController;
 
 Route::get('multi_login', [MultiAuthController::class, 'showLoginForm'])->name('multi_login');
 Route::post('multi_login', [MultiAuthController::class, 'login']);
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+->name('logout');
 
 // ログイン後のページ
 Route::prefix('users')->middleware('auth:users')->group(function () {
