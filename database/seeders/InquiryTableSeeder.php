@@ -14,7 +14,6 @@ class InquiryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('inquiries')->truncate();
         DB::table('inquiries')->insert([
             'id' => 1,
             'user_id' => 1,
