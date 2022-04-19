@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->truncate();
         DB::table('plans')->truncate();
         DB::table('planDetails')->truncate();
+        DB::table('inquiries')->truncate();
         DB::table('inquiryGenres')->truncate();
         DB::table('inquiryAnswers')->truncate();
         $this->call([
@@ -28,7 +29,7 @@ class DatabaseSeeder extends Seeder
             PlanTableSeeder::class,
             PlanDetailTableSeeder::class,
             InquiryGenreTableSeeder::class,
-            InquiryTabelSeeder::class,
+            InquiryTableSeeder::class,
             InquiryAnswerTableSeeder::class,
         ]);
 
