@@ -26,7 +26,7 @@ class PlanDetailTableSeeder extends Seeder
         ]);
         DB::table('planDetails')->insert([
             'id' => 2,
-            'plan_id' => '16',
+            'plan_id' => '6',
             'name' => 'ミラノ大聖堂',
             'latitude' => '45.46415722165656',
             'longitude' => '9.191651344299318',

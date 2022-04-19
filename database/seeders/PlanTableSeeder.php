@@ -59,5 +59,14 @@ class PlanTableSeeder extends Seeder
             'end' => '2022-01-23',
             'public' => 'no',
         ]);
+        DB::table('plans')->insert([
+            'id' => 6,
+            'user_id' => 2,
+            'country_id' => 23,
+            'title' => 'イタリア旅行',
+            'start' => '2022-12-01',
+            'end' => '2022-12-23',
+            'public' => 'no',
+        ]);
     }
 }
