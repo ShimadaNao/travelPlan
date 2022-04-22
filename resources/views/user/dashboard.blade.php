@@ -94,6 +94,11 @@
             </form>
         </div>
         @endif
-        <script src="{{ asset('js/toppage.js') }}"></script>
+        @if(app('env') == 'production')
+            <link href="{{ secure_asset('js/toppage.js') }}" rel="stylesheet">
+        @else
+            <link href="{{ asset('js/toppage.js') }}" rel="stylesheet">
+        @endif
+        {{-- <script src="{{ asset('js/toppage.js') }}"></script> --}}
     </div>
 </x-header>
