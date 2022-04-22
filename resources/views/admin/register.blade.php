@@ -50,9 +50,9 @@
         </form>
     </div>
     @if(app('env') == 'production')
-        <link href="{{ secure_asset('js/adminPwCheck.js') }}" rel="stylesheet">
+        <script src="{{ secure_asset('js/adminPwCheck.js') }}"></script>
     @else
-        <link href="{{ asset('js/adminPwCheck.js') }}" rel="stylesheet">
+        <script src="{{ asset('js/adminPwCheck.js') }}"></script>
     @endif
     {{-- <script src="{{ asset('js/adminPwCheck.js') }}"></script> --}}
 </x-header>

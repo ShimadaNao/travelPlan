@@ -95,9 +95,9 @@
         </div>
         @endif
         @if(app('env') == 'production')
-            <link href="{{ secure_asset('js/toppage.js') }}" rel="stylesheet">
+            <script src="{{ secure_asset('js/toppage.js') }}"></script>
         @else
-            <link href="{{ asset('js/toppage.js') }}" rel="stylesheet">
+            <script src="{{ asset('js/toppage.js') }}"></script>
         @endif
         {{-- <script src="{{ asset('js/toppage.js') }}"></script> --}}
     </div>
