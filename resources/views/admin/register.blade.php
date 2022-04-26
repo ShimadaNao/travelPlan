@@ -49,5 +49,10 @@
             <input type="button" value="送信" onclick="pwCheckPost()">
         </form>
     </div>
-    <script src="{{ asset('js/adminPwCheck.js') }}"></script>
+    @if(app('env') == 'production')
+        <script src="{{ secure_asset('js/adminPwCheck.js') }}"></script>
+    @else
+        <script src="{{ asset('js/adminPwCheck.js') }}"></script>
+    @endif
+    {{-- <script src="{{ asset('js/adminPwCheck.js') }}"></script> --}}
 </x-header>
