@@ -48,7 +48,13 @@ class MapController extends Controller
 
         //8/20追加
         if($travelTitleRegister['country_id'] == '153') {
-            return view('user.askHotel');
+            session(['start' => $request->start]);
+            session(['end' => $request->end]);
+            session(['registeredPlanId' => $registeredId]);
+            
+            return view('user.askHotel', [
+                'registeredPlanId' => $registeredId,
+            ]);
         }
 
         return redirect()->route('showSelectedPlanMap', ['id' => $registeredId]);
@@ -120,6 +126,9 @@ class MapController extends Controller
 
     public function showRegisterPlanForm(Country $country)
     {
+        //以前に登録した旅行計画情報が残っている可能性があるのでセッションを削除
+        session()->forget(['start', 'end']);
+
         $countries = $country->getAll();
         return view('user.registerPlanForm', [
             'countries' => $countries,
