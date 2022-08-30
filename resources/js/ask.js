@@ -1,7 +1,7 @@
 window.onload = function(){
     if(window.confirm('ホテルは予約しましたか?')) {
-
+        window.location.href = '/users/showMyPlan/'+ registeredPlanId;
     } else {
-        return false;
+        window.location.href = '/users/searchHotel';
     }
 }
