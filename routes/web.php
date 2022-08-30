@@ -42,6 +42,9 @@ Route::prefix('users')->middleware('auth:users')->group(function () {
     Route::post('saveInquiry', [MapController::class, 'saveInquiry'])->name('saveInquiry');
     Route::view('showMypage', 'user.mypage')->name('mypage');
     Route::get('showMyInquiries', [MapController::class, 'showMyInquiries'])->name('myInquiries');
+    Route::get('/searchHotel', [ApiController::class, 'searchHotel'])->name('searchHotel');
+    Route::post('searchThroughApi', [ApiController::class, 'searchThroughApi'])->name('apiHotel');
+    // Route::view('/searchHotel', 'users.searchHotel');
 });
 Route::prefix('admins')->middleware('auth:admins')->group(function () {
     Route::get('register', [MultiAuthController::class, 'registerAdmin'])->name('registerAdmin');

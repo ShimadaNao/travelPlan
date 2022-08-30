@@ -36,8 +36,11 @@ class MultiAuthController extends Controller
         ]);
     }
 
-    public function showUserDashboard()
+    public function showUserDashboard(Request $request)
     {
+        if($request->session()->has('start')) {
+            $request->session()->forget(['start', 'end']);
+        }
         $user_id = Auth::id();
         $userPlans = $this->planModel::where('user_id', $user_id)->get();
         // dd($userPlans);

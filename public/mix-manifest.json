@@ -11,5 +11,7 @@
     "/js/sharedPlan.js": "/js/sharedPlan.js",
     "/js/inquiryStatus.js": "/js/inquiryStatus.js",
     "/js/myInquiryDetail.js": "/js/myInquiryDetail.js",
+    "/js/ask.js": "/js/ask.js",
+    "/js/searchHotel.js": "/js/searchHotel.js",
     "/css/app.css": "/css/app.css"
 }

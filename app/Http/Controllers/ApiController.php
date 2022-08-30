@@ -136,4 +136,43 @@ class ApiController extends Controller
         $excludablePlanDetails = $this->planModel->getExcludablePlanDetails($plan_id, $updateData);
         return $excludablePlanDetails;
     }
+
+    public function searchHotel()
+    {
+        $url = 'https://app.rakuten.co.jp/services/api/Travel/GetAreaClass/20131024?applicationId=1067456968266429394&format=json';
+
+        $raw_data = file_get_contents($url);
+        $data = json_decode($raw_data, true);
+        $cityData = $data['areaClasses']['largeClasses'][0]['largeClass'][1]['middleClasses'];
+
+        return view('user.searchHotel', [
+                'cityData' => $cityData
+            ]);
+    }
+
+    public function searchThroughApi(Request $request)
+    {
+        $data = [
+            'pref' => $request->prefecture,
+            'city' => $request->city,
+            'people' => $request->people,
+        ];
+        // フォームのリクエストで入力されたかセッション情報からに日付を取得したかで分岐
+        if($request->start) {
+            $start = $request->start;
+            $end = $request->end;
+        } else {
+            $start = session('start');
+            $end = session('end');
+        }
+        $url = 'https://app.rakuten.co.jp/services/api/Travel/VacantHotelSearch/20170426?applicationId=1067456968266429394&format=json&largeClassCode=japan&middleClassCode='.
+        $data['pref'].'&smallClassCode='.$data['city'].'&checkinDate='.$start.'&checkoutDate='.$end.'&adultNum='.$data['people'];
+
+        $contents = @file_get_contents($url);
+        $data = json_decode($contents, true);
+
+        return view('user.searchHotels.showVacantHotels', [
+            'hotels' => $data['hotels']
+        ]);
+    }
 }
